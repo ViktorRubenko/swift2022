@@ -45,8 +45,6 @@ class ViewController: UIViewController {
         let difference = abs(currentValue - targetValue)
         var points = 100 - difference
         
-        score += points
-        
         let title: String
         switch difference {
         case 0:
@@ -60,6 +58,9 @@ class ViewController: UIViewController {
         default:
             title = "Not even close..."
         }
+        
+        score += points
+        
         let message = "You scored \(points) points"
         let alert = UIAlertController(
             title: title,
@@ -101,6 +102,11 @@ class ViewController: UIViewController {
         score = 0
         round = 0
         startNewRound()
+        let transition = CATransition()
+        transition.type = .fade
+        transition.duration = 1.5
+        transition.timingFunction = .init(name: .easeOut)
+        view.layer.add(transition, forKey: nil)
     }
 
 }
