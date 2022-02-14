@@ -12,6 +12,8 @@ class AddItemViewController: UITableViewController {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
+    weak var delegate: AddItemViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,10 +35,12 @@ class AddItemViewController: UITableViewController {
     
     @IBAction func cancel() {
         navigationController?.popToRootViewController(animated: true)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     @IBAction func done() {
         navigationController?.popToRootViewController(animated: true)
+        delegate?.addItemViewController(self, didFinishAdding: ChecklistItem(text: textField.text!))
     }
 }
 

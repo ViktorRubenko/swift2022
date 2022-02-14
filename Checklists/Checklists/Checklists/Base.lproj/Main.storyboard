@@ -47,7 +47,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="2cE-Ni-SNe">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="nvH-4Q-gsx">
                             <connections>
-                                <segue destination="i7F-ji-MIn" kind="show" id="ehB-MX-yWD"/>
+                                <segue destination="i7F-ji-MIn" kind="show" identifier="AddItem" id="ehB-MX-yWD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -86,17 +86,14 @@
                             <tableViewSection id="WRX-C5-kVy">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="LQM-lE-YG8">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="18" width="414" height="22.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LQM-lE-YG8" id="vHG-jD-dKL">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="22.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the Item" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZzC-Ih-XBI">
-                                                    <rect key="frame" x="5" y="0.0" width="414" height="30.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="H5b-3R-BsP"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="5" y="0.0" width="414" height="22.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>

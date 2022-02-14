@@ -22,6 +22,13 @@ class ChecklistViewController: UITableViewController {
         items.append(ChecklistItem(text: "Soccer practice"))
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItem" {
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+        }
+    }
+    
     // MARK: - Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,15 +65,18 @@ class ChecklistViewController: UITableViewController {
         items.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
+}
+
+extension ChecklistViewController: AddItemViewControllerDelegate {
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        navigationController?.popToRootViewController(animated: true)
+    }
     
-    // MARK: - Actions
-    @IBAction func addItem() {
-        let newRowIndex = items.count
-        
-        let item = ChecklistItem(text: "I am a new row")
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+        navigationController?.popToRootViewController(animated: true)
+        let row = items.count
         items.append(item)
-        
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        let indexPath = IndexPath(row: row, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
