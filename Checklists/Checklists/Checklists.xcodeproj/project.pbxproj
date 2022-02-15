@@ -20,6 +20,7 @@
 		E3D6358B27BBEDFE0043308E /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6358A27BBEDFE0043308E /* Checklist.swift */; };
 		E3D6358D27BBF3A40043308E /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6358C27BBF3A40043308E /* ListDetailViewController.swift */; };
 		E3D6358F27BBF4080043308E /* ListDetailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6358E27BBF4080043308E /* ListDetailViewControllerDelegate.swift */; };
+		E3D6359127BC41890043308E /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6359027BC41890043308E /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E3D6358A27BBEDFE0043308E /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		E3D6358C27BBF3A40043308E /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		E3D6358E27BBF4080043308E /* ListDetailViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewControllerDelegate.swift; sourceTree = "<group>"; };
+		E3D6359027BC41890043308E /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				E3D6356C27BABDB20043308E /* AppDelegate.swift */,
 				E3D6356E27BABDB20043308E /* SceneDelegate.swift */,
+				E3D6359027BC41890043308E /* DataModel.swift */,
 				E3D6357027BABDB20043308E /* ChecklistViewController.swift */,
 				E3D6358A27BBEDFE0043308E /* Checklist.swift */,
 				E3D6358827BBEAC20043308E /* AllListsViewController.swift */,
@@ -161,6 +164,7 @@
 			files = (
 				E3D6358727BAEAF80043308E /* ItemDetailViewControllerDelegate.swift in Sources */,
 				E3D6358927BBEAC20043308E /* AllListsViewController.swift in Sources */,
+				E3D6359127BC41890043308E /* DataModel.swift in Sources */,
 				E3D6358527BADA4F0043308E /* ItemDetailViewController.swift in Sources */,
 				E3D6357127BABDB20043308E /* ChecklistViewController.swift in Sources */,
 				E3D6358B27BBEDFE0043308E /* Checklist.swift in Sources */,
