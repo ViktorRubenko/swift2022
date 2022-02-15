@@ -9,13 +9,13 @@ import UIKit
 
 class ChecklistViewController: UITableViewController {
     
-    var items = [ChecklistItem]()
+    var checklist: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        loadChecklistItem()
+        navigationItem.largeTitleDisplayMode = .never
+        title = checklist.name
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -27,7 +27,7 @@ class ChecklistViewController: UITableViewController {
             controller.delegate = self
             
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                controller.item = items[indexPath.row]
+                controller.item = checklist.items[indexPath.row]
             }
         }
     }
@@ -35,25 +35,25 @@ class ChecklistViewController: UITableViewController {
     // MARK: - Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        items.count
+        checklist.items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         
-        let item = items[indexPath.row]
+        let item = checklist.items[indexPath.row]
         configureCell(for: cell, with: item)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            let item = items[indexPath.row]
+            let item = checklist.items[indexPath.row]
             item.checked.toggle()
             configureCell(for: cell, with: item)
         }
         tableView.deselectRow(at: indexPath, animated: true)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
     
     func configureCell(for cell: UITableViewCell, with item: ChecklistItem) {
@@ -66,30 +66,30 @@ class ChecklistViewController: UITableViewController {
     // MARK: - Table View Delegate
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        items.remove(at: indexPath.row)
+        checklist.items.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
 }
 
 extension ChecklistViewController: ItemDetailViewControllerDelegate {
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
-        navigationController?.popToRootViewController(animated: true)
-        let row = items.count
-        items.append(item)
+        navigationController?.popViewController(animated: true)
+        let row = checklist.items.count
+        checklist.items.append(item)
         let indexPath = IndexPath(row: row, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         tableView.reloadData()
-        saveChecklistItems()
+//        saveChecklistItems()
     }
 }
 
@@ -105,24 +105,24 @@ extension ChecklistViewController {
         return documentsDirectory().appendingPathComponent("Checklists.plist")
     }
     
-    func saveChecklistItems() {
-        let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(items)
-            try data.write(to: dataFilePath(), options: .atomic)
-        } catch {
-            print("Error encoding item array: \(error.localizedDescription)")
-        }
-    }
-    
-    func loadChecklistItem() {
-        let decoder = PropertyListDecoder()
-        do {
-            let data = try Data(contentsOf: dataFilePath())
-            items = try decoder.decode([ChecklistItem].self, from: data)
-        } catch {
-            print("Error decoding item array: \(error.localizedDescription)")
-        }
-    }
+//    func saveChecklistItems() {
+//        let encoder = PropertyListEncoder()
+//        do {
+//            let data = try encoder.encode(checklist)
+//            try data.write(to: dataFilePath(), options: .atomic)
+//        } catch {
+//            print("Error encoding item array: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    func loadChecklistItem() {
+//        let decoder = PropertyListDecoder()
+//        do {
+//            let data = try Data(contentsOf: dataFilePath())
+//            items = try decoder.decode([ChecklistItem].self, from: data)
+//        } catch {
+//            print("Error decoding item array: \(error.localizedDescription)")
+//        }
+//    }
 }
 
