@@ -19,12 +19,7 @@ class AllListsViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
         
-        
-        let checklist = Checklist(name: "testList")
-        checklist.items.append(ChecklistItem(text: "item1", checked: true))
-        checklist.items.append(ChecklistItem(text: "items2", checked: false))
-        
-        checklists = [checklist]
+        loadChecklists()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,4 +85,38 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
     }
     
     
+}
+
+// MARK: - Date Persistence
+
+extension AllListsViewController {
+    
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent("Checklists.plist")
+    }
+    
+    func saveChecklists() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(checklists)
+            try data.write(to: dataFilePath(), options: .atomic)
+        } catch {
+            print("Error encoding data: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadChecklists() {
+        let decoder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: dataFilePath())
+            checklists = try decoder.decode([Checklist].self, from: data)
+        } catch {
+            print("Error decoding data: \(error.localizedDescription)")
+        }
+    }
 }
