@@ -15,20 +15,23 @@ class AllListsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         navigationController?.delegate = self
         let index = dataModel.indexOfSelectedChecklist
         if index != -1 && index < dataModel.lists.count {
             let checklist = dataModel.lists[dataModel.indexOfSelectedChecklist]
             performSegue(withIdentifier: "ShowChecklist", sender: checklist)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,9 +41,21 @@ class AllListsViewController: UITableViewController {
     // MARK: - Table View Delegate
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel!.text = dataModel.lists[indexPath.row].name
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
         cell.accessoryType = .detailDisclosureButton
+        
+        let checklist = dataModel.lists[indexPath.row]
+        
+        var content = UIListContentConfiguration.subtitleCell()
+        content.text = checklist.name
+        let count = checklist.countUncheckedItems()
+        if checklist.items.count == 0 {
+            content.secondaryText = "(No Items)"
+        } else {
+            content.secondaryText = count == 0 ? "All Done" : "\(count) remaning"
+        }
+        content.image = UIImage(named: checklist.iconName)
+        cell.contentConfiguration = content
         return cell
     }
     
@@ -86,14 +101,13 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
         navigationController?.popViewController(animated: true)
-        tableView.reloadData()
+        dataModel.sortChecklists()
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
         navigationController?.popViewController(animated: true)
-        let row = dataModel.lists.count
         dataModel.lists.append(checklist)
-        tableView.insertRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+        dataModel.sortChecklists()
     }
 }
 

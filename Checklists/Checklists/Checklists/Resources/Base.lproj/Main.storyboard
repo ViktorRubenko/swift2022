@@ -122,10 +122,10 @@
             </objects>
             <point key="canvasLocation" x="24.637681159420293" y="742.63392857142856"/>
         </scene>
-        <!--Add Item-->
+        <!--ItemDetail-->
         <scene sceneID="fOt-Et-NjZ">
             <objects>
-                <tableViewController storyboardIdentifier="ItemDetail" id="i7F-ji-MIn" customClass="ItemDetailViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ItemDetail" id="i7F-ji-MIn" userLabel="ItemDetail" customClass="ItemDetailViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="00O-IM-8bc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,10 +187,10 @@
             </objects>
             <point key="canvasLocation" x="1797" y="743"/>
         </scene>
-        <!--Add Item-->
+        <!--ListDetail-->
         <scene sceneID="8jj-PP-v1w">
             <objects>
-                <tableViewController storyboardIdentifier="ListDetail" id="Z5c-eb-WK3" customClass="ListDetailViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ListDetail" id="Z5c-eb-WK3" userLabel="ListDetail" customClass="ListDetailViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="8yX-vP-iN1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -225,6 +225,42 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="CeN-bh-ztP">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="IconCell" id="db2-J8-lVA">
+                                        <rect key="frame" x="0.0" y="76.5" width="414" height="46.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="db2-J8-lVA" id="lxU-xC-Qz8">
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="46.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4rs-iy-KcU">
+                                                    <rect key="frame" x="344.5" y="5" width="36" height="36.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="6Zu-rg-K6A"/>
+                                                        <constraint firstAttribute="height" constant="36" id="WH9-5I-1Pm"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFS-oi-fFS">
+                                                    <rect key="frame" x="5" y="5" width="324.5" height="36.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="4rs-iy-KcU" secondAttribute="trailing" constant="5" id="4qo-0S-rnW"/>
+                                                <constraint firstItem="fFS-oi-fFS" firstAttribute="top" secondItem="lxU-xC-Qz8" secondAttribute="top" constant="5" id="573-ed-fsp"/>
+                                                <constraint firstAttribute="bottom" secondItem="fFS-oi-fFS" secondAttribute="bottom" constant="5" id="QZZ-6P-bgA"/>
+                                                <constraint firstAttribute="bottom" secondItem="4rs-iy-KcU" secondAttribute="bottom" constant="5" id="YD8-8P-Plo"/>
+                                                <constraint firstItem="fFS-oi-fFS" firstAttribute="leading" secondItem="lxU-xC-Qz8" secondAttribute="leading" constant="5" id="lGU-dj-hVr"/>
+                                                <constraint firstItem="4rs-iy-KcU" firstAttribute="leading" secondItem="fFS-oi-fFS" secondAttribute="trailing" constant="15" id="vUr-C4-Rce"/>
+                                                <constraint firstItem="4rs-iy-KcU" firstAttribute="top" secondItem="lxU-xC-Qz8" secondAttribute="top" constant="5" id="zC7-jq-WS4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Z5c-eb-WK3" id="sMn-8r-T6p"/>
@@ -245,12 +281,41 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButton" destination="giG-xf-bG8" id="jXV-4e-qKr"/>
+                        <outlet property="iconImage" destination="4rs-iy-KcU" id="RdU-Iz-sXI"/>
                         <outlet property="textField" destination="Wcu-Z8-eZQ" id="ggf-Gh-f0b"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rzd-mn-eNh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1649" y="42"/>
+            <point key="canvasLocation" x="1647.826086956522" y="41.517857142857139"/>
+        </scene>
+        <!--Icon Picker View Controller-->
+        <scene sceneID="fG4-7L-oWk">
+            <objects>
+                <tableViewController storyboardIdentifier="IconPicker" id="tXL-sr-iup" customClass="IconPickerViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="9ok-B5-Egm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MNY-nf-prH">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MNY-nf-prH" id="Zn5-xS-qQ2">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tXL-sr-iup" id="zAd-xo-bjj"/>
+                            <outlet property="delegate" destination="tXL-sr-iup" id="0UV-7d-e5q"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KQY-e6-i8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2638" y="51"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
