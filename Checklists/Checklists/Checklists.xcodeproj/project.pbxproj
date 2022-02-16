@@ -12,7 +12,6 @@
 		E3D6357127BABDB20043308E /* ChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6357027BABDB20043308E /* ChecklistViewController.swift */; };
 		E3D6357427BABDB20043308E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3D6357227BABDB20043308E /* Main.storyboard */; };
 		E3D6357627BABDB40043308E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3D6357527BABDB40043308E /* Assets.xcassets */; };
-		E3D6357927BABDB40043308E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3D6357727BABDB40043308E /* LaunchScreen.storyboard */; };
 		E3D6358127BAC5720043308E /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6358027BAC5720043308E /* ChecklistItem.swift */; };
 		E3D6358527BADA4F0043308E /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6358427BADA4F0043308E /* ItemDetailViewController.swift */; };
 		E3D6358727BAEAF80043308E /* ItemDetailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D6358627BAEAF80043308E /* ItemDetailViewControllerDelegate.swift */; };
@@ -31,7 +30,6 @@
 		E3D6357027BABDB20043308E /* ChecklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistViewController.swift; sourceTree = "<group>"; };
 		E3D6357327BABDB20043308E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E3D6357527BABDB40043308E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E3D6357827BABDB40043308E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3D6357A27BABDB40043308E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3D6358027BAC5720043308E /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		E3D6358427BADA4F0043308E /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 			children = (
 				E3D6357227BABDB20043308E /* Main.storyboard */,
 				E3D6357527BABDB40043308E /* Assets.xcassets */,
-				E3D6357727BABDB40043308E /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -184,7 +181,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3D6357927BABDB40043308E /* LaunchScreen.storyboard in Resources */,
 				E3D6357627BABDB40043308E /* Assets.xcassets in Resources */,
 				E3D6357427BABDB20043308E /* Main.storyboard in Resources */,
 			);
@@ -222,14 +218,7 @@
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
-		};
-		E3D6357727BABDB40043308E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E3D6357827BABDB40043308E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 /* End PBXVariantGroup section */
 
@@ -363,7 +352,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Checklists;
 				INFOPLIST_KEY_NSMainNibFile = Main;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -393,7 +382,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Checklists;
 				INFOPLIST_KEY_NSMainNibFile = Main;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
