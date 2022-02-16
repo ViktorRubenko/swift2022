@@ -11,8 +11,22 @@ import Foundation
 class DataModel {
     var lists = [Checklist]()
     
+    var indexOfSelectedChecklist: Int {
+        get {
+            UserDefaults.standard.integer(forKey: "ChecklistIndex")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "ChecklistIndex")
+        }
+    }
+    
     init() {
         loadChecklists()
+        registerDefaults()
+    }
+    
+    func registerDefaults() {
+        UserDefaults.standard.register(defaults: ["ChecklistIndex": -1])
     }
     
     func documentsDirectory() -> URL {

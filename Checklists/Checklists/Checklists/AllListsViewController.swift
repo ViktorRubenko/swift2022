@@ -20,9 +20,22 @@ class AllListsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController?.delegate = self
+        let index = dataModel.indexOfSelectedChecklist
+        if index != -1 && index < dataModel.lists.count {
+            let checklist = dataModel.lists[dataModel.indexOfSelectedChecklist]
+            performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataModel.lists.count
     }
+    
+    // MARK: - Table View Delegate
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
@@ -32,6 +45,7 @@ class AllListsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dataModel.indexOfSelectedChecklist = indexPath.row
         performSegue(withIdentifier: "ShowChecklist", sender: dataModel.lists[indexPath.row])
     }
     
@@ -81,6 +95,12 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
         dataModel.lists.append(checklist)
         tableView.insertRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
     }
-    
-    
+}
+
+extension AllListsViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if viewController == self {
+            dataModel.indexOfSelectedChecklist = -1
+        }
+    }
 }
