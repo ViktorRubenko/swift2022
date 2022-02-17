@@ -6,18 +6,21 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ItemDetailViewController: UITableViewController {
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     var item: ChecklistItem?
     weak var delegate: ItemDetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.largeTitleDisplayMode = .never
         if let itemToEdit = item {
             navigationItem.title = "Edit Item"
@@ -46,9 +49,29 @@ class ItemDetailViewController: UITableViewController {
     @IBAction func done() {
         if let itemToEdit = item {
             itemToEdit.text = textField.text!
+            itemToEdit.shouldRemind = shouldRemindSwitch.isOn
+            itemToEdit.dueDate = datePicker.date
+            itemToEdit.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishEditing: itemToEdit)
         } else {
-            delegate?.itemDetailViewController(self, didFinishAdding: ChecklistItem(text: textField.text!))
+            let item = ChecklistItem(
+                text: textField.text!,
+                dueDate: datePicker.date,
+                shouldRemind:shouldRemindSwitch.isOn
+            )
+            item.scheduleNotification()
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
+        }
+    }
+    
+    @IBAction func shouldRemindToogled(_ switchControler: UISwitch) {
+        textField.resignFirstResponder()
+        
+        if switchControler.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+                
+            }
         }
     }
 }

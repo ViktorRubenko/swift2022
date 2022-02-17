@@ -32,6 +32,12 @@ class ChecklistViewController: UITableViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
     // MARK: - Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,14 +59,21 @@ class ChecklistViewController: UITableViewController {
             configureCell(for: cell, with: item)
         }
         tableView.deselectRow(at: indexPath, animated: true)
-//        saveChecklistItems()
     }
     
     func configureCell(for cell: UITableViewCell, with item: ChecklistItem) {
         let label = cell.viewWithTag(1000) as! UILabel
         let checkLabel = cell.viewWithTag(1001) as! UILabel
+        let dueDateLabel = cell.viewWithTag(1003) as! UILabel
         label.text = item.text
         checkLabel.text = item.checked ? "√" : ""
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .long
+        dateFormatter.locale = .current
+        
+        dueDateLabel.text = item.shouldRemind ? dateFormatter.string(from: item.dueDate) : ""
     }
     
     // MARK: - Table View Delegate
@@ -78,51 +91,13 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
-        navigationController?.popViewController(animated: true)
-        let row = checklist.items.count
         checklist.items.append(item)
-        let indexPath = IndexPath(row: row, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-//        saveChecklistItems()
+        checklist.sortChecklistItems()
+        navigationController?.popViewController(animated: true)
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
+        checklist.sortChecklistItems()
         navigationController?.popViewController(animated: true)
-        tableView.reloadData()
-//        saveChecklistItems()
     }
 }
-
-// MARK: - Data Persistence
-
-extension ChecklistViewController {
-    func documentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
-    func dataFilePath() -> URL {
-        return documentsDirectory().appendingPathComponent("Checklists.plist")
-    }
-    
-//    func saveChecklistItems() {
-//        let encoder = PropertyListEncoder()
-//        do {
-//            let data = try encoder.encode(checklist)
-//            try data.write(to: dataFilePath(), options: .atomic)
-//        } catch {
-//            print("Error encoding item array: \(error.localizedDescription)")
-//        }
-//    }
-//
-//    func loadChecklistItem() {
-//        let decoder = PropertyListDecoder()
-//        do {
-//            let data = try Data(contentsOf: dataFilePath())
-//            items = try decoder.decode([ChecklistItem].self, from: data)
-//        } catch {
-//            print("Error decoding item array: \(error.localizedDescription)")
-//        }
-//    }
-}
-

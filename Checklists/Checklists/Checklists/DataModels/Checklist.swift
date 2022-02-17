@@ -27,4 +27,8 @@ class Checklist: Codable {
             partialResult + (item.checked ? 0 : 1)
         }
     }
+    
+    func sortChecklistItems() {
+        items.sort { $0.dueDate < $1.dueDate }
+    }
 }
