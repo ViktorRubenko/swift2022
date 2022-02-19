@@ -19,6 +19,7 @@
 		E3D635C227C1226A0043308E /* TwoLabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635C127C1226A0043308E /* TwoLabelsCell.swift */; };
 		E3D635C927C183230043308E /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635C727C183230043308E /* DescriptionCell.swift */; };
 		E3D635CA27C183230043308E /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D635C827C183230043308E /* DescriptionCell.xib */; };
+		E3D635D327C18E170043308E /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D227C18E170043308E /* CategoryPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		E3D635C127C1226A0043308E /* TwoLabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLabelsCell.swift; sourceTree = "<group>"; };
 		E3D635C727C183230043308E /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		E3D635C827C183230043308E /* DescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
+		E3D635D227C18E170043308E /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,21 +70,46 @@
 		E3D635A527C047C30043308E /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
-				E3D635A627C047C30043308E /* AppDelegate.swift */,
-				E3D635A827C047C30043308E /* SceneDelegate.swift */,
-				E3D635AA27C047C30043308E /* CurrentLocationViewController.swift */,
-				E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */,
-				E3D635C727C183230043308E /* DescriptionCell.swift */,
-				E3D635C827C183230043308E /* DescriptionCell.xib */,
-				E3D635C127C1226A0043308E /* TwoLabelsCell.swift */,
+				E3D635CD27C1898A0043308E /* Resources */,
+				E3D635CC27C189700043308E /* ViewControllers */,
+				E3D635CB27C1894C0043308E /* Views */,
 				E3D635BD27C062260043308E /* Extensions.swift */,
-				E3D635AC27C047C30043308E /* Main.storyboard */,
-				E3D635B227C047C50043308E /* Assets.xcassets */,
-				E3D635B427C047C50043308E /* LaunchScreen.storyboard */,
 				E3D635B727C047C50043308E /* Info.plist */,
 				E3D635AF27C047C30043308E /* MyLocations.xcdatamodeld */,
 			);
 			path = MyLocations;
+			sourceTree = "<group>";
+		};
+		E3D635CB27C1894C0043308E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E3D635C727C183230043308E /* DescriptionCell.swift */,
+				E3D635C127C1226A0043308E /* TwoLabelsCell.swift */,
+				E3D635C827C183230043308E /* DescriptionCell.xib */,
+				E3D635AC27C047C30043308E /* Main.storyboard */,
+				E3D635B427C047C50043308E /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E3D635CC27C189700043308E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E3D635AA27C047C30043308E /* CurrentLocationViewController.swift */,
+				E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */,
+				E3D635D227C18E170043308E /* CategoryPickerViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E3D635CD27C1898A0043308E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E3D635A627C047C30043308E /* AppDelegate.swift */,
+				E3D635A827C047C30043308E /* SceneDelegate.swift */,
+				E3D635B227C047C50043308E /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3D635D327C18E170043308E /* CategoryPickerViewController.swift in Sources */,
 				E3D635BE27C062260043308E /* Extensions.swift in Sources */,
 				E3D635AB27C047C30043308E /* CurrentLocationViewController.swift in Sources */,
 				E3D635C027C120DE0043308E /* LocationDetailsViewController.swift in Sources */,

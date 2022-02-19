@@ -13,6 +13,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     var tableView: UITableView!
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
+    var categoryName = "No Category"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
             cell.selectionStyle = .none
         case (0, 1):
             contentConfiguration.text = "Category"
-            contentConfiguration.secondaryText = "Detail"
+            contentConfiguration.secondaryText = categoryName
             cell.accessoryType = .disclosureIndicator
             cell.contentConfiguration = contentConfiguration
         case (1, 0):
@@ -90,6 +91,17 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     @objc func done() {
         navigationController?.popViewController(animated: true)
     }
+    
+    func showCategoryPicker() {
+        let controller = CategoryPickerViewController()
+        controller.selectedCategoryName = categoryName
+        controller.callback = {[weak self] categoryName in
+            self?.categoryName = categoryName
+            self?.tableView.reloadData()
+            self?.navigationController?.popViewController(animated: true)
+        }
+        navigationController?.pushViewController(controller, animated: true)
+    }
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -126,7 +138,12 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        switch (indexPath.section, indexPath.row) {
+        case (0, 1):
+            showCategoryPicker()
+        default:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
