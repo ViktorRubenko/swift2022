@@ -24,6 +24,9 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         tableView.dataSource = self
         tableView.delegate = self
         
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+        tableView.addGestureRecognizer(gestureRecognizer)
+        
         view.addSubview(tableView)
     }
     
@@ -102,6 +105,18 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         }
         navigationController?.pushViewController(controller, animated: true)
     }
+    
+    @objc func hideKeyBoard(_ recognizer: UITapGestureRecognizer) {
+        let point = recognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        if let indexPath = indexPath {
+            if indexPath.section == 0 && indexPath.row == 0 {
+                return
+            }
+        }
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! DescriptionCell
+        cell.textView.resignFirstResponder()
+    }
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,6 +154,9 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
+        case (0, 0):
+            let cell = tableView.cellForRow(at: indexPath) as! DescriptionCell
+            cell.textView.becomeFirstResponder()
         case (0, 1):
             showCategoryPicker()
         default:
@@ -159,6 +177,13 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         } else {
             return 44
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.section == 0 || indexPath.section == 1{
+            return indexPath
+        }
+        return nil
     }
 
 }
