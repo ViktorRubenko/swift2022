@@ -14,6 +14,11 @@
 		E3D635B127C047C30043308E /* MyLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E3D635AF27C047C30043308E /* MyLocations.xcdatamodeld */; };
 		E3D635B327C047C50043308E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3D635B227C047C50043308E /* Assets.xcassets */; };
 		E3D635B627C047C50043308E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3D635B427C047C50043308E /* LaunchScreen.storyboard */; };
+		E3D635BE27C062260043308E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635BD27C062260043308E /* Extensions.swift */; };
+		E3D635C027C120DE0043308E /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */; };
+		E3D635C227C1226A0043308E /* TwoLabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635C127C1226A0043308E /* TwoLabelsCell.swift */; };
+		E3D635C927C183230043308E /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635C727C183230043308E /* DescriptionCell.swift */; };
+		E3D635CA27C183230043308E /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D635C827C183230043308E /* DescriptionCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		E3D635B227C047C50043308E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3D635B527C047C50043308E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3D635B727C047C50043308E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3D635BD27C062260043308E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		E3D635C127C1226A0043308E /* TwoLabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLabelsCell.swift; sourceTree = "<group>"; };
+		E3D635C727C183230043308E /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
+		E3D635C827C183230043308E /* DescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +71,11 @@
 				E3D635A627C047C30043308E /* AppDelegate.swift */,
 				E3D635A827C047C30043308E /* SceneDelegate.swift */,
 				E3D635AA27C047C30043308E /* CurrentLocationViewController.swift */,
+				E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */,
+				E3D635C727C183230043308E /* DescriptionCell.swift */,
+				E3D635C827C183230043308E /* DescriptionCell.xib */,
+				E3D635C127C1226A0043308E /* TwoLabelsCell.swift */,
+				E3D635BD27C062260043308E /* Extensions.swift */,
 				E3D635AC27C047C30043308E /* Main.storyboard */,
 				E3D635B227C047C50043308E /* Assets.xcassets */,
 				E3D635B427C047C50043308E /* LaunchScreen.storyboard */,
@@ -128,6 +143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3D635CA27C183230043308E /* DescriptionCell.xib in Resources */,
 				E3D635B627C047C50043308E /* LaunchScreen.storyboard in Resources */,
 				E3D635B327C047C50043308E /* Assets.xcassets in Resources */,
 				E3D635AE27C047C30043308E /* Main.storyboard in Resources */,
@@ -141,8 +157,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3D635BE27C062260043308E /* Extensions.swift in Sources */,
 				E3D635AB27C047C30043308E /* CurrentLocationViewController.swift in Sources */,
+				E3D635C027C120DE0043308E /* LocationDetailsViewController.swift in Sources */,
 				E3D635A727C047C30043308E /* AppDelegate.swift in Sources */,
+				E3D635C927C183230043308E /* DescriptionCell.swift in Sources */,
+				E3D635C227C1226A0043308E /* TwoLabelsCell.swift in Sources */,
 				E3D635B127C047C30043308E /* MyLocations.xcdatamodeld in Sources */,
 				E3D635A927C047C30043308E /* SceneDelegate.swift in Sources */,
 			);
@@ -300,6 +320,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "gps location-services";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -330,6 +351,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "gps location-services";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
