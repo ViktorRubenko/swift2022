@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -14,6 +15,9 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
     var categoryName = "No Category"
+    var date = Date()
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         tableView.delegate = self
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+        gestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(gestureRecognizer)
         
         view.addSubview(tableView)
@@ -86,7 +91,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     func currentDate() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm, dd.MM.yyyy"
-        return formatter.string(from: Date())
+        return formatter.string(from: date)
     }
     
     // MARK: - Actions
@@ -96,10 +101,23 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         let hudView = HudView.hud(inView: mainView, animated: true)
         hudView.text = "Tagged"
         
-        let delayInSeconds: Double = 0.6
-        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) { [weak self] in
-            hudView.hide()
-            self?.navigationController?.popViewController(animated: true)
+        let location = Location(context: managedObjectContext)
+        location.locationDescription = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! DescriptionCell).textView.text
+        location.date = date
+        location.latitude = coordinate.latitude
+        location.longitude = coordinate.longitude
+        location.category = categoryName
+        location.placemark = placemark
+        
+        
+        do {
+            try managedObjectContext.save()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+                hudView.hide()
+                self?.navigationController?.popViewController(animated: true)
+            }
+        } catch {
+            fatalError("Error \(error)")
         }
     }
     
@@ -123,7 +141,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
             }
         }
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! DescriptionCell
-        cell.textView.resignFirstResponder()
+        cell.resignFirstResponder()
     }
     // MARK: - Table view data source
 

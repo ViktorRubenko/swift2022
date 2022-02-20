@@ -21,6 +21,8 @@
 		E3D635CA27C183230043308E /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D635C827C183230043308E /* DescriptionCell.xib */; };
 		E3D635D327C18E170043308E /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D227C18E170043308E /* CategoryPickerViewController.swift */; };
 		E3D635D527C2A6F50043308E /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D427C2A6F50043308E /* HudView.swift */; };
+		E3D635D827C2DD520043308E /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D627C2DD520043308E /* Location+CoreDataClass.swift */; };
+		E3D635D927C2DD520043308E /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		E3D635C827C183230043308E /* DescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
 		E3D635D227C18E170043308E /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 		E3D635D427C2A6F50043308E /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
+		E3D635D627C2DD520043308E /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 		E3D635A527C047C30043308E /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				E3D635DA27C2DD650043308E /* Model */,
 				E3D635CD27C1898A0043308E /* Resources */,
 				E3D635CC27C189700043308E /* ViewControllers */,
 				E3D635CB27C1894C0043308E /* Views */,
@@ -113,6 +118,15 @@
 				E3D635B227C047C50043308E /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E3D635DA27C2DD650043308E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E3D635D627C2DD520043308E /* Location+CoreDataClass.swift */,
+				E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,7 +209,9 @@
 				E3D635C927C183230043308E /* DescriptionCell.swift in Sources */,
 				E3D635D527C2A6F50043308E /* HudView.swift in Sources */,
 				E3D635C227C1226A0043308E /* TwoLabelsCell.swift in Sources */,
+				E3D635D927C2DD520043308E /* Location+CoreDataProperties.swift in Sources */,
 				E3D635B127C047C30043308E /* MyLocations.xcdatamodeld in Sources */,
+				E3D635D827C2DD520043308E /* Location+CoreDataClass.swift in Sources */,
 				E3D635A927C047C30043308E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
