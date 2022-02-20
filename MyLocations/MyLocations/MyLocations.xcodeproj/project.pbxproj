@@ -20,6 +20,7 @@
 		E3D635C927C183230043308E /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635C727C183230043308E /* DescriptionCell.swift */; };
 		E3D635CA27C183230043308E /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3D635C827C183230043308E /* DescriptionCell.xib */; };
 		E3D635D327C18E170043308E /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D227C18E170043308E /* CategoryPickerViewController.swift */; };
+		E3D635D527C2A6F50043308E /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D427C2A6F50043308E /* HudView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E3D635C727C183230043308E /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		E3D635C827C183230043308E /* DescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
 		E3D635D227C18E170043308E /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		E3D635D427C2A6F50043308E /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				E3D635C727C183230043308E /* DescriptionCell.swift */,
+				E3D635D427C2A6F50043308E /* HudView.swift */,
 				E3D635C127C1226A0043308E /* TwoLabelsCell.swift */,
 				E3D635C827C183230043308E /* DescriptionCell.xib */,
 				E3D635AC27C047C30043308E /* Main.storyboard */,
@@ -190,6 +193,7 @@
 				E3D635C027C120DE0043308E /* LocationDetailsViewController.swift in Sources */,
 				E3D635A727C047C30043308E /* AppDelegate.swift in Sources */,
 				E3D635C927C183230043308E /* DescriptionCell.swift in Sources */,
+				E3D635D527C2A6F50043308E /* HudView.swift in Sources */,
 				E3D635C227C1226A0043308E /* TwoLabelsCell.swift in Sources */,
 				E3D635B127C047C30043308E /* MyLocations.xcdatamodeld in Sources */,
 				E3D635A927C047C30043308E /* SceneDelegate.swift in Sources */,

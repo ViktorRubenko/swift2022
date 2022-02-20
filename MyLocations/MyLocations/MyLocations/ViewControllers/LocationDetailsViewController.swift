@@ -92,7 +92,15 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     // MARK: - Actions
     
     @objc func done() {
-        navigationController?.popViewController(animated: true)
+        guard let mainView = navigationController?.parent?.view else { return }
+        let hudView = HudView.hud(inView: mainView, animated: true)
+        hudView.text = "Tagged"
+        
+        let delayInSeconds: Double = 0.6
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) { [weak self] in
+            hudView.hide()
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     func showCategoryPicker() {
