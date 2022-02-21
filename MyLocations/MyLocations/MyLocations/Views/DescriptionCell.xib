@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="97"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="sadasd" translatesAutoresizingMaskIntoConstraints="NO" id="yIv-eX-kOu">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIv-eX-kOu">
                         <rect key="frame" x="16" y="11" width="288" height="75"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="textColor" systemColor="labelColor"/>

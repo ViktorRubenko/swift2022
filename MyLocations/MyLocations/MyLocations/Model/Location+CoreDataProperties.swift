@@ -21,7 +21,7 @@ extension Location {
     @NSManaged public var longitude: Double
     @NSManaged public var placemark: CLPlacemark?
     @NSManaged public var locationDescription: String
-    @NSManaged public var category: String?
+    @NSManaged public var category: String
     @NSManaged public var date: Date
 
 }

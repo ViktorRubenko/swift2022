@@ -16,6 +16,19 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     var placemark: CLPlacemark?
     var categoryName = "No Category"
     var date = Date()
+    var descriptionText = ""
+    
+    var locationToEdit: Location? {
+        didSet {
+            if let location = locationToEdit {
+                coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                placemark = location.placemark
+                categoryName = location.category
+                date = location.date
+                descriptionText = location.locationDescription
+            }
+        }
+    }
     
     var managedObjectContext: NSManagedObjectContext!
     
@@ -27,6 +40,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         tableView = UITableView(frame: view.bounds, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(UINib(nibName: "DescriptionCell", bundle: nil), forCellReuseIdentifier: "DescriptionCell")
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
         gestureRecognizer.cancelsTouchesInView = false
@@ -38,6 +52,11 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     // MARK: - Helper Methods
     
     func configureNavigationItem() {
+        if locationToEdit != nil {
+            navigationItem.title = "Edit Location"
+        } else {
+            navigationItem.title = "Add Location"
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
     }
     
@@ -46,6 +65,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
+            (cell as! DescriptionCell).textView.text = descriptionText
             cell.selectionStyle = .none
         case (0, 1):
             contentConfiguration.text = "Category"
@@ -99,16 +119,22 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     @objc func done() {
         guard let mainView = navigationController?.parent?.view else { return }
         let hudView = HudView.hud(inView: mainView, animated: true)
-        hudView.text = "Tagged"
+        let location: Location
         
-        let location = Location(context: managedObjectContext)
+        if let temp = locationToEdit {
+            location = temp
+            hudView.text = "Updated"
+        } else {
+            hudView.text = "Tagged"
+            location = Location(context: managedObjectContext)
+        }
+        
         location.locationDescription = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! DescriptionCell).textView.text
         location.date = date
         location.latitude = coordinate.latitude
         location.longitude = coordinate.longitude
         location.category = categoryName
         location.placemark = placemark
-        
         
         do {
             try managedObjectContext.save()
@@ -141,7 +167,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
             }
         }
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! DescriptionCell
-        cell.resignFirstResponder()
+        cell.textView.resignFirstResponder()
     }
     // MARK: - Table view data source
 
@@ -166,7 +192,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         let cell: UITableViewCell
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            cell = Bundle.main.loadNibNamed("DescriptionCell", owner: self, options: nil)?.first as! DescriptionCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath)
         case (1, 0):
             cell = UITableViewCell()
         case (2, 2):
