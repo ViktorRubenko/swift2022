@@ -122,11 +122,67 @@
                     </tabBar>
                     <connections>
                         <segue destination="iZg-wf-Lk5" kind="relationship" relationship="viewControllers" id="8qe-kY-qVK"/>
+                        <segue destination="PdP-oz-226" kind="relationship" relationship="viewControllers" id="h8n-Qu-VX2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fea-ca-vUW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-425" y="66"/>
+        </scene>
+        <!--Locations-->
+        <scene sceneID="Mfa-bI-YjD">
+            <objects>
+                <tableViewController title="Locations" id="Bpy-p2-z36" customClass="LocationsViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ehc-LP-3BW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" id="WXV-1p-XSy" customClass="LocationCell" customModule="MyLocations" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WXV-1p-XSy" id="6Ow-Mf-JBs">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ive-d8-gGr">
+                                            <rect key="frame" x="20" y="11" width="374" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXH-bL-4kE">
+                                            <rect key="frame" x="20" y="37" width="374" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="JXH-bL-4kE" secondAttribute="trailing" id="BRj-tW-tYf"/>
+                                        <constraint firstItem="JXH-bL-4kE" firstAttribute="leading" secondItem="6Ow-Mf-JBs" secondAttribute="leadingMargin" id="Df3-s7-623"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="JXH-bL-4kE" secondAttribute="bottom" id="ddP-EJ-sZj"/>
+                                        <constraint firstItem="ive-d8-gGr" firstAttribute="top" secondItem="6Ow-Mf-JBs" secondAttribute="topMargin" id="kgz-PF-PHb"/>
+                                        <constraint firstItem="ive-d8-gGr" firstAttribute="leading" secondItem="6Ow-Mf-JBs" secondAttribute="leadingMargin" id="q4v-DQ-uHg"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ive-d8-gGr" secondAttribute="trailing" id="u3N-gI-NgS"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="JXH-bL-4kE" id="y45-5T-B9P"/>
+                                    <outlet property="descLabel" destination="ive-d8-gGr" id="Puo-Aa-qzI"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Bpy-p2-z36" id="AxA-a7-kCF"/>
+                            <outlet property="delegate" destination="Bpy-p2-z36" id="2tY-1r-I6s"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Locations" id="ce3-9e-bRS"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yBh-Dl-FFu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="399" y="801"/>
         </scene>
         <!--Tag-->
         <scene sceneID="Fth-he-pcC">
@@ -146,6 +202,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6lP-zR-K4J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="450.72463768115944" y="65.625"/>
+        </scene>
+        <!--Locations-->
+        <scene sceneID="Kwv-rd-Vl6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PdP-oz-226" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Locations" id="jvd-Jd-lw8"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iYo-eh-gho">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Bpy-p2-z36" kind="relationship" relationship="rootViewController" id="sQQ-Hl-K7g"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Irp-Da-Tl2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-401" y="801"/>
         </scene>
     </scenes>
     <resources>

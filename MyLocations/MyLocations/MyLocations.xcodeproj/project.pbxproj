@@ -23,6 +23,8 @@
 		E3D635D527C2A6F50043308E /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D427C2A6F50043308E /* HudView.swift */; };
 		E3D635D827C2DD520043308E /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D627C2DD520043308E /* Location+CoreDataClass.swift */; };
 		E3D635D927C2DD520043308E /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */; };
+		E3D635DC27C3EB460043308E /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635DB27C3EB460043308E /* LocationsViewController.swift */; };
+		E3D635E227C3F0E60043308E /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635E127C3F0E50043308E /* LocationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		E3D635D427C2A6F50043308E /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		E3D635D627C2DD520043308E /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E3D635DB27C3EB460043308E /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		E3D635E127C3F0E50043308E /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,13 +80,13 @@
 		E3D635A527C047C30043308E /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				E3D635BD27C062260043308E /* Extensions.swift */,
+				E3D635B727C047C50043308E /* Info.plist */,
 				E3D635DA27C2DD650043308E /* Model */,
+				E3D635AF27C047C30043308E /* MyLocations.xcdatamodeld */,
 				E3D635CD27C1898A0043308E /* Resources */,
 				E3D635CC27C189700043308E /* ViewControllers */,
 				E3D635CB27C1894C0043308E /* Views */,
-				E3D635BD27C062260043308E /* Extensions.swift */,
-				E3D635B727C047C50043308E /* Info.plist */,
-				E3D635AF27C047C30043308E /* MyLocations.xcdatamodeld */,
 			);
 			path = MyLocations;
 			sourceTree = "<group>";
@@ -93,6 +97,7 @@
 				E3D635C727C183230043308E /* DescriptionCell.swift */,
 				E3D635D427C2A6F50043308E /* HudView.swift */,
 				E3D635C127C1226A0043308E /* TwoLabelsCell.swift */,
+				E3D635E127C3F0E50043308E /* LocationCell.swift */,
 				E3D635C827C183230043308E /* DescriptionCell.xib */,
 				E3D635AC27C047C30043308E /* Main.storyboard */,
 				E3D635B427C047C50043308E /* LaunchScreen.storyboard */,
@@ -105,6 +110,7 @@
 			children = (
 				E3D635AA27C047C30043308E /* CurrentLocationViewController.swift */,
 				E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */,
+				E3D635DB27C3EB460043308E /* LocationsViewController.swift */,
 				E3D635D227C18E170043308E /* CategoryPickerViewController.swift */,
 			);
 			path = ViewControllers;
@@ -205,10 +211,12 @@
 				E3D635BE27C062260043308E /* Extensions.swift in Sources */,
 				E3D635AB27C047C30043308E /* CurrentLocationViewController.swift in Sources */,
 				E3D635C027C120DE0043308E /* LocationDetailsViewController.swift in Sources */,
+				E3D635E227C3F0E60043308E /* LocationCell.swift in Sources */,
 				E3D635A727C047C30043308E /* AppDelegate.swift in Sources */,
 				E3D635C927C183230043308E /* DescriptionCell.swift in Sources */,
 				E3D635D527C2A6F50043308E /* HudView.swift in Sources */,
 				E3D635C227C1226A0043308E /* TwoLabelsCell.swift in Sources */,
+				E3D635DC27C3EB460043308E /* LocationsViewController.swift in Sources */,
 				E3D635D927C2DD520043308E /* Location+CoreDataProperties.swift in Sources */,
 				E3D635B127C047C30043308E /* MyLocations.xcdatamodeld in Sources */,
 				E3D635D827C2DD520043308E /* Location+CoreDataClass.swift in Sources */,
