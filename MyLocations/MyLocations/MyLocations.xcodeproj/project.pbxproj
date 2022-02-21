@@ -25,6 +25,8 @@
 		E3D635D927C2DD520043308E /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */; };
 		E3D635DC27C3EB460043308E /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635DB27C3EB460043308E /* LocationsViewController.swift */; };
 		E3D635E227C3F0E60043308E /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635E127C3F0E50043308E /* LocationCell.swift */; };
+		E3D635E427C423A50043308E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635E327C423A50043308E /* MapViewController.swift */; };
+		E3D635E627C426A40043308E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635E527C426A40043308E /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		E3D635D727C2DD520043308E /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E3D635DB27C3EB460043308E /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
 		E3D635E127C3F0E50043308E /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		E3D635E327C423A50043308E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E3D635E527C426A40043308E /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				E3D635BD27C062260043308E /* Extensions.swift */,
+				E3D635E527C426A40043308E /* Protocols.swift */,
 				E3D635B727C047C50043308E /* Info.plist */,
 				E3D635DA27C2DD650043308E /* Model */,
 				E3D635AF27C047C30043308E /* MyLocations.xcdatamodeld */,
@@ -111,6 +116,7 @@
 				E3D635AA27C047C30043308E /* CurrentLocationViewController.swift */,
 				E3D635BF27C120DD0043308E /* LocationDetailsViewController.swift */,
 				E3D635DB27C3EB460043308E /* LocationsViewController.swift */,
+				E3D635E327C423A50043308E /* MapViewController.swift */,
 				E3D635D227C18E170043308E /* CategoryPickerViewController.swift */,
 			);
 			path = ViewControllers;
@@ -220,7 +226,9 @@
 				E3D635D927C2DD520043308E /* Location+CoreDataProperties.swift in Sources */,
 				E3D635B127C047C30043308E /* MyLocations.xcdatamodeld in Sources */,
 				E3D635D827C2DD520043308E /* Location+CoreDataClass.swift in Sources */,
+				E3D635E427C423A50043308E /* MapViewController.swift in Sources */,
 				E3D635A927C047C30043308E /* SceneDelegate.swift in Sources */,
+				E3D635E627C426A40043308E /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

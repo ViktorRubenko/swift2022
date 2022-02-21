@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import CoreData
 
-class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, managedObjectContextProtocol {
 
     var tableView: UITableView!
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)

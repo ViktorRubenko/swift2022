@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import CoreData
 
-class LocationsViewController: UITableViewController {
+class LocationsViewController: UITableViewController, managedObjectContextProtocol{
     
     var managedObjectContext: NSManagedObjectContext!
     lazy var fetchedResultsController: NSFetchedResultsController<Location> = {
