@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import CoreData
+import PhotosUI
 
 class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, managedObjectContextProtocol {
 
@@ -17,6 +18,8 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     var categoryName = "No Category"
     var date = Date()
     var descriptionText = ""
+    var image: UIImage?
+    var photoText = "Add Photo"
     
     var locationToEdit: Location? {
         didSet {
@@ -41,6 +44,9 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "DescriptionCell", bundle: nil), forCellReuseIdentifier: "DescriptionCell")
+        tableView.register(PhotoCell.self, forCellReuseIdentifier: "PhotoCell")
+        tableView.estimatedRowHeight = 280
+        tableView.rowHeight = UITableView.automaticDimension
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
         gestureRecognizer.cancelsTouchesInView = false
@@ -73,9 +79,8 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
             cell.accessoryType = .disclosureIndicator
             cell.contentConfiguration = contentConfiguration
         case (1, 0):
-            contentConfiguration.text = "Photo"
             cell.accessoryType = .disclosureIndicator
-            cell.contentConfiguration = contentConfiguration
+            (cell as! PhotoCell).leftLabel.text = photoText
         case (2, 0):
             contentConfiguration.text = "Latitude"
             contentConfiguration.secondaryText = String(format: "%.8f", coordinate.latitude)
@@ -112,6 +117,14 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm, dd.MM.yyyy"
         return formatter.string(from: date)
+    }
+    
+    func showImage(image: UIImage) {
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! PhotoCell
+        cell.imageHeight.constant = 260
+        cell.photoImage = image
+        photoText = ""
+        tableView.reloadData()
     }
     
     // MARK: - Actions
@@ -169,6 +182,38 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! DescriptionCell
         cell.textView.resignFirstResponder()
     }
+    
+    func pickPhoto() {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        config.filter = PHPickerFilter.images
+        
+        let pickerViewController = PHPickerViewController(configuration: config)
+        pickerViewController.delegate = self
+        present(pickerViewController, animated: true)
+    }
+    
+    func takePhoto() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func showPhotoMenu() {
+        let alert = UIAlertController(title: "Add Photo", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(
+            UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            self?.takePhoto()
+        }))
+        alert.addAction(
+            UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+            self?.pickPhoto()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
+    }
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -194,7 +239,7 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         case (0, 0):
             cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath)
         case (1, 0):
-            cell = UITableViewCell()
+            cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath)
         case (2, 2):
             cell = TwoLabelsCell()
         default:
@@ -211,6 +256,8 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
             cell.textView.becomeFirstResponder()
         case (0, 1):
             showCategoryPicker()
+        case (1, 0):
+            showPhotoMenu()
         default:
             break
         }
@@ -223,14 +270,6 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         return nil
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section, indexPath.row) == (0, 0) {
-            return 88
-        } else {
-            return 44
-        }
-    }
-    
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.section == 0 || indexPath.section == 1{
             return indexPath
@@ -238,4 +277,29 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         return nil
     }
 
+}
+
+extension LocationDetailsViewController: PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        for result in results {
+            result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
+                if let image = object as? UIImage {
+                    DispatchQueue.main.async {
+                        self.image = image
+                        self.showImage(image: image)
+                    }
+                }
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

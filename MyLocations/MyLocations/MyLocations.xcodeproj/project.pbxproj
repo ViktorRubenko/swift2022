@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E32B173E27C5830C00C227AD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B173D27C5830C00C227AD /* PhotoCell.swift */; };
 		E3D635A727C047C30043308E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635A627C047C30043308E /* AppDelegate.swift */; };
 		E3D635A927C047C30043308E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635A827C047C30043308E /* SceneDelegate.swift */; };
 		E3D635AB27C047C30043308E /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D635AA27C047C30043308E /* CurrentLocationViewController.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E32B173D27C5830C00C227AD /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		E3D635A327C047C30043308E /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3D635A627C047C30043308E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3D635A827C047C30043308E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				E3D635D427C2A6F50043308E /* HudView.swift */,
 				E3D635C127C1226A0043308E /* TwoLabelsCell.swift */,
 				E3D635E127C3F0E50043308E /* LocationCell.swift */,
+				E32B173D27C5830C00C227AD /* PhotoCell.swift */,
 				E3D635C827C183230043308E /* DescriptionCell.xib */,
 				E3D635AC27C047C30043308E /* Main.storyboard */,
 				E3D635B427C047C50043308E /* LaunchScreen.storyboard */,
@@ -218,6 +221,7 @@
 				E3D635AB27C047C30043308E /* CurrentLocationViewController.swift in Sources */,
 				E3D635C027C120DE0043308E /* LocationDetailsViewController.swift in Sources */,
 				E3D635E227C3F0E60043308E /* LocationCell.swift in Sources */,
+				E32B173E27C5830C00C227AD /* PhotoCell.swift in Sources */,
 				E3D635A727C047C30043308E /* AppDelegate.swift in Sources */,
 				E3D635C927C183230043308E /* DescriptionCell.swift in Sources */,
 				E3D635D527C2A6F50043308E /* HudView.swift in Sources */,
@@ -381,6 +385,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyLocations/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app lets you keep track of interesting places. It needs to access to the GPS coordinates for your location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Add photos to your locations";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -412,6 +417,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyLocations/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app lets you keep track of interesting places. It needs to access to the GPS coordinates for your location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Add photos to your locations";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
