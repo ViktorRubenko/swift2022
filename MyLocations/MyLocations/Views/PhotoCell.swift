@@ -13,7 +13,6 @@ class PhotoCell: UITableViewCell {
     let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .blue
         return label
     }()
     var photoImageView: UIImageView = {
@@ -21,7 +20,6 @@ class PhotoCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .red
         return imageView
     }()
     var photoImage: UIImage? {

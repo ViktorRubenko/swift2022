@@ -207,6 +207,9 @@ extension LocationDetailsViewController{
                     print("Error writing file: \(error.localizedDescription)")
                 }
             }
+        } else if location.hasPhoto {
+            location.photoID = nil
+            location.removePhotoFile()
         }
         
         do {
@@ -244,9 +247,17 @@ extension LocationDetailsViewController{
 extension LocationDetailsViewController {
     func showAddPhotoMenu() {
         let alert = UIAlertController(title: "Add Photo", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.takePhotoFromCamera()
+        }))
         alert.addAction(UIAlertAction(title: "Library", style: .default, handler: {  _ in
             self.addPhotoFromLibrary()
         }))
+        if image != nil {
+            alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
+                self.deletePhoto()
+            }))
+        }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
@@ -259,6 +270,19 @@ extension LocationDetailsViewController {
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = self
         present(picker, animated: true)
+    }
+    
+    func takePhotoFromCamera() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func deletePhoto() {
+        image = nil
+        tableView.reloadData()
     }
 }
 //MARK: - PHPicker Delegate
@@ -274,6 +298,19 @@ extension LocationDetailsViewController: PHPickerViewControllerDelegate {
                         self.tableView.reloadData()
                     }
                 }
+            }
+        }
+    }
+}
+//MARK: - ImagePickerControllerDelegate
+extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        if let image = info[.originalImage] as? UIImage {
+            self.image = image
+            DispatchQueue.main.async {
+                self.image = image
+                self.tableView.reloadData()
             }
         }
     }
