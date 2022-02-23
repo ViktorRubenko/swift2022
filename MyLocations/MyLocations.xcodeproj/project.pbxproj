@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E32B177A27C6562800C227AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B177927C6562800C227AD /* AppDelegate.swift */; };
+		E32B177C27C6562800C227AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B177B27C6562800C227AD /* SceneDelegate.swift */; };
+		E32B178427C6562800C227AD /* MyLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E32B178227C6562800C227AD /* MyLocations.xcdatamodeld */; };
+		E32B178627C6562A00C227AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E32B178527C6562A00C227AD /* Assets.xcassets */; };
+		E32B179127C656BB00C227AD /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B179027C656BB00C227AD /* CurrentLocationViewController.swift */; };
+		E32B179427C6590B00C227AD /* ManagedObjectContextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B179327C6590B00C227AD /* ManagedObjectContextProtocol.swift */; };
+		E32B179B27C65B2800C227AD /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B179A27C65B2800C227AD /* LocationsViewController.swift */; };
+		E32B179D27C65B3600C227AD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B179C27C65B3600C227AD /* MapViewController.swift */; };
+		E32B179F27C65B4400C227AD /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B179E27C65B4400C227AD /* LocationDetailsViewController.swift */; };
+		E32B17A227C6603E00C227AD /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17A127C6603E00C227AD /* CustomNavigationViewController.swift */; };
+		E32B17A427C6609E00C227AD /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17A327C6609E00C227AD /* RootTabBarViewController.swift */; };
+		E32B17A627C67DC300C227AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17A527C67DC300C227AD /* Extensions.swift */; };
+		E32B17A927C689AC00C227AD /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17A727C689AC00C227AD /* Location+CoreDataClass.swift */; };
+		E32B17AA27C689AC00C227AD /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17A827C689AC00C227AD /* Location+CoreDataProperties.swift */; };
+		E32B17AE27C68D0700C227AD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17AD27C68D0700C227AD /* PhotoCell.swift */; };
+		E32B17B227C6996700C227AD /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B127C6996700C227AD /* DescriptionCell.swift */; };
+		E32B17B427C69F6A00C227AD /* TwoLabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B327C69F6A00C227AD /* TwoLabelsCell.swift */; };
+		E32B17B627C6A4C000C227AD /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B527C6A4C000C227AD /* CategoryPickerViewController.swift */; };
+		E32B17B827C6A90B00C227AD /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B727C6A90B00C227AD /* AddressCell.swift */; };
+		E32B17BA27C6AB8700C227AD /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B927C6AB8700C227AD /* Functions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E32B177627C6562800C227AD /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E32B177927C6562800C227AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E32B177B27C6562800C227AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E32B178327C6562800C227AD /* MyLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLocations.xcdatamodel; sourceTree = "<group>"; };
+		E32B178527C6562A00C227AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E32B178A27C6562A00C227AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E32B179027C656BB00C227AD /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
+		E32B179327C6590B00C227AD /* ManagedObjectContextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextProtocol.swift; sourceTree = "<group>"; };
+		E32B179A27C65B2800C227AD /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		E32B179C27C65B3600C227AD /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E32B179E27C65B4400C227AD /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		E32B17A127C6603E00C227AD /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
+		E32B17A327C6609E00C227AD /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
+		E32B17A527C67DC300C227AD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E32B17A727C689AC00C227AD /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E32B17A827C689AC00C227AD /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E32B17AD27C68D0700C227AD /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		E32B17B127C6996700C227AD /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
+		E32B17B327C69F6A00C227AD /* TwoLabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLabelsCell.swift; sourceTree = "<group>"; };
+		E32B17B527C6A4C000C227AD /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		E32B17B727C6A90B00C227AD /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
+		E32B17B927C6AB8700C227AD /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E32B177327C6562800C227AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E32B176D27C6562800C227AD = {
+			isa = PBXGroup;
+			children = (
+				E32B177827C6562800C227AD /* MyLocations */,
+				E32B177727C6562800C227AD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E32B177727C6562800C227AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E32B177627C6562800C227AD /* MyLocations.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E32B177827C6562800C227AD /* MyLocations */ = {
+			isa = PBXGroup;
+			children = (
+				E32B179927C65A9700C227AD /* Model */,
+				E32B17A027C65B6700C227AD /* Resources */,
+				E32B179327C6590B00C227AD /* ManagedObjectContextProtocol.swift */,
+				E32B179227C6589000C227AD /* ViewControllers */,
+				E32B178A27C6562A00C227AD /* Info.plist */,
+				E32B17B927C6AB8700C227AD /* Functions.swift */,
+				E32B17A527C67DC300C227AD /* Extensions.swift */,
+				E32B17B027C6994800C227AD /* Views */,
+				E32B178227C6562800C227AD /* MyLocations.xcdatamodeld */,
+			);
+			path = MyLocations;
+			sourceTree = "<group>";
+		};
+		E32B179227C6589000C227AD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E32B179027C656BB00C227AD /* CurrentLocationViewController.swift */,
+				E32B17A127C6603E00C227AD /* CustomNavigationViewController.swift */,
+				E32B17A327C6609E00C227AD /* RootTabBarViewController.swift */,
+				E32B179A27C65B2800C227AD /* LocationsViewController.swift */,
+				E32B179C27C65B3600C227AD /* MapViewController.swift */,
+				E32B179E27C65B4400C227AD /* LocationDetailsViewController.swift */,
+				E32B17B527C6A4C000C227AD /* CategoryPickerViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E32B179927C65A9700C227AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E32B17A727C689AC00C227AD /* Location+CoreDataClass.swift */,
+				E32B17A827C689AC00C227AD /* Location+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E32B17A027C65B6700C227AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E32B177927C6562800C227AD /* AppDelegate.swift */,
+				E32B177B27C6562800C227AD /* SceneDelegate.swift */,
+				E32B178527C6562A00C227AD /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E32B17B027C6994800C227AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E32B17AD27C68D0700C227AD /* PhotoCell.swift */,
+				E32B17B327C69F6A00C227AD /* TwoLabelsCell.swift */,
+				E32B17B727C6A90B00C227AD /* AddressCell.swift */,
+				E32B17B127C6996700C227AD /* DescriptionCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E32B177527C6562800C227AD /* MyLocations */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E32B178D27C6562A00C227AD /* Build configuration list for PBXNativeTarget "MyLocations" */;
+			buildPhases = (
+				E32B177227C6562800C227AD /* Sources */,
+				E32B177327C6562800C227AD /* Frameworks */,
+				E32B177427C6562800C227AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyLocations;
+			productName = MyLocations;
+			productReference = E32B177627C6562800C227AD /* MyLocations.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E32B176E27C6562800C227AD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					E32B177527C6562800C227AD = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = E32B177127C6562800C227AD /* Build configuration list for PBXProject "MyLocations" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E32B176D27C6562800C227AD;
+			productRefGroup = E32B177727C6562800C227AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E32B177527C6562800C227AD /* MyLocations */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E32B177427C6562800C227AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E32B178627C6562A00C227AD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E32B177227C6562800C227AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E32B17AE27C68D0700C227AD /* PhotoCell.swift in Sources */,
+				E32B17A927C689AC00C227AD /* Location+CoreDataClass.swift in Sources */,
+				E32B17B627C6A4C000C227AD /* CategoryPickerViewController.swift in Sources */,
+				E32B177A27C6562800C227AD /* AppDelegate.swift in Sources */,
+				E32B179B27C65B2800C227AD /* LocationsViewController.swift in Sources */,
+				E32B17A427C6609E00C227AD /* RootTabBarViewController.swift in Sources */,
+				E32B17AA27C689AC00C227AD /* Location+CoreDataProperties.swift in Sources */,
+				E32B179F27C65B4400C227AD /* LocationDetailsViewController.swift in Sources */,
+				E32B179D27C65B3600C227AD /* MapViewController.swift in Sources */,
+				E32B179427C6590B00C227AD /* ManagedObjectContextProtocol.swift in Sources */,
+				E32B17B827C6A90B00C227AD /* AddressCell.swift in Sources */,
+				E32B17BA27C6AB8700C227AD /* Functions.swift in Sources */,
+				E32B178427C6562800C227AD /* MyLocations.xcdatamodeld in Sources */,
+				E32B179127C656BB00C227AD /* CurrentLocationViewController.swift in Sources */,
+				E32B17B427C69F6A00C227AD /* TwoLabelsCell.swift in Sources */,
+				E32B17A227C6603E00C227AD /* CustomNavigationViewController.swift in Sources */,
+				E32B17A627C67DC300C227AD /* Extensions.swift in Sources */,
+				E32B177C27C6562800C227AD /* SceneDelegate.swift in Sources */,
+				E32B17B227C6996700C227AD /* DescriptionCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E32B178B27C6562A00C227AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E32B178C27C6562A00C227AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E32B178E27C6562A00C227AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GW7LHNH94F;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app lets you keep track of interesting places. It need access to the GPS coordinates for your location.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "location-services gps";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ViktorRubenko.MyLocations;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E32B178F27C6562A00C227AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GW7LHNH94F;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app lets you keep track of interesting places. It need access to the GPS coordinates for your location.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "location-services gps";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ViktorRubenko.MyLocations;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E32B177127C6562800C227AD /* Build configuration list for PBXProject "MyLocations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E32B178B27C6562A00C227AD /* Debug */,
+				E32B178C27C6562A00C227AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E32B178D27C6562A00C227AD /* Build configuration list for PBXNativeTarget "MyLocations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E32B178E27C6562A00C227AD /* Debug */,
+				E32B178F27C6562A00C227AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E32B178227C6562800C227AD /* MyLocations.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E32B178327C6562800C227AD /* MyLocations.xcdatamodel */,
+			);
+			currentVersion = E32B178327C6562800C227AD /* MyLocations.xcdatamodel */;
+			path = MyLocations.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E32B176E27C6562800C227AD /* Project object */;
+}
