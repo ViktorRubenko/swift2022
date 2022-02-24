@@ -28,7 +28,7 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
     
     var timer: Timer?
     
-    var viewContainer: CurrentLocationViewContainer!
+    var containerView: CurrentLocationViewContainer!
     var messageLabel: UILabel!
     var latitudeLabel: UILabel!
     var longitudeLabel: UILabel!
@@ -38,11 +38,22 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
     var addressLabel: UILabel!
     
     var getLocationButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Get My Location", for: .normal)
-        button.setTitleColor(.tintColor, for: .normal)
+        button.titleLabel!.font = UIFont.systemFont(ofSize: 20)
         button.sizeToFit()
+        return button
+    }()
+    
+    var logoVisible = false
+    
+    lazy var logoButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setBackgroundImage(UIImage(named: "Logo"), for: .normal)
+        button.sizeToFit()
+        button.center.x = view.bounds.midX
+        button.center.y = button.frame.size.height / 2 + 50
         return button
     }()
     
@@ -51,15 +62,15 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
 
         view.backgroundColor = .systemBackground
         
-        viewContainer = CurrentLocationViewContainer()
+        containerView = CurrentLocationViewContainer()
         
-        messageLabel = viewContainer.messageLabel
-        latitudeLabel = viewContainer.latitudeLabel
-        longitudeLabel = viewContainer.longitudeLabel
-        latitudeValueLabel = viewContainer.latitudeValueLabel
-        longitudeValueLabel = viewContainer.longitudeValueLabel
-        tagButton = viewContainer.tagButton
-        addressLabel = viewContainer.addressLabel
+        messageLabel = containerView.messageLabel
+        latitudeLabel = containerView.latitudeLabel
+        longitudeLabel = containerView.longitudeLabel
+        latitudeValueLabel = containerView.latitudeValueLabel
+        longitudeValueLabel = containerView.longitudeValueLabel
+        tagButton = containerView.tagButton
+        addressLabel = containerView.addressLabel
         
         getLocationButton.addTarget(self, action: #selector(getLocation), for: .touchUpInside)
         tagButton.addTarget(self, action: #selector(tagLocation), for: .touchUpInside)
@@ -92,6 +103,9 @@ extension CurrentLocationViewController {
             showLocationServicesDeniedAlert()
             return
         }
+        if logoVisible {
+            hideLogoView()
+        }
         if updatingLocation {
             stopLocationManager()
         } else {
@@ -101,6 +115,7 @@ extension CurrentLocationViewController {
             lastGeocodingError = nil
             startLocationManager()
         }
+        updateLabels()
     }
     
     @objc func didTimeOut() {
@@ -124,20 +139,15 @@ extension CurrentLocationViewController {
 extension CurrentLocationViewController {
     
     func setupSubviews() {
-        viewContainer.translatesAutoresizingMaskIntoConstraints = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(getLocationButton)
-        view.addSubview(viewContainer)
-        
-        messageLabel.text = "(Message Label)"
-        longitudeValueLabel.text = "(Longitude goes here)"
-        latitudeValueLabel.text = "(Latitude goes here)"
-        addressLabel.text = "(Address goes here)"
+        view.addSubview(containerView)
         
         
         NSLayoutConstraint.activate([
-            viewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            viewContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            viewContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             getLocationButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             getLocationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
@@ -169,12 +179,12 @@ extension CurrentLocationViewController {
                 addressLabel.text = String(placemark)
             }
         } else {
-//            latitudeValueLabel.text = ""
-//            longitudeValueLabel.text = ""
-//            tagButton.isHidden = true
-//            addressLabel.text = ""
-//            longitudeLabel.isHidden = true
-//            latitudeLabel.isHidden = true
+            latitudeValueLabel.text = " "
+            longitudeValueLabel.text = " "
+            tagButton.isHidden = true
+            addressLabel.text = " "
+            longitudeLabel.isHidden = true
+            latitudeLabel.isHidden = true
             
             let statusMessage: String
             if let error = lastLocationError as NSError? {
@@ -188,7 +198,8 @@ extension CurrentLocationViewController {
             } else if updatingLocation {
                 statusMessage = "Updating location..."
             } else {
-                statusMessage = "Tap 'Get My Location' to Start"
+                statusMessage = " "
+                showLogoView()
             }
             messageLabel.text = statusMessage
         }
@@ -230,8 +241,53 @@ extension CurrentLocationViewController {
                 repeats: false)
         }
     }
+    
+    func showLogoView() {
+        if !logoVisible {
+            logoVisible = true
+            containerView.isHidden = true
+            view.addSubview(logoButton)
+        }
+    }
+    
+    func hideLogoView() {
+        if !logoVisible { return }
+        logoVisible = false
+        containerView.isHidden = false
+    
+        containerView.center.x = view.bounds.size.width * 2
+        
+        let centerX = view.bounds.midX
+        
+        let panelMover = CABasicAnimation(keyPath: "position")
+        panelMover.isRemovedOnCompletion = false
+        panelMover.fillMode = .forwards
+        panelMover.duration = 0.6
+        panelMover.fromValue = NSValue(cgPoint: containerView.center)
+        panelMover.toValue = NSValue(cgPoint: CGPoint(x: centerX, y: containerView.center.y))
+        panelMover.delegate = self
+        containerView.layer.add(panelMover, forKey: "panelMover")
+        
+        let logoMover = CABasicAnimation(keyPath: "position")
+        logoMover.isRemovedOnCompletion = false
+        logoMover.fillMode = .forwards
+        logoMover.duration = 0.6
+        logoMover.fromValue = NSValue(cgPoint: logoButton.center)
+        logoMover.toValue = NSValue(cgPoint: CGPoint(x: -centerX, y: logoButton.center.y))
+        logoMover.delegate = self
+        logoButton.layer.add(logoMover, forKey: "logoMover")
+        
+        let logoRotator = CABasicAnimation(keyPath: "transform.rotation.z")
+        logoRotator.isRemovedOnCompletion = false
+        logoRotator.fillMode = .forwards
+        logoRotator.duration = 0.6
+        logoRotator.fromValue = 0.0
+        logoRotator.toValue = Double.pi * -2
+        logoRotator.timingFunction = CAMediaTimingFunction(name: .easeIn)
+        logoButton.layer.add(logoRotator, forKey: "logoRotator")
+    }
 }
-
+// MARK: - CLLocationManager Delegate
 extension CurrentLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
@@ -290,5 +346,15 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
         lastLocationError = error
         stopLocationManager()
         updateLabels()
+    }
+}
+// MARK: - CAAanimationDelegate
+extension CurrentLocationViewController: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        containerView.layer.removeAllAnimations()
+        containerView.center.x = view.bounds.size.width / 2
+        
+        logoButton.layer.removeAllAnimations()
+        logoButton.removeFromSuperview()
     }
 }

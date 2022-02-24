@@ -28,6 +28,7 @@ class LocationCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
     
@@ -61,9 +62,6 @@ class LocationCell: UITableViewCell {
             textStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             textStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
-        
-        photoImageView.layer.cornerRadius = photoImageView.bounds.size.width / 2
-        
     }
     
     required init?(coder: NSCoder) {

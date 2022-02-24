@@ -17,10 +17,10 @@ class CurrentLocationViewContainer: UIView {
     let addressLabel = labelFactory(text: "(Address goes here)", textColor: .systemGray, alignment: .center, numberOfLines: 0)
     
     let tagButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Tag Location", for: .normal)
-        button.setTitleColor(.tintColor, for: .normal)
+        button.titleLabel!.font = UIFont.systemFont(ofSize: 20)
         button.sizeToFit()
         return button
     }()
@@ -35,8 +35,6 @@ class CurrentLocationViewContainer: UIView {
         addSubview(longitudeValueLabel)
         addSubview(addressLabel)
         addSubview(tagButton)
-        
-        self.backgroundColor = .red
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: self.topAnchor),
