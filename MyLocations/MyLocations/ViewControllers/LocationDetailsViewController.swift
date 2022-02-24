@@ -20,6 +20,7 @@ class LocationDetailsViewController: UIViewController, ManagedObjectContextProto
     var placemark: CLPlacemark?
     var date = Date()
     var locationDescription = ""
+    var observer: Any?
     
     var descriptionTextView: UITextView! {
         didSet {
@@ -65,6 +66,14 @@ class LocationDetailsViewController: UIViewController, ManagedObjectContextProto
             title = "Edit Location"
         } else {
             title = "Tag Location"
+        }
+        
+        listenForBackgroundNotification()
+    }
+    
+    deinit{
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
         }
     }
 }
@@ -283,6 +292,18 @@ extension LocationDetailsViewController {
     func deletePhoto() {
         image = nil
         tableView.reloadData()
+    }
+    
+    func listenForBackgroundNotification() {
+        observer = NotificationCenter.default.addObserver(
+            forName: UIScene.didEnterBackgroundNotification,
+            object: nil,
+            queue: .main) { _ in
+                if self.presentedViewController != nil {
+                    self.presentedViewController?.dismiss(animated: false, completion: nil)
+                }
+                self.descriptionTextView.resignFirstResponder()
+        }
     }
 }
 //MARK: - PHPicker Delegate

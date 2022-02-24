@@ -27,6 +27,7 @@
 		E32B17B627C6A4C000C227AD /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B527C6A4C000C227AD /* CategoryPickerViewController.swift */; };
 		E32B17B827C6A90B00C227AD /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B727C6A90B00C227AD /* AddressCell.swift */; };
 		E32B17BA27C6AB8700C227AD /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B927C6AB8700C227AD /* Functions.swift */; };
+		E32B17BC27C7DAE100C227AD /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BB27C7DAE100C227AD /* LocationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		E32B17B527C6A4C000C227AD /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 		E32B17B727C6A90B00C227AD /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		E32B17B927C6AB8700C227AD /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		E32B17BB27C7DAE100C227AD /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				E32B17AD27C68D0700C227AD /* PhotoCell.swift */,
+				E32B17BB27C7DAE100C227AD /* LocationCell.swift */,
 				E32B17B327C69F6A00C227AD /* TwoLabelsCell.swift */,
 				E32B17B727C6A90B00C227AD /* AddressCell.swift */,
 				E32B17B127C6996700C227AD /* DescriptionCell.swift */,
@@ -216,6 +219,7 @@
 				E32B177A27C6562800C227AD /* AppDelegate.swift in Sources */,
 				E32B179B27C65B2800C227AD /* LocationsViewController.swift in Sources */,
 				E32B17A427C6609E00C227AD /* RootTabBarViewController.swift in Sources */,
+				E32B17BC27C7DAE100C227AD /* LocationCell.swift in Sources */,
 				E32B17AA27C689AC00C227AD /* Location+CoreDataProperties.swift in Sources */,
 				E32B179F27C65B4400C227AD /* LocationDetailsViewController.swift in Sources */,
 				E32B179D27C65B3600C227AD /* MapViewController.swift in Sources */,

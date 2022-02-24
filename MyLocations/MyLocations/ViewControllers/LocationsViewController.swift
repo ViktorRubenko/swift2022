@@ -19,7 +19,7 @@ class LocationsViewController: UIViewController, ManagedObjectContextProtocol {
         let sort2 = NSSortDescriptor(key: "date", ascending: true)
         
         fetchRequest.sortDescriptors = [sort1, sort2]
-        
+
         fetchRequest.fetchBatchSize = 20
         
         let fetchedResultsController = NSFetchedResultsController(
@@ -40,7 +40,8 @@ class LocationsViewController: UIViewController, ManagedObjectContextProtocol {
         tableView = UITableView(frame: view.bounds)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(LocationCell.self, forCellReuseIdentifier: "LocationCell")
+        tableView.rowHeight = 60
         view.addSubview(tableView)
         
         title = "Locations"
@@ -62,18 +63,6 @@ extension LocationsViewController {
             print("Error fetching data: \(error.localizedDescription)")
         }
     }
-    
-    func configureCell(_ cell: UITableViewCell, for location: Location) {
-        var config = cell.defaultContentConfiguration()
-        config.text = location.locationDescription
-        if let thoroughfare = location.placemark?.thoroughfare {
-            config.secondaryText = thoroughfare + ", "
-        }
-        if let subThoroughfare = location.placemark?.subThoroughfare{
-            config.secondaryText = config.secondaryText ?? "" + subThoroughfare
-        }
-        cell.contentConfiguration = config
-    }
 }
 // MARK: - UITableView Delegate/DataSource
 extension LocationsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -94,12 +83,8 @@ extension LocationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let location = fetchedResultsController.object(at: indexPath)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell") else {
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "LocationCell")
-            configureCell(cell, for: location)
-            return cell
-        }
-        configureCell(cell, for: location)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as! LocationCell
+        cell.configure(for: location)
         return cell
     }
     
@@ -152,9 +137,9 @@ extension LocationsViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .fade)
         case .update:
-            if let cell = tableView.cellForRow(at: indexPath!) {
+            if let cell = tableView.cellForRow(at: indexPath!) as? LocationCell {
                 let location = fetchedResultsController.object(at: indexPath!)
-                configureCell(cell, for: location)
+                cell.configure(for: location)
             }
         case .move:
             tableView.deleteRows(at: [indexPath!], with: .fade)
