@@ -29,6 +29,7 @@
 		E32B17BA27C6AB8700C227AD /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17B927C6AB8700C227AD /* Functions.swift */; };
 		E32B17BC27C7DAE100C227AD /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BB27C7DAE100C227AD /* LocationCell.swift */; };
 		E32B17BE27C7EBCE00C227AD /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BD27C7EBCE00C227AD /* HudView.swift */; };
+		E32B17C027C7FEFD00C227AD /* CurrentLocationViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BF27C7FEFD00C227AD /* CurrentLocationViewContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		E32B17B927C6AB8700C227AD /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		E32B17BB27C7DAE100C227AD /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		E32B17BD27C7EBCE00C227AD /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
+		E32B17BF27C7FEFD00C227AD /* CurrentLocationViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				E32B17AD27C68D0700C227AD /* PhotoCell.swift */,
+				E32B17BF27C7FEFD00C227AD /* CurrentLocationViewContainer.swift */,
 				E32B17BD27C7EBCE00C227AD /* HudView.swift */,
 				E32B17BB27C7DAE100C227AD /* LocationCell.swift */,
 				E32B17B327C69F6A00C227AD /* TwoLabelsCell.swift */,
@@ -231,6 +234,7 @@
 				E32B17B827C6A90B00C227AD /* AddressCell.swift in Sources */,
 				E32B17BA27C6AB8700C227AD /* Functions.swift in Sources */,
 				E32B178427C6562800C227AD /* MyLocations.xcdatamodeld in Sources */,
+				E32B17C027C7FEFD00C227AD /* CurrentLocationViewContainer.swift in Sources */,
 				E32B179127C656BB00C227AD /* CurrentLocationViewController.swift in Sources */,
 				E32B17B427C69F6A00C227AD /* TwoLabelsCell.swift in Sources */,
 				E32B17A227C6603E00C227AD /* CustomNavigationViewController.swift in Sources */,

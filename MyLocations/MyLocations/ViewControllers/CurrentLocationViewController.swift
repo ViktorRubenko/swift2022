@@ -27,22 +27,15 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
     var lastGeocodingError: Error?
     
     var timer: Timer?
-
-    let messageLabel = labelFactory(text: "(Message goes here)", textColor: .systemGray, alignment: .center)
-    let latitudeLabel = labelFactory(text: "Latitude:", textColor: .systemGray)
-    let longitudeLabel = labelFactory(text: "Longitude:", textColor: .systemGray)
-    let latitudeValueLabel = labelFactory(text: "(Latitude goes here)", alignment: .right, fontSize: 20)
-    let longitudeValueLabel = labelFactory(text: "(Lon32323gitude goes here)", alignment: .right, fontSize: 20)
-    let addressLabel = labelFactory(text: "(Address goes here)", textColor: .systemGray, alignment: .center, numberOfLines: 0)
     
-    var tagButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Tag Location", for: .normal)
-        button.setTitleColor(.tintColor, for: .normal)
-        button.sizeToFit()
-        return button
-    }()
+    var viewContainer: CurrentLocationViewContainer!
+    var messageLabel: UILabel!
+    var latitudeLabel: UILabel!
+    var longitudeLabel: UILabel!
+    var latitudeValueLabel: UILabel!
+    var longitudeValueLabel: UILabel!
+    var tagButton: UIButton!
+    var addressLabel: UILabel!
     
     var getLocationButton: UIButton = {
         let button = UIButton()
@@ -58,10 +51,20 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
 
         view.backgroundColor = .systemBackground
         
+        viewContainer = CurrentLocationViewContainer()
+        
+        messageLabel = viewContainer.messageLabel
+        latitudeLabel = viewContainer.latitudeLabel
+        longitudeLabel = viewContainer.longitudeLabel
+        latitudeValueLabel = viewContainer.latitudeValueLabel
+        longitudeValueLabel = viewContainer.longitudeValueLabel
+        tagButton = viewContainer.tagButton
+        addressLabel = viewContainer.addressLabel
+        
         getLocationButton.addTarget(self, action: #selector(getLocation), for: .touchUpInside)
         tagButton.addTarget(self, action: #selector(tagLocation), for: .touchUpInside)
         setupSubviews()
-//        updateLabels()
+        updateLabels()
     
     }
     
@@ -121,47 +124,20 @@ extension CurrentLocationViewController {
 extension CurrentLocationViewController {
     
     func setupSubviews() {
-        view.addSubview(latitudeLabel)
-        view.addSubview(longitudeLabel)
-        view.addSubview(latitudeValueLabel)
-        view.addSubview(longitudeValueLabel)
-        view.addSubview(addressLabel)
-        view.addSubview(messageLabel)
-        view.addSubview(tagButton)
+        viewContainer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(getLocationButton)
+        view.addSubview(viewContainer)
         
         messageLabel.text = "(Message Label)"
         longitudeValueLabel.text = "(Longitude goes here)"
         latitudeValueLabel.text = "(Latitude goes here)"
         addressLabel.text = "(Address goes here)"
-        tagButton.isHidden = true
         
         
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            messageLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            messageLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            messageLabel.bottomAnchor.constraint(equalTo: latitudeValueLabel.topAnchor, constant: -24),
-            
-            latitudeValueLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            latitudeValueLabel.bottomAnchor.constraint(equalTo: longitudeValueLabel.topAnchor, constant: -8),
-            latitudeValueLabel.leadingAnchor.constraint(equalTo: longitudeValueLabel.leadingAnchor),
-            
-            longitudeValueLabel.trailingAnchor.constraint(equalTo: latitudeValueLabel.trailingAnchor),
-            longitudeValueLabel.leadingAnchor.constraint(equalTo: longitudeLabel.trailingAnchor, constant: 16),
-            
-            latitudeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            latitudeLabel.centerYAnchor.constraint(equalTo: latitudeValueLabel.centerYAnchor),
-            
-            longitudeLabel.leadingAnchor.constraint(equalTo: latitudeLabel.leadingAnchor),
-            longitudeLabel.centerYAnchor.constraint(equalTo: longitudeValueLabel.centerYAnchor),
-            
-            addressLabel.topAnchor.constraint(equalTo: longitudeValueLabel.bottomAnchor, constant: 24),
-            addressLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            addressLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            tagButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            tagButton.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 24),
+            viewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            viewContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            viewContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             getLocationButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             getLocationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
@@ -184,15 +160,21 @@ extension CurrentLocationViewController {
             longitudeValueLabel.text = String(format: "%.8f", location.coordinate.longitude)
             tagButton.isHidden = false
             messageLabel.text = " "
+            longitudeLabel.isHidden = false
+            latitudeLabel.isHidden = false
+            messageLabel.isHidden = false
+
             
             if let placemark = placemark {
                 addressLabel.text = String(placemark)
             }
         } else {
-            latitudeValueLabel.text = ""
-            longitudeValueLabel.text = ""
-            tagButton.isHidden = true
-            addressLabel.text = ""
+//            latitudeValueLabel.text = ""
+//            longitudeValueLabel.text = ""
+//            tagButton.isHidden = true
+//            addressLabel.text = ""
+//            longitudeLabel.isHidden = true
+//            latitudeLabel.isHidden = true
             
             let statusMessage: String
             if let error = lastLocationError as NSError? {
