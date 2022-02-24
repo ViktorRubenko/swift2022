@@ -25,7 +25,6 @@ class LocationCell: UITableViewCell {
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -63,6 +62,8 @@ class LocationCell: UITableViewCell {
             textStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
         
+        photoImageView.layer.cornerRadius = photoImageView.bounds.size.width / 2
+        
     }
     
     required init?(coder: NSCoder) {
@@ -79,6 +80,8 @@ class LocationCell: UITableViewCell {
         }
         if location.hasPhoto {
             photoImageView.image = location.photoImage!.resized(withBounds: CGSize(width: imageSize, height: imageSize))
+        } else {
+            photoImageView.image = UIImage(named: "No Photo")
         }
     }
 }
