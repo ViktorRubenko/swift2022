@@ -93,13 +93,13 @@ extension MapViewController {
             }
             
             let center = CLLocationCoordinate2D(
-                latitude: topLeft.latitude - botRight.latitude / 2,
-                longitude: topLeft.longitude - botRight.longitude / 2)
+                latitude: topLeft.latitude - (topLeft.latitude - botRight.latitude) / 2,
+                longitude: topLeft.longitude - (topLeft.longitude - botRight.longitude) / 2)
             region = MKCoordinateRegion(
                 center: center,
                 span: MKCoordinateSpan(
-                    latitudeDelta: abs(topLeft.latitude - botRight.latitude) * 1.1,
-                    longitudeDelta: abs(topLeft.longitude - topLeft.longitude) * 1.1
+                    latitudeDelta: abs(topLeft.latitude - botRight.latitude) * 1.5,
+                    longitudeDelta: abs(topLeft.longitude - botRight.longitude) * 1.5
                 )
             )
         }
