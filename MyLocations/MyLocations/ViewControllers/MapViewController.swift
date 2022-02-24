@@ -19,6 +19,8 @@ class MapViewController: UIViewController, ManagedObjectContextProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Map"
+        
         mapView = MKMapView(frame: .zero)
         mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +139,7 @@ extension MapViewController: MKMapViewDelegate {
             let markerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             markerView.isEnabled = true
             markerView.canShowCallout = true
-            markerView.tintColor = .green
+            markerView.markerTintColor = .green
             
             let rightButton = UIButton(type: .detailDisclosure)
             rightButton.addTarget(self, action: #selector(showLocationDetails), for: .touchUpInside)

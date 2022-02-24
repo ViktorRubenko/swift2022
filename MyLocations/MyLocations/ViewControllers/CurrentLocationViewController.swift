@@ -27,50 +27,19 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
     var lastGeocodingError: Error?
     
     var timer: Timer?
-    
-    var messageLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    var latitudeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Latitude:"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    var longitudeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Longitude:"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    var latitudeValueLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    var longitudeValueLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    var addressLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        return label
-    }()
+
+    let messageLabel = labelFactory(text: "(Message goes here)", textColor: .systemGray, alignment: .center)
+    let latitudeLabel = labelFactory(text: "Latitude:", textColor: .systemGray)
+    let longitudeLabel = labelFactory(text: "Longitude:", textColor: .systemGray)
+    let latitudeValueLabel = labelFactory(text: "(Latitude goes here)", alignment: .right, fontSize: 20)
+    let longitudeValueLabel = labelFactory(text: "(Lon32323gitude goes here)", alignment: .right, fontSize: 20)
+    let addressLabel = labelFactory(text: "(Address goes here)", textColor: .systemGray, alignment: .center, numberOfLines: 0)
     
     var tagButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Tag Location", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.tintColor, for: .normal)
         button.sizeToFit()
         return button
     }()
@@ -79,7 +48,7 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Get My Location", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.tintColor, for: .normal)
         button.sizeToFit()
         return button
     }()
@@ -92,7 +61,7 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
         getLocationButton.addTarget(self, action: #selector(getLocation), for: .touchUpInside)
         tagButton.addTarget(self, action: #selector(tagLocation), for: .touchUpInside)
         setupSubviews()
-        updateLabels()
+//        updateLabels()
     
     }
     
@@ -172,22 +141,22 @@ extension CurrentLocationViewController {
             messageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             messageLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             messageLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            messageLabel.bottomAnchor.constraint(equalTo: latitudeLabel.topAnchor, constant: -24),
-            
-            latitudeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            latitudeLabel.bottomAnchor.constraint(equalTo: longitudeLabel.topAnchor, constant: -8),
-            latitudeLabel.trailingAnchor.constraint(equalTo: latitudeValueLabel.leadingAnchor, constant: -16),
-            
-            longitudeLabel.leadingAnchor.constraint(equalTo: latitudeLabel.leadingAnchor),
-            longitudeLabel.trailingAnchor.constraint(equalTo: longitudeValueLabel.leadingAnchor, constant: -16),
+            messageLabel.bottomAnchor.constraint(equalTo: latitudeValueLabel.topAnchor, constant: -24),
             
             latitudeValueLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            latitudeValueLabel.topAnchor.constraint(equalTo: latitudeLabel.topAnchor),
+            latitudeValueLabel.bottomAnchor.constraint(equalTo: longitudeValueLabel.topAnchor, constant: -8),
+            latitudeValueLabel.leadingAnchor.constraint(equalTo: longitudeValueLabel.leadingAnchor),
             
-            longitudeValueLabel.topAnchor.constraint(equalTo: longitudeLabel.topAnchor),
             longitudeValueLabel.trailingAnchor.constraint(equalTo: latitudeValueLabel.trailingAnchor),
+            longitudeValueLabel.leadingAnchor.constraint(equalTo: longitudeLabel.trailingAnchor, constant: 16),
             
-            addressLabel.topAnchor.constraint(equalTo: longitudeLabel.bottomAnchor, constant: 24),
+            latitudeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            latitudeLabel.centerYAnchor.constraint(equalTo: latitudeValueLabel.centerYAnchor),
+            
+            longitudeLabel.leadingAnchor.constraint(equalTo: latitudeLabel.leadingAnchor),
+            longitudeLabel.centerYAnchor.constraint(equalTo: longitudeValueLabel.centerYAnchor),
+            
+            addressLabel.topAnchor.constraint(equalTo: longitudeValueLabel.bottomAnchor, constant: 24),
             addressLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             addressLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             

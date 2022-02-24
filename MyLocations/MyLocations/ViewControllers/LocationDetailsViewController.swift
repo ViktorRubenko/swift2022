@@ -223,10 +223,20 @@ extension LocationDetailsViewController{
         
         do {
             try managedObjectContext.save()
-            navigationController?.popViewController(animated: true)
         } catch {
             fatalError("Error \(error)")
         }
+        
+        let hudView = HudView.hid(inView: view, animated: true)
+        hudView.text = locationToEdit != nil ? "Edited" : "Tagged"
+        hudView.show(animated: true)
+        
+        let delayInSeconds = 0.6
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+            hudView.hide()
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     @objc func addPhoto() {
