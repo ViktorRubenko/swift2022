@@ -1,14 +1,18 @@
 # MyLocations
 ---
-## Descrittion
-The app allows users to save locations with additional details.
+## Description
+The app allows users to save their location with additional details, edit them and show on map.
 
-CoreData
-CoreLocation
-MapKit
+## Used
+CoreData   
+CoreLocation  
+MapKit  
+PhotosUI  
+CABasicAnimation  
+UserDefaults  
+Notifications  
 
-![Alt text](./screenshots/1.png?raw=true)
-![Alt text](./screenshots/2.png?raw=true)
-![Alt text](./screenshots/3.png?raw=true)
-![Alt text](./screenshots/4.png?raw=true)
-![Alt text](./screenshots/5.png?raw=true)
+---
+
+<img src="./screenshots/1.png?raw=true" width="200"><img src="./screenshots/2.png?raw=true" width="200"><img src="./screenshots/3.png?raw=true" width="200">
+<img src="./screenshots/4.png?raw=true" width="200"><img src="./screenshots/5.png?raw=true" width="200">
