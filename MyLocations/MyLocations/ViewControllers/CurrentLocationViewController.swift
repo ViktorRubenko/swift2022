@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import CoreLocation
+import AudioToolbox
 
 class CurrentLocationViewController: UIViewController, ManagedObjectContextProtocol {
 
@@ -56,6 +57,8 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
         button.center.y = button.frame.size.height / 2 + 50
         return button
     }()
+    
+    var soundID: SystemSoundID = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -286,6 +289,25 @@ extension CurrentLocationViewController {
         logoRotator.timingFunction = CAMediaTimingFunction(name: .easeIn)
         logoButton.layer.add(logoRotator, forKey: "logoRotator")
     }
+    
+    func loadSoundEffect(_ name: String) {
+        if let path = Bundle.main.path(forResource: name, ofType: nil) {
+            let fileURL = URL(fileURLWithPath: path, isDirectory: false)
+            let status = AudioServicesCreateSystemSoundID(fileURL as CFURL, &soundID)
+            if status != kAudioServicesNoError {
+                print("Error code \(status) loading sound: \(path)")
+            }
+        }
+    }
+    
+    func unloadSoundEffect() {
+        AudioServicesDisposeSystemSoundID(soundID)
+        soundID = 0
+    }
+    
+    func playSoundEffect() {
+        AudioServicesPlaySystemSound(soundID)
+    }
 }
 // MARK: - CLLocationManager Delegate
 extension CurrentLocationViewController: CLLocationManagerDelegate {
@@ -318,7 +340,11 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
             if !updatingPlacemark {
                 updatingPlacemark = true
                 geocoder.reverseGeocodeLocation(newLocation) { [weak self] placemarks, error in
-                    if error == nil, let places = placemarks {
+                    if error == nil, let places = placemarks, !places.isEmpty {
+                        if self?.placemark == nil {
+                            // FIRST TIME
+                            self?.playSoundEffect()
+                        }
                         self?.placemark = places.last!
                     } else {
                         self?.placemark = nil

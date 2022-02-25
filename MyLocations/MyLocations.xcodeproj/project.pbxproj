@@ -30,6 +30,7 @@
 		E32B17BC27C7DAE100C227AD /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BB27C7DAE100C227AD /* LocationCell.swift */; };
 		E32B17BE27C7EBCE00C227AD /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BD27C7EBCE00C227AD /* HudView.swift */; };
 		E32B17C027C7FEFD00C227AD /* CurrentLocationViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B17BF27C7FEFD00C227AD /* CurrentLocationViewContainer.swift */; };
+		E32B17C227C9114F00C227AD /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = E32B17C127C9114F00C227AD /* Sound */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		E32B17BB27C7DAE100C227AD /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		E32B17BD27C7EBCE00C227AD /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		E32B17BF27C7FEFD00C227AD /* CurrentLocationViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewContainer.swift; sourceTree = "<group>"; };
+		E32B17C127C9114F00C227AD /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				E32B17A527C67DC300C227AD /* Extensions.swift */,
 				E32B17B027C6994800C227AD /* Views */,
 				E32B178227C6562800C227AD /* MyLocations.xcdatamodeld */,
+				E32B17C127C9114F00C227AD /* Sound */,
 			);
 			path = MyLocations;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32B17C227C9114F00C227AD /* Sound in Resources */,
 				E32B178627C6562A00C227AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
