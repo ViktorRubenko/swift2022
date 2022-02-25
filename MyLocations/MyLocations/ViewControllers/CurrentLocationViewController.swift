@@ -59,6 +59,7 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
     }()
     
     var soundID: SystemSoundID = 0
+    var topSafeInset = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +81,12 @@ class CurrentLocationViewController: UIViewController, ManagedObjectContextProto
         setupSubviews()
         updateLabels()
     
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        topSafeInset = view.safeAreaInsets.top
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -210,10 +217,22 @@ extension CurrentLocationViewController {
     }
     
     func configureGetLocationButton() {
+        let spinnerTag = 1000
         if updatingLocation {
             getLocationButton.setTitle("Stop", for: .normal)
+            if view.viewWithTag(spinnerTag) == nil {
+                let spinner = UIActivityIndicatorView(style: .medium)
+                spinner.center = addressLabel.center
+                spinner.center.y = spinner.bounds.size.width / 2 + topSafeInset
+                spinner.startAnimating()
+                spinner.tag = spinnerTag
+                view.addSubview(spinner)
+            }
         } else {
             getLocationButton.setTitle("Get My Location", for: .normal)
+            if let spinner = view.viewWithTag(spinnerTag) {
+                spinner.removeFromSuperview()
+            }
         }
     }
     
