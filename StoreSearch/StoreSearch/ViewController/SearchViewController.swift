@@ -7,6 +7,15 @@
 
 import UIKit
 
+
+fileprivate struct Constants {
+    struct CellIdentifiers {
+        static let searchResultCell = "SearchResultCell"
+        static let nothingFoundCell = "NothingFoundCell"
+    }
+}
+
+
 class SearchViewController: UIViewController {
     
     var tableView: UITableView!
@@ -29,6 +38,13 @@ class SearchViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(
+            UINib(nibName: "SearchResultCell", bundle: nil),
+            forCellReuseIdentifier: Constants.CellIdentifiers.searchResultCell)
+        tableView.register(
+            UINib(nibName: "NoResultsCell", bundle: nil),
+            forCellReuseIdentifier: Constants.CellIdentifiers.nothingFoundCell)
+        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
         searchBar = UISearchBar()
@@ -73,20 +89,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "SearchResultCell"
-        
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
-        }
-        let searchResult: SearchResult
         if searchResults.isEmpty {
-            searchResult = SearchResult(name: "(Nothing found)", artistName: "")
-        } else {
-            searchResult = searchResults[indexPath.row]
+            return tableView.dequeueReusableCell(
+                withIdentifier: Constants.CellIdentifiers.nothingFoundCell,
+                for: indexPath)
         }
-        configureCell(cell!, searchResult: searchResult)
-        return cell!
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.CellIdentifiers.searchResultCell,
+            for: indexPath) as! SearchResultCell
+        cell.configure(searchResult: searchResults[indexPath.row])
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -102,6 +114,10 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         hasSearched = true
         searchResults = []
+        if searchBar.text! == "123" {
+            tableView.reloadData()
+            return
+        }
         for i in 0...2 {
             searchResults.append(SearchResult(name: "Fake result \(i)", artistName: searchBar.text!))
         }
