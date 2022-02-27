@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+
+class SearchResult {
+    var name: String
+    var artistName: String
+    
+    init(name: String, artistName: String) {
+        self.name = name
+        self.artistName = artistName
+    }
+}

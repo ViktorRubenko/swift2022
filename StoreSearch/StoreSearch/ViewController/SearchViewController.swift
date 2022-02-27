@@ -12,7 +12,8 @@ class SearchViewController: UIViewController {
     var tableView: UITableView!
     var searchBar: UISearchBar!
     
-    var searchResults = [String]()
+    var searchResults = [SearchResult]()
+    var hasSearched = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,30 +52,58 @@ class SearchViewController: UIViewController {
         ])
     }
 }
+// MARK: - Helper Methods
+func configureCell(_ cell: UITableViewCell, searchResult: SearchResult) {
+    var config = cell.defaultContentConfiguration()
+    config.text = searchResult.name
+    config.secondaryText = searchResult.artistName
+    cell.contentConfiguration = config
+}
 //MARK: - TableView Delegate/DataSource
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        searchResults.count
+        if searchResults.isEmpty {
+            if hasSearched {
+                return 1
+            } else {
+                return 0
+            }
+        }
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "SearchResultCell"
+        
         var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
         }
-        var config = UIListContentConfiguration.cell()
-        config.text = searchResults[indexPath.row]
-        cell!.contentConfiguration = config
+        let searchResult: SearchResult
+        if searchResults.isEmpty {
+            searchResult = SearchResult(name: "(Nothing found)", artistName: "")
+        } else {
+            searchResult = searchResults[indexPath.row]
+        }
+        configureCell(cell!, searchResult: searchResult)
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        searchResults.isEmpty ? nil : indexPath
     }
 }
 // MARK: - SearchBar Delegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        hasSearched = true
         searchResults = []
         for i in 0...2 {
-            searchResults.append("Fake result \(i) for '\(searchBar.text!)'")
+            searchResults.append(SearchResult(name: "Fake result \(i)", artistName: searchBar.text!))
         }
         searchBar.resignFirstResponder()
         tableView.reloadData()
