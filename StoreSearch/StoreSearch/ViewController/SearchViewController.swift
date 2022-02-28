@@ -31,6 +31,8 @@ class SearchViewController: UIViewController {
         setupConstraints()
         
         view.backgroundColor = .systemBackground
+        
+        searchBar.becomeFirstResponder()
     }
 
     private func setupSubviews() {
@@ -51,6 +53,7 @@ class SearchViewController: UIViewController {
         searchBar.placeholder = "App name, artist, sone, album, e-book"
         searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.barTintColor = UIColor(named: "SearchBarColor")
         view.addSubview(searchBar)
     }
     

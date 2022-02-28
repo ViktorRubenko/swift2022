@@ -13,6 +13,15 @@ class SearchResultCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var artworkImageView: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(named: "SearchBarColor")?.withAlphaComponent(0.5)
+        
+        selectedBackgroundView = backgroundView
+    }
+    
     func configure(searchResult: SearchResult) {
 //        artworkImageView.image = searchResult.artworkImage
         nameLabel.text = searchResult.name
