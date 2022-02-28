@@ -21,10 +21,12 @@ class SearchViewController: UIViewController {
     
     var tableView: UITableView!
     var searchBar: UISearchBar!
+    var segmentedControl: UISegmentedControl!
     
     var searchResults = [SearchResult]()
     var hasSearched = false
     var isLoading = false
+    let segmentItems = ["All", "Music", "Software", "E-books"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,12 @@ class SearchViewController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.barTintColor = UIColor(named: "SearchBarColor")
         view.addSubview(searchBar)
+        
+        segmentedControl = UISegmentedControl(items: segmentItems)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentChange), for: .valueChanged)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(segmentedControl)
     }
     
     private func setupConstraints() {
@@ -68,7 +76,11 @@ class SearchViewController: UIViewController {
             searchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            segmentedControl.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
@@ -91,6 +103,62 @@ extension SearchViewController {
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
+    }
+    
+    func performSearch() {
+        if searchBar.text!.isEmpty {
+            return
+        }
+        
+        ApiManager.shared.stopCurrentRequest()
+        
+        isLoading = true
+        hasSearched = true
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
+    
+        let searchText = searchBar.text!
+        let category = segmentedControl.selectedSegmentIndex
+        
+        let queue = DispatchQueue.global(qos: .background)
+        queue.async {
+            ApiManager.shared.performStoreRequest(searchText: searchText, category: category) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    do {
+                        let result = try JSONDecoder().decode(ResultArray.self, from: data)
+                        self?.searchResults = result.results
+                        
+                        DispatchQueue.main.async {
+                            self?.isLoading = false
+                            self?.tableView.reloadData()
+                        }
+                    } catch {
+                        print("Error decoding: \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self?.isLoading = false
+                            self?.hasSearched = false
+                            self?.tableView.reloadData()
+                            self?.showNetworkError()
+                        }
+                    }
+                case .failure(let error):
+                    print("Error during request: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        self?.isLoading = false
+                        self?.hasSearched = false
+                        self?.tableView.reloadData()
+                        self?.showNetworkError()
+                    }
+                }
+            }
+        }
+    }
+}
+// MARK: - Actions
+extension SearchViewController {
+    @objc func segmentChange(_ sender: UISegmentedControl) {
+        performSearch()
     }
 }
 //MARK: - TableView Delegate/DataSource
@@ -144,27 +212,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - SearchBar Delegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if searchBar.text!.isEmpty {
-            return
-        }
-        isLoading = true
-        hasSearched = true
-        searchBar.resignFirstResponder()
-        tableView.reloadData()
-        
-        let queue = DispatchQueue.global(qos: .background)
-        let searchText = searchBar.text!
-        queue.async { [weak self] in
-            do {
-                self?.searchResults = try ApiManager.shared.performStoreRequest(searchText: searchText)
-                self?.isLoading = false
-                DispatchQueue.main.async { [weak self] in
-                    self?.tableView.reloadData()
-                }
-            } catch {
-                self?.showNetworkError()
-            }
-        }
+        performSearch()
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
