@@ -12,6 +12,7 @@ fileprivate struct Constants {
     struct CellIdentifiers {
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
+        static let loadingCell = "LoadingCell"
     }
 }
 
@@ -23,6 +24,7 @@ class SearchViewController: UIViewController {
     
     var searchResults = [SearchResult]()
     var hasSearched = false
+    var isLoading = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,9 @@ class SearchViewController: UIViewController {
         tableView.register(
             UINib(nibName: "NoResultsCell", bundle: nil),
             forCellReuseIdentifier: Constants.CellIdentifiers.nothingFoundCell)
+        tableView.register(
+            LoadingCell.self,
+            forCellReuseIdentifier: Constants.CellIdentifiers.loadingCell)
         view.addSubview(tableView)
         
         searchBar = UISearchBar()
@@ -91,8 +96,11 @@ extension SearchViewController {
 //MARK: - TableView Delegate/DataSource
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isLoading {
+            return 1
+        }
         if searchResults.isEmpty {
-            if hasSearched {
+            if hasSearched{
                 return 1
             } else {
                 return 0
@@ -102,6 +110,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if isLoading {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.CellIdentifiers.loadingCell,
+                for: indexPath) as! LoadingCell
+            cell.activityIndicator.startAnimating()
+            return cell
+        }
         if searchResults.isEmpty {
             return tableView.dequeueReusableCell(
                 withIdentifier: Constants.CellIdentifiers.nothingFoundCell,
@@ -119,11 +134,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        searchResults.isEmpty ? nil : indexPath
+        searchResults.isEmpty || isLoading ? nil : indexPath
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        searchResults.isEmpty ? 44 : UITableView.automaticDimension
+        searchResults.isEmpty || isLoading ? 44 : UITableView.automaticDimension
     }
 }
 // MARK: - SearchBar Delegate
@@ -132,14 +147,23 @@ extension SearchViewController: UISearchBarDelegate {
         if searchBar.text!.isEmpty {
             return
         }
+        isLoading = true
         hasSearched = true
         searchBar.resignFirstResponder()
-        do {
-            try searchResults = ApiManager.shared.performStoreRequest(searchText: searchBar.text!)
-//            searchResults.sort { < }
-            tableView.reloadData()
-        } catch {
-            showNetworkError()
+        tableView.reloadData()
+        
+        let queue = DispatchQueue.global(qos: .background)
+        let searchText = searchBar.text!
+        queue.async { [weak self] in
+            do {
+                self?.searchResults = try ApiManager.shared.performStoreRequest(searchText: searchText)
+                self?.isLoading = false
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.reloadData()
+                }
+            } catch {
+                self?.showNetworkError()
+            }
         }
     }
     

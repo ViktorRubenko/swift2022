@@ -18,6 +18,7 @@
 		E3E8D34927CC361D00FAC0D6 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3E8D34827CC361D00FAC0D6 /* SearchResultCell.xib */; };
 		E3E8D34D27CC3BCB00FAC0D6 /* NoResultsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3E8D34B27CC3BCB00FAC0D6 /* NoResultsCell.xib */; };
 		E3E8D34F27CD230900FAC0D6 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D34E27CD230900FAC0D6 /* ApiManager.swift */; };
+		E3E8D35127CD478300FAC0D6 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		E3E8D34827CC361D00FAC0D6 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		E3E8D34B27CC3BCB00FAC0D6 /* NoResultsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoResultsCell.xib; sourceTree = "<group>"; };
 		E3E8D34E27CD230900FAC0D6 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				E3E8D33427CC0F1200FAC0D6 /* LaunchScreen.storyboard */,
 				E3E8D34427CC2D2400FAC0D6 /* SearchResultCell.swift */,
+				E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */,
 				E3E8D34B27CC3BCB00FAC0D6 /* NoResultsCell.xib */,
 				E3E8D34827CC361D00FAC0D6 /* SearchResultCell.xib */,
 			);
@@ -180,6 +183,7 @@
 			files = (
 				E3E8D32727CC0F1000FAC0D6 /* AppDelegate.swift in Sources */,
 				E3E8D32927CC0F1000FAC0D6 /* SceneDelegate.swift in Sources */,
+				E3E8D35127CD478300FAC0D6 /* LoadingCell.swift in Sources */,
 				E3E8D34227CC202100FAC0D6 /* SearchResult.swift in Sources */,
 				E3E8D34F27CD230900FAC0D6 /* ApiManager.swift in Sources */,
 				E3E8D33E27CC0F9500FAC0D6 /* SearchViewController.swift in Sources */,
