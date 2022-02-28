@@ -20,6 +20,7 @@
                         <rect key="frame" x="16" y="11" width="60" height="58"/>
                         <color key="tintColor" systemColor="labelColor"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="60" id="LkJ-fg-dY5"/>
                             <constraint firstAttribute="width" secondItem="o8K-i6-dbE" secondAttribute="height" multiplier="1:1" id="ohj-Ld-nWQ"/>
                         </constraints>
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
@@ -39,7 +40,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="STF-CH-QIN" firstAttribute="leading" secondItem="o8K-i6-dbE" secondAttribute="trailing" constant="8" id="2kq-fX-KVu"/>
-                    <constraint firstAttribute="bottom" secondItem="o8K-i6-dbE" secondAttribute="bottom" constant="10" id="Dol-S1-Pch"/>
+                    <constraint firstAttribute="bottom" secondItem="o8K-i6-dbE" secondAttribute="bottom" priority="999" constant="10" id="Dol-S1-Pch"/>
                     <constraint firstItem="o8K-i6-dbE" firstAttribute="leading" secondItem="nqY-63-Wfq" secondAttribute="leading" constant="16" id="RHL-Ey-WVH"/>
                     <constraint firstItem="STF-CH-QIN" firstAttribute="top" secondItem="nqY-63-Wfq" secondAttribute="top" constant="16" id="XyZ-It-fJQ"/>
                     <constraint firstAttribute="trailing" secondItem="STF-CH-QIN" secondAttribute="trailing" constant="16" id="b7G-JZ-Fhb"/>

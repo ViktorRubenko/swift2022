@@ -46,7 +46,6 @@ class SearchViewController: UIViewController {
         tableView.register(
             UINib(nibName: "NoResultsCell", bundle: nil),
             forCellReuseIdentifier: Constants.CellIdentifiers.nothingFoundCell)
-        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
         searchBar = UISearchBar()
@@ -72,11 +71,22 @@ class SearchViewController: UIViewController {
     }
 }
 // MARK: - Helper Methods
-func configureCell(_ cell: UITableViewCell, searchResult: SearchResult) {
-    var config = cell.defaultContentConfiguration()
-    config.text = searchResult.name
-    config.secondaryText = searchResult.artistName
-    cell.contentConfiguration = config
+extension SearchViewController {
+    func configureCell(_ cell: UITableViewCell, searchResult: SearchResult) {
+        var config = cell.defaultContentConfiguration()
+        config.text = searchResult.name
+        config.secondaryText = searchResult.artistName
+        cell.contentConfiguration = config
+    }
+
+    func showNetworkError() {
+        let alert = UIAlertController(
+            title: "Whoops...",
+            message: "There was an error accessing the iTunes Store. Please try again.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
 }
 //MARK: - TableView Delegate/DataSource
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -111,21 +121,26 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         searchResults.isEmpty ? nil : indexPath
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        searchResults.isEmpty ? 44 : UITableView.automaticDimension
+    }
 }
 // MARK: - SearchBar Delegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        hasSearched = true
-        searchResults = []
-        if searchBar.text! == "123" {
-            tableView.reloadData()
+        if searchBar.text!.isEmpty {
             return
         }
-        for i in 0...2 {
-            searchResults.append(SearchResult(name: "Fake result \(i)", artistName: searchBar.text!))
-        }
+        hasSearched = true
         searchBar.resignFirstResponder()
-        tableView.reloadData()
+        do {
+            try searchResults = ApiManager.shared.performStoreRequest(searchText: searchBar.text!)
+//            searchResults.sort { < }
+            tableView.reloadData()
+        } catch {
+            showNetworkError()
+        }
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {

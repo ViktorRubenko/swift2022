@@ -23,9 +23,12 @@ class SearchResultCell: UITableViewCell {
     }
     
     func configure(searchResult: SearchResult) {
-//        artworkImageView.image = searchResult.artworkImage
         nameLabel.text = searchResult.name
-        artistNameLabel.text = searchResult.artistName
+        if searchResult.artist.isEmpty {
+            artistNameLabel.text = "Unknown"
+        } else {
+            artistNameLabel.text = "\(searchResult.artist) (\(searchResult.type))"
+        }
     }
     
 }
