@@ -16,7 +16,9 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(white: 0.8, alpha: 0.85)
+        view.backgroundColor = .clear
+        let backgroundView = GradientView(frame: view.bounds)
+        view.addSubview(backgroundView)
         
         setupSubviews()
         
@@ -45,6 +47,7 @@ class DetailViewController: UIViewController {
         mainStackView.axis = .vertical
         mainStackView.distribution = .equalSpacing
         mainStackView.alignment = .fill
+        mainStackView.spacing = 8
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         
         let imageStackView = UIStackView()
@@ -57,15 +60,15 @@ class DetailViewController: UIViewController {
         artworkImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let nameLabel = UILabel()
-        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.minimumScaleFactor = 0.5
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        nameLabel.numberOfLines = 0
         nameLabel.text = searchResult.name
+        nameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         
         let artistNameLabel = UILabel()
-        artistNameLabel.adjustsFontSizeToFitWidth = true
-        artistNameLabel.minimumScaleFactor = 0.5
+        artistNameLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         artistNameLabel.text = searchResult.artistName
+        artistNameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         
         let gridStackView = UIStackView()
         gridStackView.axis = .horizontal
@@ -77,11 +80,13 @@ class DetailViewController: UIViewController {
         
         let kindLabel = UILabel()
         kindLabel.text = "Type:"
+        kindLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         kindLabel.textColor = UIColor(named: "ArtistNameColor")
         kindLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         let genreLabel = UILabel()
         genreLabel.text = "Genre:"
+        genreLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         genreLabel.textColor = UIColor(named: "ArtistNameColor")
         genreLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
@@ -90,9 +95,11 @@ class DetailViewController: UIViewController {
         secondColumnStackView.spacing = 8
         
         let kindValueLabel = UILabel()
+        kindValueLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         kindValueLabel.text = searchResult.type
         
         let genreValueLabel = UILabel()
+        genreValueLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         genreValueLabel.text = searchResult.genre
         
         let priceButtonStackView = UIStackView()
@@ -103,13 +110,14 @@ class DetailViewController: UIViewController {
         priceButton.setTitle(
             String(price: searchResult.price, currency: searchResult.currency),
             for: .normal)
-        priceButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        priceButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .caption1)
         priceButton.setBackgroundImage(UIImage(named: "PriceButton"), for: .normal)
         priceButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         priceButton.addTarget(self, action: #selector(openInStore), for: .touchUpInside)
         
+        var config = UIImage.SymbolConfiguration(scale: .small)
         let closeButton = UIButton(type: .system)
-        closeButton.setImage(UIImage(systemName: "x.circle.fill"), for: .normal)
+        closeButton.setImage(UIImage(systemName: "x.circle.fill", withConfiguration: config), for: .normal)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         
@@ -131,10 +139,14 @@ class DetailViewController: UIViewController {
         popupView.addSubview(closeButton)
         
         NSLayoutConstraint.activate([
-            popupView.widthAnchor.constraint(equalToConstant: 280),
-            popupView.heightAnchor.constraint(equalToConstant: 280),
-            popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            popupView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 32),
+            popupView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -32),
             popupView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            popupView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
             
             closeButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 8),
             closeButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -8),

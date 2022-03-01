@@ -20,6 +20,7 @@
 		E3E8D35127CD478300FAC0D6 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */; };
 		E3E8D35327CD66A000FAC0D6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35227CD66A000FAC0D6 /* Extensions.swift */; };
 		E3E8D35527CD768E00FAC0D6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */; };
+		E3E8D35927CE555700FAC0D6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35827CE555700FAC0D6 /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		E3E8D35227CD66A000FAC0D6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E3E8D35827CE555700FAC0D6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				E3E8D34427CC2D2400FAC0D6 /* SearchResultCell.swift */,
 				E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */,
+				E3E8D35827CE555700FAC0D6 /* GradientView.swift */,
 				E3E8D34B27CC3BCB00FAC0D6 /* NoResultsCell.xib */,
 				E3E8D34827CC361D00FAC0D6 /* SearchResultCell.xib */,
 			);
@@ -185,6 +188,7 @@
 			files = (
 				E3E8D32727CC0F1000FAC0D6 /* AppDelegate.swift in Sources */,
 				E3E8D35327CD66A000FAC0D6 /* Extensions.swift in Sources */,
+				E3E8D35927CE555700FAC0D6 /* GradientView.swift in Sources */,
 				E3E8D32927CC0F1000FAC0D6 /* SceneDelegate.swift in Sources */,
 				E3E8D35127CD478300FAC0D6 /* LoadingCell.swift in Sources */,
 				E3E8D34227CC202100FAC0D6 /* SearchResult.swift in Sources */,
