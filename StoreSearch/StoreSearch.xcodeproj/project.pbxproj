@@ -21,6 +21,8 @@
 		E3E8D35327CD66A000FAC0D6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35227CD66A000FAC0D6 /* Extensions.swift */; };
 		E3E8D35527CD768E00FAC0D6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */; };
 		E3E8D35927CE555700FAC0D6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35827CE555700FAC0D6 /* GradientView.swift */; };
+		E3E8D35B27CED32600FAC0D6 /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35A27CED32600FAC0D6 /* BounceAnimationController.swift */; };
+		E3E8D35E27CED93E00FAC0D6 /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35D27CED93E00FAC0D6 /* SlideOutAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		E3E8D35227CD66A000FAC0D6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E3E8D35827CE555700FAC0D6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		E3E8D35A27CED32600FAC0D6 /* BounceAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceAnimationController.swift; sourceTree = "<group>"; };
+		E3E8D35D27CED93E00FAC0D6 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 				E3E8D32627CC0F1000FAC0D6 /* AppDelegate.swift */,
 				E3E8D35227CD66A000FAC0D6 /* Extensions.swift */,
 				E3E8D32827CC0F1000FAC0D6 /* SceneDelegate.swift */,
+				E3E8D35C27CED92700FAC0D6 /* AnimationControllers */,
 				E3E8D33F27CC1F7500FAC0D6 /* ViewController */,
 				E3E8D33227CC0F1200FAC0D6 /* Assets.xcassets */,
 				E3E8D34327CC202700FAC0D6 /* Model */,
@@ -113,6 +118,15 @@
 				E3E8D34127CC202100FAC0D6 /* SearchResult.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E3E8D35C27CED92700FAC0D6 /* AnimationControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E3E8D35A27CED32600FAC0D6 /* BounceAnimationController.swift */,
+				E3E8D35D27CED93E00FAC0D6 /* SlideOutAnimationController.swift */,
+			);
+			path = AnimationControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,11 +205,13 @@
 				E3E8D35927CE555700FAC0D6 /* GradientView.swift in Sources */,
 				E3E8D32927CC0F1000FAC0D6 /* SceneDelegate.swift in Sources */,
 				E3E8D35127CD478300FAC0D6 /* LoadingCell.swift in Sources */,
+				E3E8D35E27CED93E00FAC0D6 /* SlideOutAnimationController.swift in Sources */,
 				E3E8D34227CC202100FAC0D6 /* SearchResult.swift in Sources */,
 				E3E8D34F27CD230900FAC0D6 /* ApiManager.swift in Sources */,
 				E3E8D33E27CC0F9500FAC0D6 /* SearchViewController.swift in Sources */,
 				E3E8D35527CD768E00FAC0D6 /* DetailViewController.swift in Sources */,
 				E3E8D34627CC2D2400FAC0D6 /* SearchResultCell.swift in Sources */,
+				E3E8D35B27CED32600FAC0D6 /* BounceAnimationController.swift in Sources */,
 				E3E8D33127CC0F1000FAC0D6 /* StoreSearch.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
