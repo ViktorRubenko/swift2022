@@ -26,7 +26,7 @@ class SearchViewController: UIViewController {
     var searchResults = [SearchResult]()
     var hasSearched = false
     var isLoading = false
-    let segmentItems = ["All", "Music", "Software", "E-books"]
+    let segmentItems = ["All", "Music", "Movie", "Software"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -199,6 +199,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let vc = DetailViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.searchResult = searchResults[indexPath.row]
+        present(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

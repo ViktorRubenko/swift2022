@@ -19,6 +19,7 @@
 		E3E8D34F27CD230900FAC0D6 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D34E27CD230900FAC0D6 /* ApiManager.swift */; };
 		E3E8D35127CD478300FAC0D6 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */; };
 		E3E8D35327CD66A000FAC0D6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35227CD66A000FAC0D6 /* Extensions.swift */; };
+		E3E8D35527CD768E00FAC0D6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		E3E8D34E27CD230900FAC0D6 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		E3E8D35027CD478300FAC0D6 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		E3E8D35227CD66A000FAC0D6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E8D33D27CC0F9500FAC0D6 /* SearchViewController.swift */,
+				E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				E3E8D34227CC202100FAC0D6 /* SearchResult.swift in Sources */,
 				E3E8D34F27CD230900FAC0D6 /* ApiManager.swift in Sources */,
 				E3E8D33E27CC0F9500FAC0D6 /* SearchViewController.swift in Sources */,
+				E3E8D35527CD768E00FAC0D6 /* DetailViewController.swift in Sources */,
 				E3E8D34627CC2D2400FAC0D6 /* SearchResultCell.swift in Sources */,
 				E3E8D33127CC0F1000FAC0D6 /* StoreSearch.xcdatamodeld in Sources */,
 			);

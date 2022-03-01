@@ -28,6 +28,7 @@ struct SearchResult: Codable {
     var itemPrice: Double?
     var itemGenre: String?
     var bookGenre: [String]?
+    var primaryGenreName: String?
     
     enum CodingKeys: String, CodingKey {
         case imageSmall = "artworkUrl60"
@@ -38,10 +39,11 @@ struct SearchResult: Codable {
         case kind, artistName, currency
         case trackPrice, trackViewUrl, trackName
         case collectionName, collectionPrice, collectionViewUrl
+        case primaryGenreName
     }
     
     var name: String {
-        trackName ?? collectionName ?? ""
+        trackName ?? collectionName ?? " "
     }
     
     var price: Double{
@@ -49,17 +51,20 @@ struct SearchResult: Codable {
     }
     
     var storeURL: String {
-        trackViewUrl ?? collectionViewUrl ?? ""
+        trackViewUrl ?? collectionViewUrl ?? " "
     }
     
     var genre: String {
+        if let genre = primaryGenreName {
+            return genre
+        }
         if let genre = itemGenre {
             return genre
         }
         if let genres = bookGenre {
             return genres.joined(separator: ", ")
         }
-        return ""
+        return " "
     }
     
     var type: String {
@@ -82,7 +87,7 @@ struct SearchResult: Codable {
     }
     
     var artist: String {
-        artistName ?? ""
+        artistName ?? " "
     }
 }
 

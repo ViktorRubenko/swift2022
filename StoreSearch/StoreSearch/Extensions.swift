@@ -23,3 +23,23 @@ extension UIImageView {
         return downloadTask
     }
 }
+
+extension String {
+    init(price: Double, currency: String) {
+        var priceText = ""
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = currency
+        
+        if price == 0 {
+            priceText = "(Free)"
+        } else if let text = formatter.string(from: price as NSNumber) {
+            priceText = text
+        } else {
+            priceText = ""
+        }
+        
+        self = priceText
+    }
+}

@@ -50,7 +50,7 @@ class LoadingCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     

@@ -22,8 +22,8 @@ class ApiManager {
         let kind: String
         switch category{
         case 1: kind = "musicTrack"
-        case 2: kind = "software"
-        case 3: kind = "ebook"
+        case 2: kind = "movie"
+        case 3: kind = "software"
         default: kind = ""
         }
         
