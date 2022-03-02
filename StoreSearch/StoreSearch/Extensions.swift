@@ -43,3 +43,25 @@ extension String {
         self = priceText
     }
 }
+
+
+extension UIImage {
+    func resize(targetSize: CGSize) -> UIImage {
+        let ratio = min(
+            targetSize.height / size.height,
+            targetSize.width / size.width
+        )
+        
+        let newSize = CGSize(
+            width: size.width * ratio,
+            height: size.height * ratio)
+        
+        let rect = CGRect(origin: .zero, size: newSize)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+}

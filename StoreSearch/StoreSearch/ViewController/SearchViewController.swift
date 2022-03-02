@@ -27,7 +27,9 @@ class SearchViewController: UIViewController {
     var hasSearched = false
     var isLoading = false
     let segmentItems = ["All", "Music", "Movie", "Software"]
-
+    
+    var landscapeVC: LandscapeViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,7 +40,7 @@ class SearchViewController: UIViewController {
         
         searchBar.becomeFirstResponder()
     }
-
+    
     private func setupSubviews() {
         tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +97,7 @@ extension SearchViewController {
         config.secondaryText = searchResult.artistName
         cell.contentConfiguration = config
     }
-
+    
     func showNetworkError() {
         let alert = UIAlertController(
             title: "Whoops...",
@@ -116,7 +118,7 @@ extension SearchViewController {
         hasSearched = true
         searchBar.resignFirstResponder()
         tableView.reloadData()
-    
+        
         let searchText = searchBar.text!
         let category = segmentedControl.selectedSegmentIndex
         
@@ -221,5 +223,62 @@ extension SearchViewController: UISearchBarDelegate {
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         .topAttached
+    }
+}
+
+// MARK: - Landscape
+extension SearchViewController {
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        switch newCollection.verticalSizeClass {
+        case .compact:
+            showLandscape(with: coordinator)
+        case .regular, .unspecified:
+            hideLandscape(with: coordinator)
+        default:
+            break
+        }
+    }
+    
+    func showLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        guard landscapeVC == nil else { return }
+        
+        landscapeVC = LandscapeViewController()
+        if let controller = landscapeVC {
+            controller.searchResults = searchResults
+            if presentedViewController != nil {
+                dismiss(animated: true, completion: nil)
+            }
+            
+            controller.view.frame = view.bounds
+            controller.view.alpha = 0
+            view.addSubview(controller.view)
+            addChild(controller)
+            coordinator.animate(
+                alongsideTransition: { _ in
+                    self.searchBar.resignFirstResponder()
+                    controller.view.alpha = 1
+                }, completion: { _ in
+                    controller.didMove(toParent: self)
+                })
+        }
+    }
+    
+    func hideLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        if let controller = landscapeVC {
+            controller.willMove(toParent: nil)
+            coordinator.animate(
+                alongsideTransition: { _ in
+                    controller.view.alpha = 0
+                }, completion: { _ in
+                    controller.removeFromParent()
+                    controller.view.removeFromSuperview()
+                    self.landscapeVC = nil
+                    if !self.searchResults.isEmpty {
+                        self.searchBar.becomeFirstResponder()
+                    }
+                })
+        }
     }
 }

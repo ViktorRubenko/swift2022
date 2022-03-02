@@ -9,8 +9,14 @@ import UIKit
 
 class DetailViewController: UIViewController {
         
+    enum AnimationStyle {
+        case slide, fade
+    }
+    var dismissStyle = AnimationStyle.slide
+    
     var artworkImageView: UIImageView!
     var searchResult: SearchResult!
+    var backgroundView: UIView!
     var downloadTask: URLSessionDownloadTask?
     
     override func viewDidLoad() {
@@ -18,7 +24,7 @@ class DetailViewController: UIViewController {
         
         transitioningDelegate = self
         view.backgroundColor = .clear
-        let backgroundView = GradientView(frame: view.bounds)
+        backgroundView = GradientView(frame: view.bounds)
         view.addSubview(backgroundView)
         
         setupSubviews()
@@ -34,6 +40,7 @@ class DetailViewController: UIViewController {
     }
     
     deinit {
+        print("CLOSE DETAIL")
         downloadTask?.cancel()
         downloadTask = nil
     }
@@ -116,7 +123,7 @@ class DetailViewController: UIViewController {
         priceButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         priceButton.addTarget(self, action: #selector(openInStore), for: .touchUpInside)
         
-        var config = UIImage.SymbolConfiguration(scale: .small)
+        let config = UIImage.SymbolConfiguration(scale: .small)
         let closeButton = UIButton(type: .system)
         closeButton.setImage(UIImage(systemName: "x.circle.fill", withConfiguration: config), for: .normal)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -165,6 +172,7 @@ class DetailViewController: UIViewController {
 // MARK: - Actions
 extension DetailViewController {
     @objc func close() {
+        dismissStyle = .slide
         dismiss(animated: true, completion: nil)
     }
     
@@ -177,7 +185,7 @@ extension DetailViewController {
 // MARK: - Gesture Recognizer Delegate
 extension DetailViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return touch.view === self.view
+        return touch.view === self.backgroundView
     }
 }
 // MARK: - TransitioningDelegate
@@ -187,6 +195,9 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return SlideOutAnimationController()
+        switch dismissStyle {
+            case .slide: return SlideOutAnimationController()
+            case .fade: return FadeOutAnimationController()
+        }
     }
 }

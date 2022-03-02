@@ -23,6 +23,8 @@
 		E3E8D35927CE555700FAC0D6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35827CE555700FAC0D6 /* GradientView.swift */; };
 		E3E8D35B27CED32600FAC0D6 /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35A27CED32600FAC0D6 /* BounceAnimationController.swift */; };
 		E3E8D35E27CED93E00FAC0D6 /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35D27CED93E00FAC0D6 /* SlideOutAnimationController.swift */; };
+		E3E8D36027CFA9E400FAC0D6 /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D35F27CFA9E400FAC0D6 /* LandscapeViewController.swift */; };
+		E3E8D36227CFB18100FAC0D6 /* FadeOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E8D36127CFB18100FAC0D6 /* FadeOutAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		E3E8D35827CE555700FAC0D6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		E3E8D35A27CED32600FAC0D6 /* BounceAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceAnimationController.swift; sourceTree = "<group>"; };
 		E3E8D35D27CED93E00FAC0D6 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
+		E3E8D35F27CFA9E400FAC0D6 /* LandscapeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
+		E3E8D36127CFB18100FAC0D6 /* FadeOutAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOutAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E8D33D27CC0F9500FAC0D6 /* SearchViewController.swift */,
+				E3E8D35F27CFA9E400FAC0D6 /* LandscapeViewController.swift */,
 				E3E8D35427CD768E00FAC0D6 /* DetailViewController.swift */,
 			);
 			path = ViewController;
@@ -125,6 +130,7 @@
 			children = (
 				E3E8D35A27CED32600FAC0D6 /* BounceAnimationController.swift */,
 				E3E8D35D27CED93E00FAC0D6 /* SlideOutAnimationController.swift */,
+				E3E8D36127CFB18100FAC0D6 /* FadeOutAnimationController.swift */,
 			);
 			path = AnimationControllers;
 			sourceTree = "<group>";
@@ -210,6 +216,8 @@
 				E3E8D34F27CD230900FAC0D6 /* ApiManager.swift in Sources */,
 				E3E8D33E27CC0F9500FAC0D6 /* SearchViewController.swift in Sources */,
 				E3E8D35527CD768E00FAC0D6 /* DetailViewController.swift in Sources */,
+				E3E8D36027CFA9E400FAC0D6 /* LandscapeViewController.swift in Sources */,
+				E3E8D36227CFB18100FAC0D6 /* FadeOutAnimationController.swift in Sources */,
 				E3E8D34627CC2D2400FAC0D6 /* SearchResultCell.swift in Sources */,
 				E3E8D35B27CED32600FAC0D6 /* BounceAnimationController.swift in Sources */,
 				E3E8D33127CC0F1000FAC0D6 /* StoreSearch.xcdatamodeld in Sources */,
@@ -347,6 +355,7 @@
 				INFOPLIST_FILE = StoreSearch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -374,6 +383,7 @@
 				INFOPLIST_FILE = StoreSearch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
