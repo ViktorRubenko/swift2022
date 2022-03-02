@@ -11,15 +11,15 @@ class LandscapeViewController: UIViewController {
     
     var scrollView: UIScrollView!
     var pageControl: UIPageControl!
-    var searchResults = [SearchResult]()
+    var search: Search!
     private var firstTime = true
     private var tasks = [URLSessionDataTask]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
-     
+        
         setupSubviews()
     }
     
@@ -38,19 +38,29 @@ class LandscapeViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-            let safeFrame = view.safeAreaLayoutGuide.layoutFrame
-            let pageControlHeight = 20.0
-            let yPageControl = safeFrame.size.height - pageControlHeight - 10
-            scrollView.frame = CGRect(x: safeFrame.origin.x, y: safeFrame.origin.y, width: safeFrame.size.width, height: yPageControl - 5 - safeFrame.origin.y)
-            pageControl.frame = CGRect(
-                x: safeFrame.origin.x,
-                y: yPageControl,
-                width: safeFrame.width,
-                height: pageControlHeight)
-            if firstTime {
-                firstTime = false
-                titleButtons(searchResults)
+        let safeFrame = view.safeAreaLayoutGuide.layoutFrame
+        let pageControlHeight = 20.0
+        let yPageControl = safeFrame.size.height - pageControlHeight - 10
+        scrollView.frame = CGRect(x: safeFrame.origin.x, y: safeFrame.origin.y, width: safeFrame.size.width, height: yPageControl - 5 - safeFrame.origin.y)
+        pageControl.frame = CGRect(
+            x: safeFrame.origin.x,
+            y: yPageControl,
+            width: safeFrame.width,
+            height: pageControlHeight)
+        
+        if firstTime {
+            firstTime = false
+            switch search.state {
+                case .results(let list):
+                    titleButtons(list)
+                case .loading:
+                    showSpinner()
+                case .noResults:
+                    showNothingFoundLabel()
+                case .notSearchedYet:
+                    break
             }
+        }
     }
     
     deinit {
@@ -68,11 +78,13 @@ class LandscapeViewController: UIViewController {
     }
     
     @objc func showDetails(_ sender: UIButton) {
-        let searchResult = searchResults[sender.tag]
-        let vc = DetailViewController()
-        vc.searchResult = searchResult
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: true, completion: nil)
+        if case .results(let list) = search.state {
+            let searchResult = list[sender.tag]
+            let vc = DetailViewController()
+            vc.searchResult = searchResult
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Helper Methods
@@ -83,6 +95,7 @@ class LandscapeViewController: UIViewController {
         tasks.removeAll()
     }
     private func titleButtons(_ searchResults: [SearchResult]) {
+        
         let itemWidth: CGFloat = 94
         let itemHeight: CGFloat = 88
         var columnsPerPage = 0
@@ -139,7 +152,7 @@ class LandscapeViewController: UIViewController {
             height: viewHeight)
     }
     
-    func downloadImage(for searchResult: SearchResult, button: UIButton) {
+    private func downloadImage(for searchResult: SearchResult, button: UIButton) {
         if let url = URL(string: searchResult.imageSmall) {
             let task = URLSession.shared.dataTask(
                 with: URLRequest(url: url)) { data, _, error in
@@ -147,14 +160,53 @@ class LandscapeViewController: UIViewController {
                        let data = data,
                        let image = UIImage(data: data) {
                         DispatchQueue.main.async{
-                            button.setImage(image.resize(targetSize: CGSize(width: 60, height: 60)),
-                                            for: .normal)
+                            button.setImage(image.resize(targetSize: CGSize(width: 60, height: 60)), for: .normal)
                         }
                     }
                 }
             tasks.append(task)
             task.resume()
         }
+    }
+    
+    private func showSpinner() {
+        let spinner = UIActivityIndicatorView(style: .large)
+        let safeFrame = view.safeAreaLayoutGuide.layoutFrame
+        spinner.center = CGPoint(
+            x: safeFrame.midX,
+            y: safeFrame.midY)
+        spinner.tag = 1000
+        spinner.startAnimating()
+        view.addSubview(spinner)
+    }
+    
+    private func hideSpinner() {
+        if let spinner = view.viewWithTag(1000) {
+            spinner.removeFromSuperview()
+        }
+    }
+    
+    func searchResultsRecieved() {
+        hideSpinner()
+        switch search.state {
+        case .notSearchedYet, .loading:
+            break
+        case .noResults:
+            showNothingFoundLabel()
+        case .results(let list):
+            titleButtons(list)
+        }
+    }
+    
+    private func showNothingFoundLabel() {
+        hideSpinner()
+        let label = UILabel()
+        label.text = "Nothing Found"
+        label.center = CGPoint(
+            x: scrollView.bounds.midX,
+            y: scrollView.bounds.midY)
+        label.sizeToFit()
+        view.addSubview(label)
     }
 }
 

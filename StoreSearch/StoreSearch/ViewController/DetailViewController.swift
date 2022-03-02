@@ -146,16 +146,32 @@ class DetailViewController: UIViewController {
         priceButtonStackView.addArrangedSubview(priceButton)
         popupView.addSubview(closeButton)
         
+        if let orientation = view.window?.windowScene?.interfaceOrientation,
+           orientation == .portrait {
+            NSLayoutConstraint.activate([
+                popupView.leadingAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                    constant: 32),
+                popupView.trailingAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                    constant: -32),
+                popupView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+                popupView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                popupView.topAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.topAnchor,
+                    constant: 32),
+                popupView.bottomAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                    constant: -32),
+                popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+                popupView.widthAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            ])
+        }
+        
         NSLayoutConstraint.activate([
-            popupView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                constant: 32),
-            popupView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                constant: -32),
-            popupView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            popupView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
-            
             closeButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 8),
             closeButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -8),
             

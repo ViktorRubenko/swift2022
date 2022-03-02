@@ -8,6 +8,13 @@
 import Foundation
 
 
+enum Category: Int {
+    case all = 0
+    case music = 1
+    case movie = 3
+    case software = 2
+}
+
 class ApiManager {
     
     static let shared = ApiManager()
@@ -15,16 +22,19 @@ class ApiManager {
     private var currentDataTask: URLSessionDataTask?
     var isFetching = false
     
-    
     private init() {}
     
-    private func searchURL(searchText: String, category: Int) -> URL {
+    private func searchURL(searchText: String, category: Category) -> URL {
         let kind: String
-        switch category{
-        case 1: kind = "musicTrack"
-        case 2: kind = "movie"
-        case 3: kind = "software"
-        default: kind = ""
+        switch category {
+        case .all:
+            kind = ""
+        case .music:
+            kind = "musicTrack"
+        case .movie:
+            kind = "software"
+        case .software:
+            kind = "movie"
         }
         
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -35,7 +45,7 @@ class ApiManager {
     
     func performStoreRequest(
         searchText: String,
-        category: Int,
+        category: Category,
         complitionHandler: @escaping ((Result<Data, Error>)->Void)) {
             let url = searchURL(searchText: searchText, category: category)
             let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in

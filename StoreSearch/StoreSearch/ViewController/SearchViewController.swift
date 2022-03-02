@@ -23,9 +23,7 @@ class SearchViewController: UIViewController {
     var searchBar: UISearchBar!
     var segmentedControl: UISegmentedControl!
     
-    var searchResults = [SearchResult]()
-    var hasSearched = false
-    var isLoading = false
+    let search = Search()
     let segmentItems = ["All", "Music", "Movie", "Software"]
     
     var landscapeVC: LandscapeViewController?
@@ -111,50 +109,20 @@ extension SearchViewController {
         if searchBar.text!.isEmpty {
             return
         }
-        
-        ApiManager.shared.stopCurrentRequest()
-        
-        isLoading = true
-        hasSearched = true
-        searchBar.resignFirstResponder()
-        tableView.reloadData()
-        
-        let searchText = searchBar.text!
-        let category = segmentedControl.selectedSegmentIndex
-        
-        let queue = DispatchQueue.global(qos: .background)
-        queue.async {
-            ApiManager.shared.performStoreRequest(searchText: searchText, category: category) { [weak self] result in
-                switch result {
-                case .success(let data):
-                    do {
-                        let result = try JSONDecoder().decode(ResultArray.self, from: data)
-                        self?.searchResults = result.results
-                        
-                        DispatchQueue.main.async {
-                            self?.isLoading = false
-                            self?.tableView.reloadData()
-                        }
-                    } catch {
-                        print("Error decoding: \(error.localizedDescription)")
-                        DispatchQueue.main.async {
-                            self?.isLoading = false
-                            self?.hasSearched = false
-                            self?.tableView.reloadData()
-                            self?.showNetworkError()
-                        }
-                    }
-                case .failure(let error):
-                    print("Error during request: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        self?.isLoading = false
-                        self?.hasSearched = false
+        search.performSearch(
+            searchText: searchBar.text!,
+            category: Category(rawValue: segmentedControl.selectedSegmentIndex)!) { [weak self] successed in
+                DispatchQueue.main.async {
+                    if successed {
                         self?.tableView.reloadData()
+                        self?.landscapeVC?.searchResultsRecieved()
+                    } else {
                         self?.showNetworkError()
                     }
                 }
             }
-        }
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
     }
 }
 // MARK: - Actions
@@ -166,53 +134,59 @@ extension SearchViewController {
 //MARK: - TableView Delegate/DataSource
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isLoading {
-            return 1
+        switch search.state {
+        case .loading: return 1
+        case .noResults: return 1
+        case .notSearchedYet: return 0
+        case .results(let searchResutls): return searchResutls.count
         }
-        if searchResults.isEmpty {
-            if hasSearched{
-                return 1
-            } else {
-                return 0
-            }
-        }
-        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if isLoading {
+        switch search.state {
+        case .loading:
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constants.CellIdentifiers.loadingCell,
                 for: indexPath) as! LoadingCell
             cell.activityIndicator.startAnimating()
             return cell
-        }
-        if searchResults.isEmpty {
+        case .noResults:
             return tableView.dequeueReusableCell(
                 withIdentifier: Constants.CellIdentifiers.nothingFoundCell,
                 for: indexPath)
+        case .results(let searchResults):
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.CellIdentifiers.searchResultCell,
+                for: indexPath) as! SearchResultCell
+            cell.configure(searchResult: searchResults[indexPath.row])
+            return cell
+        case .notSearchedYet:
+            fatalError()
         }
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.CellIdentifiers.searchResultCell,
-            for: indexPath) as! SearchResultCell
-        cell.configure(searchResult: searchResults[indexPath.row])
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let vc = DetailViewController()
-        vc.modalPresentationStyle = .overFullScreen
-        vc.searchResult = searchResults[indexPath.row]
-        present(vc, animated: true)
+        if case .results(let list) = search.state {
+            tableView.deselectRow(at: indexPath, animated: true)
+            let vc = DetailViewController()
+            vc.modalPresentationStyle = .overFullScreen
+            vc.searchResult = list[indexPath.row]
+            present(vc, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        searchResults.isEmpty || isLoading ? nil : indexPath
+        switch search.state {
+        case .results: return indexPath
+        default: return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        searchResults.isEmpty || isLoading ? 44 : UITableView.automaticDimension
+        switch search.state {
+        case .loading, .noResults: return 44
+        default: return UITableView.automaticDimension
+        }
     }
 }
 // MARK: - SearchBar Delegate
@@ -246,7 +220,7 @@ extension SearchViewController {
         
         landscapeVC = LandscapeViewController()
         if let controller = landscapeVC {
-            controller.searchResults = searchResults
+            controller.search = search
             if presentedViewController != nil {
                 dismiss(animated: true, completion: nil)
             }
@@ -266,6 +240,9 @@ extension SearchViewController {
     }
     
     func hideLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        if presentedViewController != nil {
+            dismiss(animated: true, completion: nil)
+        }
         if let controller = landscapeVC {
             controller.willMove(toParent: nil)
             coordinator.animate(
@@ -275,9 +252,6 @@ extension SearchViewController {
                     controller.removeFromParent()
                     controller.view.removeFromSuperview()
                     self.landscapeVC = nil
-                    if !self.searchResults.isEmpty {
-                        self.searchBar.becomeFirstResponder()
-                    }
                 })
         }
     }
