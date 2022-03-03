@@ -8,12 +8,13 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-        
+    
     enum AnimationStyle {
         case slide, fade
     }
     var dismissStyle = AnimationStyle.slide
     
+    var popupView: UIView!
     var artworkImageView: UIImageView!
     var searchResult: SearchResult!
     var backgroundView: UIView!
@@ -27,6 +28,12 @@ class DetailViewController: UIViewController {
         backgroundView = GradientView(frame: view.bounds)
         view.addSubview(backgroundView)
         
+        popupView = UIView()
+        popupView.layer.cornerRadius = 10
+        popupView.translatesAutoresizingMaskIntoConstraints = false
+        popupView.backgroundColor = UIColor(named: "DetailBG")
+        view.addSubview(popupView)
+        
         setupSubviews()
         
         if let imageLargeURL = URL(string: searchResult.imageLarge) {
@@ -39,17 +46,50 @@ class DetailViewController: UIViewController {
         view.addGestureRecognizer(gestureRecognizer)
     }
     
+    override func viewWillLayoutSubviews() {
+        
+        let portraitContraints = [
+            popupView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 32),
+            popupView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -32),
+            popupView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            popupView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
+            popupView.heightAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4)
+        ]
+        
+        let landscapeConstraints = [
+            popupView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 32),
+            popupView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -32),
+            popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            popupView.widthAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            popupView.widthAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.4)
+        ]
+        
+        if let orientation = view.window?.windowScene?.interfaceOrientation {
+            switch orientation {
+            case .unknown:
+                break
+            case .portrait:
+                NSLayoutConstraint.activate(portraitContraints)
+            default:
+                NSLayoutConstraint.activate(landscapeConstraints)
+            }
+        }
+    }
+    
     deinit {
-        print("CLOSE DETAIL")
         downloadTask?.cancel()
         downloadTask = nil
     }
     
     private func setupSubviews() {
-        let popupView = UIView()
-        popupView.layer.cornerRadius = 10
-        popupView.translatesAutoresizingMaskIntoConstraints = false
-        popupView.backgroundColor = UIColor(named: "DetailBG")
         
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
@@ -129,7 +169,6 @@ class DetailViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         
-        view.addSubview(popupView)
         popupView.addSubview(mainStackView)
         mainStackView.addArrangedSubview(imageStackView)
         imageStackView.addArrangedSubview(artworkImageView)
@@ -145,31 +184,6 @@ class DetailViewController: UIViewController {
         mainStackView.addArrangedSubview(priceButtonStackView)
         priceButtonStackView.addArrangedSubview(priceButton)
         popupView.addSubview(closeButton)
-        
-        if let orientation = view.window?.windowScene?.interfaceOrientation,
-           orientation == .portrait {
-            NSLayoutConstraint.activate([
-                popupView.leadingAnchor.constraint(
-                    equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                    constant: 32),
-                popupView.trailingAnchor.constraint(
-                    equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                    constant: -32),
-                popupView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-                popupView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                popupView.topAnchor.constraint(
-                    equalTo: view.safeAreaLayoutGuide.topAnchor,
-                    constant: 32),
-                popupView.bottomAnchor.constraint(
-                    equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                    constant: -32),
-                popupView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-                popupView.widthAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
-            ])
-        }
         
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 8),
@@ -212,8 +226,8 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch dismissStyle {
-            case .slide: return SlideOutAnimationController()
-            case .fade: return FadeOutAnimationController()
+        case .slide: return SlideOutAnimationController()
+        case .fade: return FadeOutAnimationController()
         }
     }
 }
