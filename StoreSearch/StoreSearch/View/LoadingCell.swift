@@ -14,7 +14,7 @@ class LoadingCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor(named: "ArtistNameColor")
         label.textAlignment = .center
-        label.text = "Loading..."
+        label.text = NSLocalizedString("Loading...", comment: "Localized kind: Loading...")
         return label
     }()
     

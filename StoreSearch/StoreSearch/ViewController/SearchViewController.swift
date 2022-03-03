@@ -124,12 +124,11 @@ extension SearchViewController {
             searchText: searchBar.text!,
             category: Category(rawValue: segmentedControl.selectedSegmentIndex)!) { [weak self] successed in
                 DispatchQueue.main.async {
-                    if successed {
-                        self?.tableView.reloadData()
-                        self?.landscapeVC?.searchResultsRecieved()
-                    } else {
+                    if !successed {
                         self?.showNetworkError()
                     }
+                    self?.tableView.reloadData()
+                    self?.landscapeVC?.searchResultsRecieved()
                 }
             }
         searchBar.resignFirstResponder()

@@ -38,7 +38,9 @@ class ApiManager {
         }
         
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let urlString = "\(rootURL)/search?limit=200&term=\(encodedText)&entity=\(kind)"
+        let language = Locale.autoupdatingCurrent.identifier
+        let countryCode = Locale.autoupdatingCurrent.regionCode ?? "en_US"
+        let urlString = "\(rootURL)/search?limit=200&term=\(encodedText)" + "&entity=\(kind)&lang=\(language)&country=\(countryCode)"
         let url = URL(string: urlString)
         return url!
     }
