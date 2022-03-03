@@ -201,7 +201,7 @@ class LandscapeViewController: UIViewController {
     private func showNothingFoundLabel() {
         hideSpinner()
         let label = UILabel()
-        label.text = "Nothing Found"
+        label.text = NSLocalizedString("Nothing Found", comment: "Localized kind: Nothing Found")
         label.center = CGPoint(
             x: scrollView.bounds.midX,
             y: scrollView.bounds.midY)

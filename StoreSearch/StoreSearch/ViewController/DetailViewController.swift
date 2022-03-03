@@ -127,13 +127,13 @@ class DetailViewController: UIViewController {
         firstColumnStackView.spacing = 8
         
         let kindLabel = UILabel()
-        kindLabel.text = "Type:"
+        kindLabel.text = NSLocalizedString("Type:", comment: "Localized kind: Type")
         kindLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         kindLabel.textColor = UIColor(named: "ArtistNameColor")
         kindLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         let genreLabel = UILabel()
-        genreLabel.text = "Genre:"
+        genreLabel.text = NSLocalizedString("Genre:", comment: "Localized kind: Genre")
         genreLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         genreLabel.textColor = UIColor(named: "ArtistNameColor")
         genreLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)

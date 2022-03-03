@@ -24,7 +24,12 @@ class SearchViewController: UIViewController {
     var segmentedControl: UISegmentedControl!
     
     let search = Search()
-    let segmentItems = ["All", "Music", "Movie", "Software"]
+    let segmentItems = [
+        NSLocalizedString("All", comment: "Localized kind: All"),
+        NSLocalizedString("Music", comment: "Localized kind: Music"),
+        NSLocalizedString("Movie", comment: "Localized kind: Movie"),
+        NSLocalizedString("Software", comment: "Localized kind: Software")
+        ]
     
     var landscapeVC: LandscapeViewController?
     
@@ -56,7 +61,10 @@ class SearchViewController: UIViewController {
         view.addSubview(tableView)
         
         searchBar = UISearchBar()
-        searchBar.placeholder = "App name, artist, sone, album, e-book"
+        searchBar.placeholder = NSLocalizedString(
+            "App name, artist, song, album, e-book",
+            comment: "Localized kind: searchBarPlaceholder"
+            )
         searchBar.delegate = self
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.barTintColor = UIColor(named: "SearchBarColor")
@@ -98,8 +106,11 @@ extension SearchViewController {
     
     func showNetworkError() {
         let alert = UIAlertController(
-            title: "Whoops...",
-            message: "There was an error accessing the iTunes Store. Please try again.",
+            title: NSLocalizedString("Whoops...", comment: "Localized kind: ErrorTitle"),
+            message: NSLocalizedString(
+                "There was an error accessing the iTunes Store. Please try again.",
+                comment: "Localized kind: ErrorMessage"
+                ),
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
