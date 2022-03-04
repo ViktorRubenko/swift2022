@@ -18,14 +18,13 @@ enum WeatherDataError: Error {
 class WeatherViewModel: NSObject {
     private var placemark: CLPlacemark?
     private var location: CLLocation?
-    private var weatherDataResponse: WeatherResponse?
     private lazy var locationManager: CLLocationManager = { CLLocationManager() }()
     private lazy var geocoder: CLGeocoder = { CLGeocoder() }()
     private var timer: Timer?
     private var isUpdatingPlacemark = false
     
     var placeName = Observable<String>(" ")
-    var weatherData = Observable<WeatherData?>(nil)
+    var weatherResponse = Observable<WeatherResponse?>(nil)
     var weatherError = Observable<WeatherDataError?>(nil)
     
     override init() {
@@ -77,7 +76,7 @@ extension WeatherViewModel {
                 longitude: location.coordinate.longitude) { result in
                     switch result {
                     case .success(let weatherResponse):
-                        self.weatherData.value = WeatherData(weatherResponse: weatherResponse)
+                        self.weatherResponse.value = weatherResponse
                     case .failure(_):
                         self.weatherError.value = .unknown
                     }

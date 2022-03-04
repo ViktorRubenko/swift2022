@@ -13,7 +13,7 @@ class MainTableViewCell: UITableViewCell {
     let placeLabel = LabelFactory.shared.centeredLabel(fontSize: 30)
     let weatherDescriptionLabel = LabelFactory.shared.centeredLabel(fontSize: 18)
     let tempLabel = LabelFactory.shared.centeredLabel(fontSize: 80)
-    let tempDetailsLabel = LabelFactory.shared.centeredLabel(fontSize: 15)
+    let tempDetailsLabel = LabelFactory.shared.centeredLabel(fontSize: 18)
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -36,6 +36,7 @@ class MainTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        backgroundColor = UIColor(named: "SubBGColor")
         setupSubviews()
     }
     
@@ -47,9 +48,9 @@ class MainTableViewCell: UITableViewCell {
         tempLabel.minimumScaleFactor = 0.1
         
         vStackView.addArrangedSubview(placeLabel)
-        vStackView.addArrangedSubview(weatherDescriptionLabel)
         vStackView.addArrangedSubview(tempLabel)
         vStackView.addArrangedSubview(tempDetailsLabel)
+        vStackView.addArrangedSubview(weatherDescriptionLabel)
         vStackView.addArrangedSubview(weatherImageView)
         
         contentView.addSubview(vStackView)

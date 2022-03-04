@@ -45,6 +45,7 @@ class WeatherDataManager {
                 URLQueryItem(name: "appid", value: "\(appID)"),
                 URLQueryItem(name: "units", value: units.rawValue),
                 URLQueryItem(name: "lang", value: language.rawValue),
+                URLQueryItem(name: "exclude", value: "minutely")
             ]
             
             var request = URLRequest(url: components.url!)
