@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - Welcome
-struct WeatherData: Codable {
+struct WeatherResponse: Codable {
     let lat, lon: Double
     let timezone: String
     let timezoneOffset: Int
@@ -14,7 +14,7 @@ struct WeatherData: Codable {
     enum CodingKeys: String, CodingKey {
         case lat, lon, timezone
         case timezoneOffset = "timezone_offset"
-        case current, minutely, hourly, daily, alert
+        case current, hourly, minutely, daily, alert
     }
 }
 
@@ -30,7 +30,7 @@ struct Current: Codable {
     let windDeg: Int
     let weather: [Weather]
     let windGust: Double?
-    let pop: Int?
+    let pop: Double?
 
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, temp
@@ -50,7 +50,7 @@ struct Current: Codable {
 struct Weather: Codable {
     let id: Int
     let main: Main
-    let weatherDescription: Description
+    let weatherDescription: String
     let icon: String
 
     enum CodingKeys: String, CodingKey {
@@ -64,16 +64,7 @@ enum Main: String, Codable {
     case clear = "Clear"
     case clouds = "Clouds"
     case rain = "Rain"
-}
-
-enum Description: String, Codable {
-    case brokenClouds = "broken clouds"
-    case clearSky = "clear sky"
-    case fewClouds = "few clouds"
-    case lightRain = "light rain"
-    case moderateRain = "moderate rain"
-    case overcastClouds = "overcast clouds"
-    case scatteredClouds = "scattered clouds"
+    case snow = "Snow"
 }
 
 // MARK: - Daily

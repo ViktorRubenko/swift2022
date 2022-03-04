@@ -15,7 +15,7 @@ enum WeatherManagerError: Error {
 
 class WeatherDataManager {
     
-    typealias WeatherDataCompletion = (Result<WeatherData,WeatherManagerError>) -> Void
+    typealias WeatherDataCompletion = (Result<WeatherResponse,WeatherManagerError>) -> Void
     
     enum Units: String {
         case metric, imperial, standard
@@ -25,7 +25,7 @@ class WeatherDataManager {
         case en, fr, ru, es, de
     }
     
-    let shared = WeatherDataManager()
+    static let shared = WeatherDataManager()
     
     private let appID = "e41cb2ac3eef6ce33f44bd481da7d890"
     
@@ -38,10 +38,7 @@ class WeatherDataManager {
         language: Language = .en,
         completion: @escaping WeatherDataCompletion) {
             
-            var components = URLComponents()
-            components.scheme = "https"
-            components.host = "api.openweathermap.org"
-            components.path = "/data/2.5/onecall"
+            var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/onecall")!
             components.queryItems = [
                 URLQueryItem(name: "lat", value: "\(latitude)"),
                 URLQueryItem(name: "lon", value: "\(longitude)"),
@@ -53,14 +50,13 @@ class WeatherDataManager {
             var request = URLRequest(url: components.url!)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
- 
             URLSession.shared.dataTask(with: request) { data, response, error in
                 self.didFinishFetchingWeatherData(
                     data: data,
                     response: response,
                     error: error,
                     completion: completion)
-            }
+            }.resume()
         }
     
     func didFinishFetchingWeatherData(
@@ -76,9 +72,10 @@ class WeatherDataManager {
                 if response.statusCode == 200 {
                     do {
                         let decoder = JSONDecoder()
-                        let weatherData = try decoder.decode(WeatherData.self, from: data)
+                        let weatherData = try decoder.decode(WeatherResponse.self, from: data)
                         completion(.success(weatherData))
                     } catch {
+                        print(error)
                         completion(.failure(.invalidResponse))
                     }
                 } else {
