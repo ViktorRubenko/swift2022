@@ -33,8 +33,7 @@ class WeatherDataManager {
         completion: @escaping WeatherDataCompletion) {
             
             let units = Units.metric
-            let language = Locale.preferredLanguages.first
-            
+            let language = Locale.current.languageCode!
             var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/onecall")!
             components.queryItems = [
                 URLQueryItem(name: "lat", value: "\(latitude)"),
