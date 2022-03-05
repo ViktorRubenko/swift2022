@@ -37,7 +37,7 @@ class WeatherViewController: UIViewController {
     }
     
     func setupSubviews() {
-        refreshControl.attributedTitle = NSAttributedString(string: "Updating...")
+        refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Updating...", comment: "Updating..."))
         refreshControl.addTarget(self, action: #selector(updateForecast), for: .valueChanged)
         tableView.addSubview(refreshControl)
         

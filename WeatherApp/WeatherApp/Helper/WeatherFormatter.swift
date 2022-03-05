@@ -21,11 +21,11 @@ struct WeatherFormatter: WeatherFormatterProtocol {
     func tempMaxMin(_ valueMax: Double, _ valueMin: Double) -> String {
         let tempMax = Int(round(valueMax))
         let tempMin = Int(round(valueMin))
-        return "Max.:\(tempMax)°C, min.:\(tempMin)°C"
+        return String(format: NSLocalizedString("Max.:%d°C, min.:%d°C", comment: "MaxMinTemp"), tempMax, tempMin)
     }
     
     func windSpeed(_ value: Double) -> String {
-        return "\(value) m/s"
+        return String(format: NSLocalizedString("%d m/s", comment: "wind speed"), value)
     }
     
 }

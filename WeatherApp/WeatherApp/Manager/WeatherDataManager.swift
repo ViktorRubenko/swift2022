@@ -21,10 +21,6 @@ class WeatherDataManager {
         case metric, imperial, standard
     }
     
-    enum Language: String {
-        case en, ru
-    }
-    
     static let shared = WeatherDataManager()
     
     private let appID = "e41cb2ac3eef6ce33f44bd481da7d890"
@@ -34,12 +30,10 @@ class WeatherDataManager {
     func weatherDataAt(
         latitude: Double,
         longitude: Double,
-        units: Units = .metric,
-        language: Language = .en,
         completion: @escaping WeatherDataCompletion) {
             
-            let ll = Locale.current.languageCode
-            print(ll)
+            let units = Units.metric
+            let language = Locale.preferredLanguages.first
             
             var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/onecall")!
             components.queryItems = [
@@ -47,7 +41,7 @@ class WeatherDataManager {
                 URLQueryItem(name: "lon", value: "\(longitude)"),
                 URLQueryItem(name: "appid", value: "\(appID)"),
                 URLQueryItem(name: "units", value: units.rawValue),
-                URLQueryItem(name: "lang", value: language.rawValue),
+                URLQueryItem(name: "lang", value: language),
                 URLQueryItem(name: "exclude", value: "minutely")
             ]
             

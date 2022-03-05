@@ -59,7 +59,7 @@ enum Mapper {
                         temp: weatherFormatter.withSign($0.temp),
                         weatherIcon: mapWeatherIcon(id: $0.weather.first!.id))
                 })
-                array[0].hour = "Now"
+                array[0].hour = NSLocalizedString("Now", comment: "Now")
                 return array
             }
             return nil
@@ -79,7 +79,7 @@ enum Mapper {
                         maxTemp: weatherFormatter.withSign($0.temp.max),
                         minTemp: weatherFormatter.withSign($0.temp.min))
                 }
-                array[0].day = "Today"
+                array[0].day = NSLocalizedString("Today", comment: "Today")
                 return array
             }
             return nil
@@ -90,12 +90,24 @@ enum Mapper {
             return nil
         }
         var array = [AdditionalData]()
-        array.append(AdditionalData(title: "Sunrise", value: getHourAndMinutes(current.sunrise!, timeZone: weatherResponse.timezone)))
-        array.append(AdditionalData(title: "Sunset", value: getHourAndMinutes(current.sunset!, timeZone: weatherResponse.timezone)))
-        array.append(AdditionalData(title: "Feels like", value: weatherFormatter.withSign(current.feelsLike)))
-        array.append(AdditionalData(title: "Pressure", value: String(current.pressure)))
-        array.append(AdditionalData(title: "Humidity", value: "\(current.humidity)%"))
-        array.append(AdditionalData(title: "Wind speed", value: weatherFormatter.windSpeed(current.windSpeed)))
+        array.append(AdditionalData(
+            title: NSLocalizedString("Sunrise", comment: "Sunrise"),
+            value: getHourAndMinutes(current.sunrise!, timeZone: weatherResponse.timezone)))
+        array.append(AdditionalData(
+            title: NSLocalizedString("Sunset", comment: "Sunset"),
+            value: getHourAndMinutes(current.sunset!, timeZone: weatherResponse.timezone)))
+        array.append(AdditionalData(
+            title: NSLocalizedString("Feels Like", comment: "Feels Like"),
+            value: weatherFormatter.withSign(current.feelsLike)))
+        array.append(AdditionalData(
+            title: NSLocalizedString("Pressure", comment: "Pressure"),
+            value: String(current.pressure)))
+        array.append(AdditionalData(
+            title: NSLocalizedString("Humidity", comment: "Humidity"),
+            value: "\(current.humidity)%"))
+        array.append(AdditionalData(
+            title: NSLocalizedString("Wind Speed", comment: "Wind Speed"),
+            value: weatherFormatter.windSpeed(current.windSpeed)))
         return array
     }
     
