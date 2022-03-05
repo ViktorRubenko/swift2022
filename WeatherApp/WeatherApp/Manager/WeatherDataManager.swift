@@ -22,7 +22,7 @@ class WeatherDataManager {
     }
     
     enum Language: String {
-        case en, fr, ru, es, de
+        case en, ru
     }
     
     static let shared = WeatherDataManager()
@@ -37,6 +37,9 @@ class WeatherDataManager {
         units: Units = .metric,
         language: Language = .en,
         completion: @escaping WeatherDataCompletion) {
+            
+            let ll = Locale.current.languageCode
+            print(ll)
             
             var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/onecall")!
             components.queryItems = [
