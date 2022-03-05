@@ -1,0 +1,32 @@
+/* wind speed */
+"%d m/s" = "%d м/с";
+
+/* Feels Like */
+"Feels Like" = "Ощущается";
+
+/* Humidity */
+"Humidity" = "Влажность";
+
+/* MaxMinTemp */
+"Max.:%d°C, min.:%d°C" = "Макс.:%1$d°C, мин.:%2$d°C";
+
+/* Now */
+"Now" = "Сейчас";
+
+/* Pressure */
+"Pressure" = "Давление";
+
+/* Sunrise */
+"Sunrise" = "Восход";
+
+/* Sunset */
+"Sunset" = "Закат";
+
+/* Today */
+"Today" = "Сегодня";
+
+/* Wind Speed */
+"Wind Speed" = "Скорость ветра";
+
+/* Updating... */
+"Updating..." = "Обновление...";

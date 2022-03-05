@@ -169,6 +169,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             config.text = data.title
             config.secondaryText = data.value
             cell!.contentConfiguration = config
+            cell!.backgroundColor = UIColor(named: "SubBGColor")
             return cell!
         case 3:
             let cell = tableView.dequeueReusableCell(
