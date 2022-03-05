@@ -37,7 +37,7 @@ enum Mapper {
                let weather = current.weather.first {
                 return WeatherData(
                     temp: weatherFormatter.withSign(current.temp),
-                    tempDetails: weatherFormatter.tempMaxMin(daily.temp.max, daily.temp.max),
+                    tempDetails: weatherFormatter.tempMaxMin(daily.temp.max, daily.temp.min),
                     weatherDescription: weather.weatherDescription.capitalized,
                     weatherIcon: mapWeatherIcon(id: weather.id)
                 )

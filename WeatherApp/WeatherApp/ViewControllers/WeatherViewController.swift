@@ -21,6 +21,7 @@ class WeatherViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     private var dailyData = [DailyData]()
     private var additionalData = [AdditionalData]()
+    private var activityIndicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class WeatherViewController: UIViewController {
         setupSubviews()
         setupObservers()
         
+        showLoadingScreen()
         viewModel.updateLocation()
     }
     
@@ -71,6 +73,7 @@ class WeatherViewController: UIViewController {
                     self!.refreshControl.endRefreshing()
                 }
                 self?.tableView.reloadData()
+                self?.hideLoadingScreen()
             }
         }
         
@@ -89,6 +92,26 @@ class WeatherViewController: UIViewController {
         imageView.image = background
         view.addSubview(imageView)
         view.sendSubviewToBack(imageView)
+    }
+    
+    func showLoadingScreen() {
+        if activityIndicator == nil {
+            tableView.isHidden = true
+            activityIndicator = UIActivityIndicatorView()
+            activityIndicator!.startAnimating()
+            view.addSubview(activityIndicator!)
+            activityIndicator!.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+        }
+    }
+    
+    func hideLoadingScreen() {
+        if activityIndicator != nil {
+            activityIndicator?.removeFromSuperview()
+            activityIndicator = nil
+            tableView.isHidden = false
+        }
     }
     
 }
@@ -194,15 +217,4 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
-
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        UIView(frame: .zero)
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        UIView()
-//    }
-    
-
 }
-
