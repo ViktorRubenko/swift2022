@@ -59,7 +59,7 @@ class MainTableViewCell: UITableViewCell {
             make.edges.equalToSuperview().inset(15)
         }
         weatherImageView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.33)
+            make.width.equalTo(100)
             make.height.equalTo(weatherImageView.snp.width)
         }
     }

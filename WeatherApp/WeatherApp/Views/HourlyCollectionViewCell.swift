@@ -20,7 +20,7 @@ class HourlyCollectionViewCell: UICollectionViewCell {
     }()
     private var vStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillProportionally
         stackView.spacing = 5
         stackView.axis = .vertical
         return stackView
@@ -37,13 +37,13 @@ class HourlyCollectionViewCell: UICollectionViewCell {
         vStackView.addArrangedSubview(weatherImageView)
         vStackView.addArrangedSubview(tempLabel)
         
-        contentView.addSubview(vStackView)
+        weatherImageView.snp.makeConstraints { make in
+            
+        }
         
+        contentView.addSubview(vStackView)
         vStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-        }
-        weatherImageView.snp.makeConstraints { make in
-            make.height.equalToSuperview().multipliedBy(0.5)
         }
     }
     

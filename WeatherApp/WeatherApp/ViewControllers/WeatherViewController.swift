@@ -10,7 +10,7 @@ import SnapKit
 
 fileprivate struct Constants {
     enum cellIdentifiers: String {
-        case MainCell, HourlyCell
+        case MainCell, HourlyCell, DailyCell, AdditionalCell
     }
 }
 
@@ -19,6 +19,8 @@ class WeatherViewController: UIViewController {
     private let viewModel = WeatherViewModel()
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let refreshControl = UIRefreshControl()
+    private var dailyData = [DailyData]()
+    private var additionalData = [AdditionalData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,9 @@ class WeatherViewController: UIViewController {
         tableView.register(
             HourlyTableViewCell.self,
             forCellReuseIdentifier: Constants.cellIdentifiers.HourlyCell.rawValue)
+        tableView.register(
+            DailyTableViewCell.self,
+            forCellReuseIdentifier: Constants.cellIdentifiers.DailyCell.rawValue)
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -57,6 +62,11 @@ class WeatherViewController: UIViewController {
     func setupObservers() {
         viewModel.weatherResponse.bind {[weak self] value in
             DispatchQueue.main.async{ [weak self] in
+                
+                self?.dailyData = Mapper.dailyData(self?.viewModel.weatherResponse.value, weatherFormatter: WeatherFormatter()) ?? [DailyData]()
+                
+                self?.additionalData = Mapper.additionalData(self?.viewModel.weatherResponse.value, weatherFormatter: WeatherFormatter()) ?? [AdditionalData]()
+                
                 if self!.refreshControl.isRefreshing {
                     self!.refreshControl.endRefreshing()
                 }
@@ -92,11 +102,16 @@ extension WeatherViewController {
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 2 ? 3 : 1
+        switch section {
+        case 0, 1: return 1
+        case 2: return additionalData.count
+        case 3: return dailyData.count
+        default: return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,7 +124,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
                 placeName: viewModel.placeName.value,
                 weatherData: Mapper.weatherData(
                     viewModel.weatherResponse.value,
-                    tempFormatter: TempFormatter())
+                    weatherFormatter: WeatherFormatter())
             )
             return cell
         case 1:
@@ -118,8 +133,25 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
                 for: indexPath) as! HourlyTableViewCell
             cell.configure(Mapper.hourlyData(
                 viewModel.weatherResponse.value,
-                tempFormatter: TempFormatter())
+                weatherFormatter: WeatherFormatter())
             )
+            return cell
+        case 2:
+            var cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.AdditionalCell.rawValue)
+            if cell == nil {
+                cell = UITableViewCell(style: .value2, reuseIdentifier: Constants.cellIdentifiers.AdditionalCell.rawValue)
+            }
+            let data = additionalData[indexPath.row]
+            var config = cell!.defaultContentConfiguration()
+            config.text = data.title
+            config.secondaryText = data.value
+            cell!.contentConfiguration = config
+            return cell!
+        case 3:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.cellIdentifiers.DailyCell.rawValue,
+                for: indexPath) as! DailyTableViewCell
+            cell.configure(dailyData[indexPath.row])
             return cell
         default:
             return UITableViewCell()
@@ -129,17 +161,26 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return UITableView.automaticDimension
+        } else if indexPath.section == 1 {
+            return 100
         }
-        return 108
+        return 44
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return "Hourly Forecast"
         }
-        if section == 2 {
+        if section == 2{
+            return "Daily Information"
+        }
+        if section == 3 {
             return "Daily Forecast"
         }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
     

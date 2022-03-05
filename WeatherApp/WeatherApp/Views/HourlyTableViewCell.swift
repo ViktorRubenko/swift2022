@@ -12,6 +12,7 @@ class HourlyTableViewCell: UITableViewCell {
     var data = [HourlyData]()
     
     private var collectionView: UICollectionView!
+    private var heightConstraint: NSLayoutConstraint!
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,7 +27,7 @@ class HourlyTableViewCell: UITableViewCell {
     private func setupSubviews() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-        layout.itemSize = CGSize(width: round(88 / 1.5), height: 88)
+        layout.itemSize = CGSize(width: (contentView.bounds.width - 15) / 5, height: 90)
         layout.scrollDirection = .horizontal
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
@@ -63,6 +64,5 @@ extension HourlyTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCollectionViewCell
         cell.configure(data[indexPath.row])
         return cell
-    
     }
 }

@@ -41,6 +41,7 @@ extension WeatherViewModel {
         switch authStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
+            updateLocation()
         case .restricted, .denied:
             weatherError.value = .locationServicesDisabled
             return
