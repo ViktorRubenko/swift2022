@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class DailyTableViewCell: UITableViewCell {
+    
+    static let identifier = "DailyTableViewCell"
 
     private let dayLabel = UILabel()
     private let maxTempLabel = UILabel()

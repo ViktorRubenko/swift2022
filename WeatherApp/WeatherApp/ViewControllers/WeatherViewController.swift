@@ -8,12 +8,6 @@
 import UIKit
 import SnapKit
 
-fileprivate struct Constants {
-    enum cellIdentifiers: String {
-        case MainCell, HourlyCell, DailyCell, AdditionalCell
-    }
-}
-
 class WeatherViewController: UIViewController {
     
     private let viewModel = WeatherViewModel()
@@ -48,13 +42,22 @@ class WeatherViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.register(
             MainTableViewCell.self,
-            forCellReuseIdentifier: Constants.cellIdentifiers.MainCell.rawValue)
+            forCellReuseIdentifier: MainTableViewCell.identifier)
         tableView.register(
             HourlyTableViewCell.self,
-            forCellReuseIdentifier: Constants.cellIdentifiers.HourlyCell.rawValue)
+            forCellReuseIdentifier: HourlyTableViewCell.identifier)
         tableView.register(
             DailyTableViewCell.self,
-            forCellReuseIdentifier: Constants.cellIdentifiers.DailyCell.rawValue)
+            forCellReuseIdentifier: DailyTableViewCell.identifier)
+        tableView.register(
+            HeaderTableViewCell.self,
+            forCellReuseIdentifier: HeaderTableViewCell.identifier)
+        tableView.register(
+            AdditionalTableViewCell.self,
+            forCellReuseIdentifier: AdditionalTableViewCell.identifier)
+        tableView.register(
+            HeaderTableViewCell.self,
+            forCellReuseIdentifier: HeaderTableViewCell.identifier)
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -131,8 +134,8 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0, 1: return 1
-        case 2: return additionalData.count
-        case 3: return dailyData.count
+        case 2: return additionalData.isEmpty ? 0 : additionalData.count + 1
+        case 3: return dailyData.isEmpty ? 0 : dailyData.count + 1
         default: return 0
         }
     }
@@ -141,7 +144,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Constants.cellIdentifiers.MainCell.rawValue,
+                withIdentifier: MainTableViewCell.identifier,
                 for: indexPath) as! MainTableViewCell
             cell.configure(
                 placeName: viewModel.placeName.value,
@@ -152,7 +155,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Constants.cellIdentifiers.HourlyCell.rawValue,
+                withIdentifier: HourlyTableViewCell.identifier,
                 for: indexPath) as! HourlyTableViewCell
             cell.configure(Mapper.hourlyData(
                 viewModel.weatherResponse.value,
@@ -160,23 +163,36 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             )
             return cell
         case 2:
-            var cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.AdditionalCell.rawValue)
-            if cell == nil {
-                cell = UITableViewCell(style: .value2, reuseIdentifier: Constants.cellIdentifiers.AdditionalCell.rawValue)
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: HeaderTableViewCell.identifier,
+                    for: indexPath) as! HeaderTableViewCell
+                cell.titleLabel.text = NSLocalizedString("DETAILS", comment: "Weather Details")
+                return cell
+            } else {
+                let data = additionalData[indexPath.row-1]
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: AdditionalTableViewCell.identifier,
+                    for: indexPath) as! AdditionalTableViewCell
+                cell.configure(titleText: data.title, valueText: data.value)
+                return cell
             }
-            let data = additionalData[indexPath.row]
-            var config = cell!.defaultContentConfiguration()
-            config.text = data.title
-            config.secondaryText = data.value
-            cell!.contentConfiguration = config
-            cell!.backgroundColor = UIColor(named: "SubBGColor")
-            return cell!
         case 3:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: Constants.cellIdentifiers.DailyCell.rawValue,
-                for: indexPath) as! DailyTableViewCell
-            cell.configure(dailyData[indexPath.row])
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: HeaderTableViewCell.identifier,
+                    for: indexPath) as! HeaderTableViewCell
+                cell.titleLabel.text = NSLocalizedString(
+                    "7-DAY FORECAST",
+                    comment: "Section Header for 7-day forecast")
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: DailyTableViewCell.identifier,
+                    for: indexPath) as! DailyTableViewCell
+                cell.configure(dailyData[indexPath.row-1])
+                return cell
+            }
         default:
             return UITableViewCell()
         }
@@ -187,21 +203,10 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         } else if indexPath.section == 1 {
             return 100
+        } else if indexPath.row == 0 {
+            return UITableView.automaticDimension
         }
         return 44
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            return "Hourly Forecast"
-        }
-        if section == 2{
-            return "Daily Information"
-        }
-        if section == 3 {
-            return "Daily Forecast"
-        }
-        return nil
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -210,12 +215,19 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 5
+            return 0
         }
-        return 20
+        return 5
     }
-
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return UIView(frame: .zero)
+        }
+        return nil
     }
 }

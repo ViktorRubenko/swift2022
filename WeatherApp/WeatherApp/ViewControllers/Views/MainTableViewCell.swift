@@ -10,6 +10,8 @@ import SnapKit
 
 class MainTableViewCell: UITableViewCell {
     
+    static let identifier = "MainTableViewCell"
+    
     let placeLabel = LabelFactory.shared.centeredLabel(fontSize: 30)
     let weatherDescriptionLabel = LabelFactory.shared.centeredLabel(fontSize: 18)
     let tempLabel = LabelFactory.shared.centeredLabel(fontSize: 80)

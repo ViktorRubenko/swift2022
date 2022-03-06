@@ -9,6 +9,8 @@ import UIKit
 
 class HourlyTableViewCell: UITableViewCell {
     
+    static let identifier = "HourlyTableViewCell"
+    
     var data = [HourlyData]()
     
     private var collectionView: UICollectionView!
