@@ -9,136 +9,67 @@ import Foundation
 import CoreLocation
 import UIKit
 
-enum WeatherDataError: Error {
-    case locationTimeOut
-    case locationServicesDisabled
+enum WeatherError: Error {
+    case networkServiceError
+    case geocoderServiceError
+    case locationServiceError
     case unknown
 }
 
 class WeatherViewModel: NSObject {
-    private var placemark: CLPlacemark?
-    private var location: CLLocation?
-    private lazy var locationManager: CLLocationManager = { CLLocationManager() }()
-    private lazy var geocoder: CLGeocoder = { CLGeocoder() }()
-    private var timer: Timer?
-    private var isUpdatingPlacemark = false
-    
     var placeName = Observable<String>(" ")
     var weatherResponse = Observable<WeatherResponse?>(nil)
-    var weatherError = Observable<WeatherDataError?>(nil)
+    var weatherError = Observable<WeatherError?>(nil)
+    private var location: CLLocation? {
+        didSet {
+            if location != nil {
+                updateForecast()
+                updatePlaceName()
+            } else {
+                weatherError.value = .locationServiceError
+            }
+        }
+    }
     
     override init() {
         super.init()
     }
     
-}
-// MARK: - Helper Methods
-extension WeatherViewModel {
-    func updateLocation() {
-        weatherError.value = nil
-        // Check location services
-        let authStatus = locationManager.authorizationStatus
-        switch authStatus {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            updateLocation()
-        case .restricted, .denied:
-            weatherError.value = .locationServicesDisabled
-            return
-        default:
-            location = nil
-            placemark = nil
-            startLocationManager()
-        }
-    }
-    
-    private func startLocationManager() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-            locationManager.delegate = self
-            locationManager.startUpdatingLocation()
-            
-            timer = Timer.scheduledTimer(
-                timeInterval: 60,
-                target: self,
-                selector: #selector(didTimeOut),
-                userInfo: nil,
-                repeats: false)
-        }
-    }
-    
-    private func stopLocationManager() {
-        locationManager.stopUpdatingLocation()
-        locationManager.delegate = nil
-        
+    func updatePlaceName() {
         if let location = location {
-            WeatherDataManager.shared.weatherDataAt(
+            let geocoder = GeocodingManager()
+            geocoder.getPlacemark(location) { [weak self] placemark in
+                if let placemark = placemark {
+                    self?.placeName.value = String(placemark)
+                }
+            }
+        }
+    }
+    
+    func updateForecast() {
+        if let location = location {
+            WeatherNetworkManager.shared.weatherDataAt(
                 latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude) { result in
                     switch result {
                     case .success(let weatherResponse):
                         self.weatherResponse.value = weatherResponse
                     case .failure(_):
-                        self.weatherError.value = .unknown
+                        self.weatherError.value = .networkServiceError
                     }
                 }
         }
     }
     
-    @objc private func didTimeOut() {
-        if location == nil {
-            stopLocationManager()
-            weatherError.value = .locationTimeOut
-        }
-    }
-}
-// MARK: - LocationManagerDelegate
-extension WeatherViewModel: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
-        let newLocation = locations.last!
-        
-        if newLocation.horizontalAccuracy < 0 {
-            // invalid location
-            return
-        }
-        
-        if let location = location {
-            distance = location.distance(from: newLocation)
-        }
-        
-        if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
-            location = newLocation
-            
-            if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
-                // Find satisfying location
-                stopLocationManager()
-                
-                if distance > 0 {
-                    isUpdatingPlacemark = false
+    func updateLocation() {
+        let locationServiceManager = LocationServiceManager(
+            desiredAccuracy: kCLLocationAccuracyKilometer) {[weak self] location in
+                if let location = location {
+                    self?.location = location
+                } else {
+                    self?.weatherError.value = .locationServiceError
                 }
             }
-            
-            // Get placemark for new location
-            if !isUpdatingPlacemark {
-                isUpdatingPlacemark = true
-                
-                geocoder.reverseGeocodeLocation(newLocation) { placemarks, error in
-                    if error == nil, let places = placemarks, !places.isEmpty {
-                        self.placemark = places.last!
-                        self.placeName.value = String(places.last!)
-                    } else {
-                        self.placemark = nil
-                    }
-                    self.isUpdatingPlacemark = false
-                }
-            }
-        } else if distance < 1 {
-            // If newLocation doesnt change a lot => stop
-            let timeInterval = newLocation.timestamp.timeIntervalSince(location!.timestamp)
-            if timeInterval > 10 {
-                stopLocationManager()
-            }
-        }
+        locationServiceManager.getLocation()
     }
 }

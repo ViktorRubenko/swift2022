@@ -13,7 +13,7 @@ enum WeatherManagerError: Error {
     case unknown
 }
 
-class WeatherDataManager {
+class WeatherNetworkManager {
     
     typealias WeatherDataCompletion = (Result<WeatherResponse,WeatherManagerError>) -> Void
     
@@ -21,7 +21,7 @@ class WeatherDataManager {
         case metric, imperial, standard
     }
     
-    static let shared = WeatherDataManager()
+    static let shared = WeatherNetworkManager()
     
     private let appID = "e41cb2ac3eef6ce33f44bd481da7d890"
     
