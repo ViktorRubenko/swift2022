@@ -31,8 +31,13 @@ class WeatherViewModel: NSObject {
         }
     }
     
-    override init() {
-        super.init()
+    init(placeName: String? = nil, location: CLLocation? = nil) {
+        if let location = location {
+            self.location = location
+        }
+        if let placeName = placeName {
+            self.placeName.value = placeName
+        }
     }
     
     func updatePlaceName() {

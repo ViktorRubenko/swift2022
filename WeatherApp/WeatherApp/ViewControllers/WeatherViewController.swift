@@ -7,27 +7,48 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
-    private let viewModel = WeatherViewModel()
+    private var viewModel: WeatherViewModel!
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let refreshControl = UIRefreshControl()
     private var dailyData = [DailyData]()
     private var additionalData = [AdditionalData]()
     private var activityIndicator: UIActivityIndicatorView?
+    private var autoLocation = true
+    
+    init(placeName: String? = nil, location: CLLocation? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        if location != nil {
+            autoLocation = false
+        }
+        viewModel = WeatherViewModel(placeName: placeName, location: location)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print(viewModel.placeName.value, "DEINIT")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor(named: "BGColor")
         
         assignBackground()
         setupSubviews()
         setupObservers()
         
         showLoadingScreen()
-        viewModel.updateLocation()
+        
+        autoLocation ? viewModel.updateLocation() : viewModel.updateForecast()
     }
     
     func setupSubviews() {
@@ -60,14 +81,23 @@ class WeatherViewController: UIViewController {
             forCellReuseIdentifier: HeaderTableViewCell.identifier)
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
+    }
+    
+    func assignBackground() {
+        let background = UIImage(named: "BGImage")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        view.addSubview(imageView)
+        view.sendSubviewToBack(imageView)
     }
     
     func setupObservers() {
         viewModel.weatherResponse.bind {[weak self] value in
             DispatchQueue.main.async{ [weak self] in
-                
                 self?.dailyData = Mapper.dailyData(self?.viewModel.weatherResponse.value, weatherFormatter: WeatherFormatter()) ?? [DailyData]()
                 
                 self?.additionalData = Mapper.additionalData(self?.viewModel.weatherResponse.value, weatherFormatter: WeatherFormatter()) ?? [AdditionalData]()
@@ -85,16 +115,6 @@ class WeatherViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-    }
-    
-    func assignBackground() {
-        let background = UIImage(named: "BGImage")
-        let imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = background
-        view.addSubview(imageView)
-        view.sendSubviewToBack(imageView)
     }
     
     func showLoadingScreen() {

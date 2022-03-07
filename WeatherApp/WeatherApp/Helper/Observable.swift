@@ -10,10 +10,14 @@ import Foundation
 
 class Observable<T> {
     typealias Listener = (T) -> Void
-    var listener: Listener?
+    var listeners = [Listener?]()
     var value: T {
         didSet {
-            listener?(value)
+            listeners.forEach {
+                if $0 != nil {
+                    $0!(value)
+                }
+            }
         }
     }
     
@@ -21,7 +25,7 @@ class Observable<T> {
         self.value = value
     }
     
-    func bind(_ listener: Listener?) {
-        self.listener = listener
+    func bind(_ listener: @escaping Listener) {
+        self.listeners.append(listener)
     }
 }

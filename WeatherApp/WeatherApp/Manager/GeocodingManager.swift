@@ -25,4 +25,14 @@ final class GeocodingManager {
         }
     }
     
+    func getLocation(_ placeName: String, completion: @escaping (CLLocation?) -> Void) {
+        geocoder.geocodeAddressString(placeName) { placemarks, error in
+            if error == nil, let places = placemarks, !places.isEmpty {
+                completion(places.first!.location)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
 }
