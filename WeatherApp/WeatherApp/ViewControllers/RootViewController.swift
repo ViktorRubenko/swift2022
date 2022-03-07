@@ -68,7 +68,7 @@ class RootViewController: UIViewController {
         var navigationVC: UINavigationController? = UINavigationController(rootViewController: vc!)
         vc!.completion = { [weak self] openIndex in
             self?.weatherPageViewController.openIndex.value = openIndex
-            vc!.dismiss(animated: false, completion: nil)
+            vc!.dismiss(animated: true, completion: nil)
             navigationVC?.dismiss(animated: true, completion: nil)
             navigationVC = nil
             vc = nil

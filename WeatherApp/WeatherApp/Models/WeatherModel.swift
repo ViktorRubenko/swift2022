@@ -64,7 +64,7 @@ class WeatherModel {
                 weatherLocation.index -= 1
                 continue
             }
-            if source > destination && weatherLocation.index > destination && weatherLocation.index < source {
+            if source > destination && weatherLocation.index >= destination && weatherLocation.index < source {
                 weatherLocation.index += 1
                 continue
             }

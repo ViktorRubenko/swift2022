@@ -21,7 +21,6 @@ class WeatherPageViewController: UIPageViewController {
         dataSource = self
         
         viewModel.locations.bind {[weak self] weatherLocations in
-            print("PAGE123123123123123123")
             self?.weatherViewControllers.removeAll()
             weatherLocations.forEach { weatherLocation in
                 if let weatherLocation = weatherLocation {

@@ -29,6 +29,7 @@ class LocationsListViewController: UIViewController {
         setupBinds()
         
         viewModel.loadLocations()
+        viewModel.updateCurrentPlaceName()
     }
     
     deinit {
@@ -45,6 +46,10 @@ class LocationsListViewController: UIViewController {
             if let location = location {
                 self?.showSelectedForecast(self!.viewModel.temporaryPlaceName, location: location)
             }
+        }
+        
+        viewModel.currentPlaceName.bind { [weak self] placeName in
+            self?.realoadFirstCell()
         }
     }
     
@@ -103,6 +108,7 @@ class LocationsListViewController: UIViewController {
     @objc func savePresented() {
         viewModel.saveTemporary()
         searchController.searchBar.text = ""
+        searchController.isActive = false
         closePresented()
     }
     
@@ -115,6 +121,12 @@ class LocationsListViewController: UIViewController {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: animated)
     }
+    
+    func realoadFirstCell() {
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        tableView.endUpdates()
+    }
 }
 
 extension LocationsListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -123,10 +135,16 @@ extension LocationsListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let weatherLocation = locations[indexPath.row]
+        let placeName: String?
+        if indexPath.row == 0 {
+            placeName = viewModel.currentPlaceName.value
+        } else {
+            let weatherLocation = locations[indexPath.row]
+            placeName = weatherLocation?.placeName
+        }
         let cell = UITableViewCell()
         var config = cell.defaultContentConfiguration()
-        config.text = weatherLocation?.placeName
+        config.text = placeName
         cell.contentConfiguration = config
         return cell
     }

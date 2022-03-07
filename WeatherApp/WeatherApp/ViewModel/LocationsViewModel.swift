@@ -12,6 +12,7 @@ class LocationsViewModel: NSObject {
     var locations = Observable<[WeatherLocation?]>([nil])
     var temporaryLocation = Observable<CLLocation?>(nil)
     var temporaryPlaceName: String = " "
+    var currentPlaceName = Observable<String>("Current Location")
     
     override init() {
         super.init()
@@ -35,7 +36,7 @@ class LocationsViewModel: NSObject {
     }
     
     func remove(_ index: Int) {
-         WeatherModel.shared.remove(index)
+         WeatherModel.shared.remove(index-1)
     }
     
     func findByPlaceName(placeName: String) {
@@ -50,5 +51,22 @@ class LocationsViewModel: NSObject {
     
     func move(_ source: Int, _ destination: Int) {
         WeatherModel.shared.move(source - 1, destination - 1)
+    }
+    
+    func updateCurrentPlaceName() {
+        let locationServiceManager = LocationServiceManager(
+            desiredAccuracy: kCLLocationAccuracyKilometer) {[weak self] location in
+                if let location = location {
+                    let geocoder = GeocodingManager()
+                    geocoder.getPlacemark(location) { [weak self] placemark in
+                        if let placemark = placemark {
+                            self?.currentPlaceName.value = String(placemark)
+                        }
+                    }
+                } else {
+                    print("Error")
+                }
+            }
+        locationServiceManager.getLocation()
     }
 }
