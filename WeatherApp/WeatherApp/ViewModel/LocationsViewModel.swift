@@ -17,7 +17,9 @@ class LocationsViewModel: NSObject {
         super.init()
         
         WeatherModel.shared.locations.bind {[weak self] locations in
-            self?.locations.value = locations
+            self?.locations.value = [nil] + locations
+            print("UPDATE MODEL LOCATIONS")
+            print(locations.compactMap({$0.placeName}))
         }
     }
     
@@ -32,6 +34,10 @@ class LocationsViewModel: NSObject {
         }
     }
     
+    func remove(_ index: Int) {
+         WeatherModel.shared.remove(index)
+    }
+    
     func findByPlaceName(placeName: String) {
         temporaryPlaceName = placeName
         let geocodingManager = GeocodingManager()
@@ -40,5 +46,9 @@ class LocationsViewModel: NSObject {
                 self?.temporaryLocation.value = location
             }
         }
+    }
+    
+    func move(_ source: Int, _ destination: Int) {
+        WeatherModel.shared.move(source - 1, destination - 1)
     }
 }

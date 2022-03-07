@@ -39,7 +39,6 @@ class LocationsListViewController: UIViewController {
         viewModel.locations.bind { [weak self] locations in
             self?.locations = locations
             self?.tableView.reloadData()
-            print("LOCATIONS UPDATE")
         }
         
         viewModel.temporaryLocation.bind { [weak self] location in
@@ -70,6 +69,8 @@ class LocationsListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
         navigationController?.navigationBar.sizeToFit()
+        
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     func setupViews() {
@@ -109,6 +110,11 @@ class LocationsListViewController: UIViewController {
         presendedController?.dismiss(animated: true, completion: nil)
         presendedController = nil
     }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
+    }
 }
 
 extension LocationsListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -127,5 +133,26 @@ extension LocationsListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         completion(indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.row == 0 {
+            return .none
+        }
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.remove(indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        indexPath.row != 0
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        viewModel.move(sourceIndexPath.row, destinationIndexPath.row)
     }
 }

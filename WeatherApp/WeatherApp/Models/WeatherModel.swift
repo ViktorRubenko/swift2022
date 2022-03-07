@@ -15,16 +15,17 @@ class WeatherModel {
     var context: NSManagedObjectContext!
     private let fetchRequest: NSFetchRequest<WeatherLocation> = WeatherLocation.fetchRequest()
     
-    var locations = Observable<[WeatherLocation?]>([nil])
+    var locations = Observable<[WeatherLocation]>([])
     
     private init() {}
     
     func loadLocations() {
         do {
+            print("LOAD LOCATIONS")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "index", ascending: true)]
             let locations = try context.fetch(fetchRequest)
-            print(locations.count)
-            self.locations.value = [nil] + locations
-            print(self.locations.value.count)
+            self.locations.value = locations
+            print(locations.compactMap({$0.placeName}))
         } catch {
             print(error.localizedDescription)
         }
@@ -35,12 +36,41 @@ class WeatherModel {
         weatherLocation.placeName = placeName
         weatherLocation.longitude = location.coordinate.longitude
         weatherLocation.latitude = location.coordinate.latitude
-        
+        weatherLocation.index = Int16(locations.value.count)
+        locations.value.append(weatherLocation)
+        save()
+    }
+    
+    func save() {
         do {
             try context.save()
-            locations.value.append(weatherLocation)
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func remove(_ index: Int) {
+        let weatherLocation = locations.value[index]
+        context.delete(weatherLocation)
+        locations.value.remove(at: index)
+    }
+    
+    func move(_ source: Int, _ destination: Int) {
+        for weatherLocation in locations.value {
+            if weatherLocation.index == source {
+                continue
+            }
+            if destination > source && weatherLocation.index <= destination  && weatherLocation.index > source {
+                weatherLocation.index -= 1
+                continue
+            }
+            if source > destination && weatherLocation.index > destination && weatherLocation.index < source {
+                weatherLocation.index += 1
+                continue
+            }
+        }
+        locations.value[source].index = Int16(destination)
+        locations.value = locations.value.sorted { $0.index < $1.index }
+        save()
     }
 }

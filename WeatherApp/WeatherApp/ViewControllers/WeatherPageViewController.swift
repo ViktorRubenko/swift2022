@@ -21,6 +21,7 @@ class WeatherPageViewController: UIPageViewController {
         dataSource = self
         
         viewModel.locations.bind {[weak self] weatherLocations in
+            print("PAGE123123123123123123")
             self?.weatherViewControllers.removeAll()
             weatherLocations.forEach { weatherLocation in
                 if let weatherLocation = weatherLocation {
@@ -30,7 +31,11 @@ class WeatherPageViewController: UIPageViewController {
                 }
             }
             self?.pageControl?.numberOfPages = weatherLocations.count
-            self?.setViewControllers([self!.weatherViewControllers[self!.openIndex.value]], direction: .forward, animated: true, completion: nil)
+            self?.setViewControllers(
+                [self!.weatherViewControllers[self!.openIndex.value < weatherLocations.count ? self!.openIndex.value : 0]],
+                direction: .forward,
+                animated: true,
+                completion: nil)
         }
         
         openIndex.bind { [weak self] openIndex in
@@ -54,7 +59,6 @@ class WeatherPageViewController: UIPageViewController {
 extension WeatherPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = weatherViewControllers.firstIndex(of: viewController as! WeatherViewController) else { return nil }
-        print(index)
         let nextIndex = index - 1
         guard nextIndex > -1 else {
             return nil
@@ -64,7 +68,6 @@ extension WeatherPageViewController: UIPageViewControllerDataSource, UIPageViewC
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = weatherViewControllers.firstIndex(of: viewController as! WeatherViewController) else { return nil }
-        print(index)
         let nextIndex = index + 1
         guard nextIndex < weatherViewControllers.count else { return nil }
         return weatherViewControllers[nextIndex]

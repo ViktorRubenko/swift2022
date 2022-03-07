@@ -9,8 +9,7 @@ import UIKit
 import SnapKit
 
 class RootViewController: UIViewController {
-    
-    private let viewModel = LocationsViewModel()
+
     private let weatherPageViewController = WeatherPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     private let pageControl = UIPageControl()
     private let viewContainer = UIView()
@@ -24,8 +23,6 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        
-        viewModel.loadLocations()
     }
     
     private func setupViews() {
@@ -71,7 +68,8 @@ class RootViewController: UIViewController {
         var navigationVC: UINavigationController? = UINavigationController(rootViewController: vc!)
         vc!.completion = { [weak self] openIndex in
             self?.weatherPageViewController.openIndex.value = openIndex
-            navigationVC!.dismiss(animated: true, completion: nil)
+            vc!.dismiss(animated: false, completion: nil)
+            navigationVC?.dismiss(animated: true, completion: nil)
             navigationVC = nil
             vc = nil
         }
