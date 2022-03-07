@@ -9,10 +9,10 @@ import UIKit
 
 class BottomBarView: UIView {
 
-    class func bottomBar(atView parent: UIView, height: Double = 44, backgroundColor: UIColor = UIColor(named: "SubBGColor") ?? .white.withAlphaComponent(0.7), borderHeight: Double = 1, borderColor: UIColor = .lightGray) -> BottomBarView {
+    class func bottomBar(atView parent: UIView, height: Double = 44, backgroundColor: UIColor? = UIColor(named: "BGColor"), borderHeight: Double = 1, borderColor: UIColor = .lightGray) -> BottomBarView {
         
         let view = BottomBarView(frame: .zero)
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = UIColor(named: "BGColor")
         
         parent.addSubview(view)
         view.snp.makeConstraints { make in

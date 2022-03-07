@@ -67,7 +67,7 @@ class LocationsListViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         let standardAppearance = UINavigationBarAppearance()
         standardAppearance.configureWithTransparentBackground()
-        standardAppearance.backgroundColor = UIColor(white: 0.3, alpha: 0.25)
+        standardAppearance.backgroundColor = UIColor(white: 0.3, alpha: 0.75)
         standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         standardAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.standardAppearance = standardAppearance
