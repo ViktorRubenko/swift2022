@@ -40,8 +40,8 @@
 /* Weather Details */
 "DETAILS" = "ДЕТАЛИ";
 
-/* Search placeholder */
-"Search city..." = "Поиск города...";
-
 /* Title for NavBar */
 "Weather" = "Погода";
+
+/* Search placeholder */
+"Search your city..." = "Поиск города...";
