@@ -19,6 +19,7 @@ class DailyTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor(named: "ImageTintColor")
         return imageView
     }()
     private let hStackView: UIStackView = {

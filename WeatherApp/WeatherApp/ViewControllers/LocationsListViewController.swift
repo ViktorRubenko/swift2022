@@ -12,8 +12,7 @@ class LocationsListViewController: UIViewController {
     
     private var tableView: UITableView!
     private var searchController: UISearchController!
-    private let viewModel = LocationsViewModel()
-    private var locations = [WeatherLocation?]()
+    private let viewModel = LocationsListViewModel()
     private let suggestionController = LocationSuggestionsViewController()
     private var presendedController: UINavigationController?
     var completion: ((Int) -> Void)!
@@ -27,9 +26,12 @@ class LocationsListViewController: UIViewController {
         
         setupViews()
         setupBinds()
-        
-        viewModel.loadLocations()
         viewModel.updateCurrentPlaceName()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchController.searchBar.searchTextField.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
     }
     
     deinit {
@@ -37,8 +39,7 @@ class LocationsListViewController: UIViewController {
     }
     
     func setupBinds() {
-        viewModel.locations.bind { [weak self] locations in
-            self?.locations = locations
+        viewModel.placeNames.bind { [weak self] placeNames in
             self?.tableView.reloadData()
         }
         
@@ -63,6 +64,7 @@ class LocationsListViewController: UIViewController {
         searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
             string: NSLocalizedString("Search your city...", comment: "Search placeholder"),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+
         
         navigationController?.navigationBar.prefersLargeTitles = true
         let standardAppearance = UINavigationBarAppearance()
@@ -83,6 +85,7 @@ class LocationsListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor(named: "BGColor")
+        tableView.register(LocationsListCell.self, forCellReuseIdentifier: LocationsListCell.identifier)
         view.addSubview(tableView)
         
         setupNavigationBar()
@@ -96,11 +99,13 @@ class LocationsListViewController: UIViewController {
             barButtonSystemItem: .cancel,
             target: self,
             action: #selector(closePresented))
+        vc.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "NavItemsColor")
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: NSLocalizedString("Add", comment: "Add location in model"),
             style: .plain,
             target: self,
             action: #selector(savePresented))
+        vc.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "NavItemsColor")
         presendedController = UINavigationController(rootViewController: vc)
         present(presendedController!, animated: true, completion: nil)
     }
@@ -131,7 +136,7 @@ class LocationsListViewController: UIViewController {
 
 extension LocationsListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        locations.count
+        viewModel.placeNames.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -139,13 +144,10 @@ extension LocationsListViewController: UITableViewDelegate, UITableViewDataSourc
         if indexPath.row == 0 {
             placeName = viewModel.currentPlaceName.value
         } else {
-            let weatherLocation = locations[indexPath.row]
-            placeName = weatherLocation?.placeName
+            placeName = viewModel.placeNames.value[indexPath.row]
         }
-        let cell = UITableViewCell()
-        var config = cell.defaultContentConfiguration()
-        config.text = placeName
-        cell.contentConfiguration = config
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationsListCell.identifier, for: indexPath) as! LocationsListCell
+        cell.label.text = placeName
         return cell
     }
     

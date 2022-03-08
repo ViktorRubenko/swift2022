@@ -38,7 +38,7 @@ class LocationSuggestionsViewController: UITableViewController {
         config.attributedText = NSAttributedString(
             string: result.title,
             attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor.gray,
+                NSAttributedString.Key.foregroundColor: UIColor(red: 150, green: 150, blue: 150, alpha: 1),
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)
             ])
         cell.contentConfiguration = config

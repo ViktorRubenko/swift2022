@@ -13,7 +13,7 @@ class WeatherPageViewController: UIPageViewController {
     var pageControl: UIPageControl?
     var weatherViewControllers = [WeatherViewController]()
     var openIndex = Observable<Int>(0)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +21,7 @@ class WeatherPageViewController: UIPageViewController {
         dataSource = self
         
         viewModel.locations.bind {[weak self] weatherLocations in
+            print("UPDATE PAGES")
             self?.weatherViewControllers.removeAll()
             weatherLocations.forEach { weatherLocation in
                 if let weatherLocation = weatherLocation {
@@ -30,29 +31,25 @@ class WeatherPageViewController: UIPageViewController {
                 }
             }
             self?.pageControl?.numberOfPages = weatherLocations.count
+            self?.pageControl?.currentPage = self!.openIndex.value
             self?.setViewControllers(
                 [self!.weatherViewControllers[self!.openIndex.value < weatherLocations.count ? self!.openIndex.value : 0]],
                 direction: .forward,
-                animated: true,
+                animated: false,
                 completion: nil)
         }
         
-        openIndex.bind { [weak self] openIndex in
-            self?.setViewControllers([self!.weatherViewControllers[openIndex]], direction: .forward, animated: true, completion: nil)
-            self?.pageControl?.currentPage = openIndex
-            
-        }
-        
         pageControl?.addTarget(self, action: #selector(changePage), for: .valueChanged)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         viewModel.loadLocations()
-        
     }
     
     @objc func changePage(_ sender: UIPageControl) {
-        openIndex.value = sender.currentPage
+        setViewControllers([weatherViewControllers[sender.currentPage]], direction: .forward, animated: true, completion: nil)
     }
-
+    
 }
 
 extension WeatherPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {

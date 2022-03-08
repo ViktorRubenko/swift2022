@@ -5,7 +5,7 @@
 //  Created by Victor Rubenko on 06.03.2022.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 import CoreData
 
@@ -16,8 +16,22 @@ class WeatherModel {
     private let fetchRequest: NSFetchRequest<WeatherLocation> = WeatherLocation.fetchRequest()
     
     var locations = Observable<[WeatherLocation]>([])
+    var placeNames = Observable<[String]>([])
     
-    private init() {}
+    private init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(save),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil)
+        locations.bind { [weak self] locations in
+            self?.placeNames.value = locations.compactMap {$0.placeName}
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     func loadLocations() {
         do {
@@ -25,7 +39,6 @@ class WeatherModel {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "index", ascending: true)]
             let locations = try context.fetch(fetchRequest)
             self.locations.value = locations
-            print(locations.compactMap({$0.placeName}))
         } catch {
             print(error.localizedDescription)
         }
@@ -38,10 +51,11 @@ class WeatherModel {
         weatherLocation.latitude = location.coordinate.latitude
         weatherLocation.index = Int16(locations.value.count)
         locations.value.append(weatherLocation)
+        print(locations.value[locations.value.count - 1].index)
         save()
     }
     
-    func save() {
+    @objc func save() {
         do {
             try context.save()
         } catch {
@@ -53,6 +67,12 @@ class WeatherModel {
         let weatherLocation = locations.value[index]
         context.delete(weatherLocation)
         locations.value.remove(at: index)
+        for weatherLocation in locations.value {
+            if weatherLocation.index > index {
+                weatherLocation.index -= 1
+            }
+        }
+        save()
     }
     
     func move(_ source: Int, _ destination: Int) {

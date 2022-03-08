@@ -30,3 +30,18 @@
 
 /* Updating... */
 "Updating..." = "Обновление...";
+
+/* Section Header for 7-day forecast */
+"7-DAY FORECAST" = "НЕДЕЛЬНЫЙ ПРОГНОЗ";
+
+/* Add location in model */
+"Add" = "Добавить";
+
+/* Weather Details */
+"DETAILS" = "ДЕТАЛИ";
+
+/* Search placeholder */
+"Search city..." = "Поиск города...";
+
+/* Title for NavBar */
+"Weather" = "Погода";

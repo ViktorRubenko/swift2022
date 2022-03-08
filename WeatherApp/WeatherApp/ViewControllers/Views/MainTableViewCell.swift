@@ -20,6 +20,7 @@ class MainTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor(named: "ImageTintColor")
         return imageView
     }()
     private let vStackView: UIStackView = {
@@ -38,7 +39,7 @@ class MainTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = UIColor(named: "SubBGColor")
+        backgroundColor = UIColor(named: "MainCellBGColor")
         setupSubviews()
     }
     

@@ -13,7 +13,6 @@ class Observable<T> {
     var listeners = [Listener?]()
     var value: T {
         didSet {
-            print("didSet")
             listeners.forEach {
                 if $0 != nil {
                     $0!(value)

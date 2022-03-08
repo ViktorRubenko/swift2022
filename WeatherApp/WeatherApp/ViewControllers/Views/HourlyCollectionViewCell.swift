@@ -16,6 +16,7 @@ class HourlyCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor(named: "ImageTintColor")
         return imageView
     }()
     private var vStackView: UIStackView = {

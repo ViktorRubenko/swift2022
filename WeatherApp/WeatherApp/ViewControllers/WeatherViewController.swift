@@ -11,7 +11,7 @@ import CoreLocation
 
 class WeatherViewController: UIViewController {
     
-    private var viewModel: WeatherViewModel!
+    var viewModel: WeatherViewModel!
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let refreshControl = UIRefreshControl()
     private var dailyData = [DailyData]()
@@ -29,6 +29,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
     }
 
     required init?(coder: NSCoder) {
@@ -113,6 +114,16 @@ class WeatherViewController: UIViewController {
         viewModel.placeName.bind {[weak self] value in
             DispatchQueue.main.async{ [weak self] in
                 self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.weatherError.bind { [weak self] error in
+            if error != nil {
+                DispatchQueue.main.async { [weak self] in
+                    let alert = UIAlertController(title: "Error", message: "Failed updating forecast", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
